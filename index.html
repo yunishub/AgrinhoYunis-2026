@@ -1,11 +1,277 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Agrinho 2026 - Império Sustentável</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroFuturo — Agrinho 2026</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+  <header>
+    <span class="badge">🌱 Concurso Agrinho 2026</span>
+    <h1>AgroFuturo</h1>
+    <p>Agro Forte · Futuro Sustentável · Equilíbrio entre Produção e Meio Ambiente</p>
+  </header>
+
+  <main>
+    <div class="board">
+
+      <!-- ===== CENTRO ===== -->
+      <div class="center">
+        <div class="center-icon">🌾</div>
+        <div class="center-title">AGRO<br>FUTURO</div>
+        <div class="center-sub">Agro Forte · Futuro Sustentável</div>
+        <div class="dice-placeholder">
+          <div class="dice">🎲</div>
+          <div class="dice">🎲</div>
+        </div>
+        <div class="btn-placeholder">Rolar Dados</div>
+      </div>
+
+      <!-- ===== FILEIRA DE BAIXO (esq → dir) ===== -->
+      <div class="sq corner sq-bottom" style="grid-column:1; grid-row:9;">
+        <div class="sq-icon">🏠</div>
+        <div class="sq-name">Partida!</div>
+        <button class="info-btn" title="Informações">ℹ</button>
+      </div>
+
+      <div class="sq color-amarelo sq-bottom" style="grid-column:2; grid-row:9;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🌽</div>
+        <div class="sq-name">Milho Orgânico</div>
+        <button class="info-btn" title="O cultivo orgânico elimina agrotóxicos e melhora a saúde do solo.">ℹ</button>
+      </div>
+
+      <div class="sq color-azul sq-bottom" style="grid-column:3; grid-row:9;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">💧</div>
+        <div class="sq-name">Poço Artesiano</div>
+        <button class="info-btn" title="O manejo correto do lençol freático garante água limpa para irrigação.">ℹ</button>
+      </div>
+
+      <div class="sq color-amarelo sq-bottom" style="grid-column:4; grid-row:9;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🫘</div>
+        <div class="sq-name">Soja Responsável</div>
+        <button class="info-btn" title="Soja com certificação garante que nenhum desmatamento foi feito.">ℹ</button>
+      </div>
+
+      <div class="sq color-laranja sq-bottom" style="grid-column:5; grid-row:9;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">☀️</div>
+        <div class="sq-name">Painel Solar</div>
+        <button class="info-btn" title="Energia solar nas fazendas reduz custos e emissões de carbono.">ℹ</button>
+      </div>
+
+      <div class="sq color-terra sq-bottom" style="grid-column:6; grid-row:9;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🌾</div>
+        <div class="sq-name">Banco de Sementes</div>
+        <button class="info-btn" title="Bancos de sementes crioulas preservam a biodiversidade agrícola.">ℹ</button>
+      </div>
+
+      <div class="sq color-terra sq-bottom" style="grid-column:7; grid-row:9;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">♻️</div>
+        <div class="sq-name">Compostagem</div>
+        <button class="info-btn" title="A compostagem transforma resíduos em adubo e devolve nutrientes ao solo.">ℹ</button>
+      </div>
+
+      <div class="sq color-azul sq-bottom" style="grid-column:8; grid-row:9;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🏞️</div>
+        <div class="sq-name">Rio Limpo</div>
+        <button class="info-btn" title="Matas ciliares protegem rios do assoreamento — é lei no Brasil (APP).">ℹ</button>
+      </div>
+
+      <div class="sq corner sq-bottom" style="grid-column:9; grid-row:9;">
+        <div class="sq-icon">⛺</div>
+        <div class="sq-name">Descanso Verde</div>
+        <button class="info-btn" title="O pousio deixa a terra descansar e recupera a fertilidade natural do solo.">ℹ</button>
+      </div>
+
+      <!-- ===== LADO DIREITO (baixo → cima) ===== -->
+      <div class="sq color-verde sq-right" style="grid-column:9; grid-row:8;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🌲</div>
+        <div class="sq-name">Reflorestamento</div>
+        <button class="info-btn" title="O reflorestamento com espécies nativas restaura ecossistemas e sequestra carbono.">ℹ</button>
+      </div>
+
+      <div class="sq color-laranja sq-right" style="grid-column:9; grid-row:7;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">⚡</div>
+        <div class="sq-name">Biodigestor</div>
+        <button class="info-btn" title="O biodigestor transforma dejetos animais em biogás e biofertilizante.">ℹ</button>
+      </div>
+
+      <div class="sq color-verde sq-right" style="grid-column:9; grid-row:6;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🌳</div>
+        <div class="sq-name">Sistemas Agroflorestais</div>
+        <button class="info-btn" title="SAFs combinam árvores, cultivos e animais imitando a floresta natural.">ℹ</button>
+      </div>
+
+      <div class="sq corner sq-right" style="grid-column:9; grid-row:5;">
+        <div class="sq-icon">🍀</div>
+        <div class="sq-name">Sorte do Campo!</div>
+        <button class="info-btn" title="Você encontrou um manancial de água limpa! Isso valoriza sua propriedade.">ℹ</button>
+      </div>
+
+      <div class="sq color-terra sq-right" style="grid-column:9; grid-row:4;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🐝</div>
+        <div class="sq-name">Apicultura</div>
+        <button class="info-btn" title="Abelhas polinizam 80% das culturas alimentícias. Uma colmeia visita 2 milhões de flores/dia.">ℹ</button>
+      </div>
+
+      <div class="sq color-menta sq-right" style="grid-column:9; grid-row:3;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🚁</div>
+        <div class="sq-name">Drone Agrícola</div>
+        <button class="info-btn" title="Drones monitoram lavouras em tempo real, reduzindo uso de insumos em até 60%.">ℹ</button>
+      </div>
+
+      <div class="sq color-terra sq-right" style="grid-column:9; grid-row:2;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🐄</div>
+        <div class="sq-name">Pastagem Rotativa</div>
+        <button class="info-btn" title="Pastejo rotativo permite recuperação da pastagem e evita degradação do solo.">ℹ</button>
+      </div>
+
+      <!-- ===== FILEIRA DE CIMA (dir → esq) ===== -->
+      <div class="sq corner sq-top" style="grid-column:9; grid-row:1;">
+        <div class="sq-icon">🏆</div>
+        <div class="sq-name">Chegada!</div>
+        <button class="info-btn" title="Completou uma volta! Fazendas com certificação ambiental têm crédito rural a juros menores.">ℹ</button>
+      </div>
+
+      <div class="sq color-laranja sq-top" style="grid-column:8; grid-row:1;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">💨</div>
+        <div class="sq-name">Energia Eólica</div>
+        <button class="info-btn" title="O Brasil tem potencial eólico de 500 GW — 20x o consumo atual do país.">ℹ</button>
+      </div>
+
+      <div class="sq color-azul sq-top" style="grid-column:7; grid-row:1;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🌊</div>
+        <div class="sq-name">Irrigação Precisa</div>
+        <button class="info-btn" title="O gotejamento por sensor reduz o consumo de água em até 70%.">ℹ</button>
+      </div>
+
+      <div class="sq color-verde sq-top" style="grid-column:6; grid-row:1;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🌿</div>
+        <div class="sq-name">Reserva Legal</div>
+        <button class="info-btn" title="O Código Florestal Brasileiro protege 66 milhões de hectares em propriedades privadas.">ℹ</button>
+      </div>
+
+      <div class="sq color-menta sq-top" style="grid-column:5; grid-row:1;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🛒</div>
+        <div class="sq-name">Mercado Verde</div>
+        <button class="info-btn" title="O mercado de alimentos orgânicos cresce 20% ao ano no Brasil.">ℹ</button>
+      </div>
+
+      <div class="sq color-verde sq-top" style="grid-column:4; grid-row:1;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🦋</div>
+        <div class="sq-name">Mata Atlântica</div>
+        <button class="info-btn" title="A Mata Atlântica é um dos 5 hotspots de biodiversidade mais ricos do planeta.">ℹ</button>
+      </div>
+
+      <div class="sq corner sq-top" style="grid-column:3; grid-row:1;">
+        <div class="sq-icon">⛈️</div>
+        <div class="sq-name">Azar do Campo</div>
+        <button class="info-btn" title="Seca severa! Produtores com seguro rural e manejo de solo resistem melhor.">ℹ</button>
+      </div>
+
+      <div class="sq color-terra sq-top" style="grid-column:2; grid-row:1;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">👨‍👩‍👧</div>
+        <div class="sq-name">Agricultura Familiar</div>
+        <button class="info-btn" title="A agricultura familiar produz 70% dos alimentos na mesa dos brasileiros.">ℹ</button>
+      </div>
+
+      <div class="sq color-amarelo sq-top" style="grid-column:1; grid-row:1;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🌻</div>
+        <div class="sq-name">Diversificação</div>
+        <button class="info-btn" title="O agronegócio representa 27% do PIB. Diversificar culturas aumenta a resiliência.">ℹ</button>
+      </div>
+
+      <!-- ===== LADO ESQUERDO (cima → baixo) ===== -->
+      <div class="sq color-verde sq-left" style="grid-column:1; grid-row:2;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🦜</div>
+        <div class="sq-name">Cerrado Vivo</div>
+        <button class="info-btn" title="O Cerrado é a caixa d'água do Brasil, nascente de 8 das 12 principais bacias hidrográficas.">ℹ</button>
+      </div>
+
+      <div class="sq color-menta sq-left" style="grid-column:1; grid-row:3;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🛰️</div>
+        <div class="sq-name">Tecnologia Espacial</div>
+        <button class="info-btn" title="O INPE monitora 100% da Amazônia via satélite — referência mundial.">ℹ</button>
+      </div>
+
+      <div class="sq color-terra sq-left" style="grid-column:1; grid-row:4;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🥬</div>
+        <div class="sq-name">Horta Urbana</div>
+        <button class="info-btn" title="1 m² de horta urbana produz até 15 kg de alimentos por ano.">ℹ</button>
+      </div>
+
+      <div class="sq color-terra sq-left" style="grid-column:1; grid-row:5;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🐑</div>
+        <div class="sq-name">ILPF</div>
+        <button class="info-btn" title="Integração Lavoura-Pecuária-Floresta: 16 milhões de hectares no Brasil.">ℹ</button>
+      </div>
+
+      <div class="sq color-verde sq-left" style="grid-column:1; grid-row:6;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">🐊</div>
+        <div class="sq-name">Pantanal</div>
+        <button class="info-btn" title="Maior planície inundável do mundo e Patrimônio Mundial da UNESCO.">ℹ</button>
+      </div>
+
+      <div class="sq corner sq-left" style="grid-column:1; grid-row:7;">
+        <div class="sq-icon">🍃</div>
+        <div class="sq-name">Sorte Verde!</div>
+        <button class="info-btn" title="Sua propriedade recebeu certificação Rainforest Alliance! Acesso a mercados europeus.">ℹ</button>
+      </div>
+
+      <div class="sq color-menta sq-left" style="grid-column:1; grid-row:8;">
+        <div class="color-bar"></div>
+        <div class="sq-icon">❄️</div>
+        <div class="sq-name">Câmara Fria Solar</div>
+        <button class="info-btn" title="Reduzir o desperdício alimentar em 50% alimentaria 2 bilhões de pessoas a mais.">ℹ</button>
+      </div>
+
+    </div><!-- /board -->
+  </main>
+
+  <!-- LEGENDA -->
+  <section class="legend">
+    <h2 class="legend-title">Legenda — Tipos de Casas</h2>
+    <div class="legend-grid">
+      <div class="legend-item"><div class="dot dot-verde"></div> Florestas &amp; Biomas</div>
+      <div class="legend-item"><div class="dot dot-amarelo"></div> Cultivos Sustentáveis</div>
+      <div class="legend-item"><div class="dot dot-azul"></div> Recursos Hídricos</div>
+      <div class="legend-item"><div class="dot dot-terra"></div> Solo &amp; Agroecologia</div>
+      <div class="legend-item"><div class="dot dot-laranja"></div> Energia Renovável</div>
+      <div class="legend-item"><div class="dot dot-menta"></div> Tecnologia Agrícola</div>
+      <div class="legend-item"><div class="dot dot-especial"></div> Casas Especiais</div>
+    </div>
+  </section>
+
+  <footer>
+    AgroFuturo · Rascunho do Tabuleiro · Concurso Agrinho 2026
+  </footer>
+
 </body>
 </html>

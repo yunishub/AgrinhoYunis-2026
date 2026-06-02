@@ -1,0 +1,330 @@
+/* ===== VARIÁVEIS ===== */
+:root {
+  --verde-escuro:  #1a4a2e;
+  --verde-medio:   #2d7a4f;
+  --verde-claro:   #4caf7d;
+  --verde-menta:   #a8e6c3;
+  --terra:         #8b5e3c;
+  --terra-claro:   #c4956a;
+  --amarelo:       #f5c842;
+  --laranja:       #e8872a;
+  --azul:          #3a9fd5;
+  --azul-claro:    #a8d8f0;
+  --menta:         #6ecfa3;
+  --creme:         #f9f4e8;
+  --bg:            #0f2a1a;
+}
+
+/* ===== RESET ===== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===== BODY ===== */
+body {
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(ellipse at 15% 40%, rgba(45,122,79,0.18) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(245,200,66,0.07) 0%, transparent 50%);
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  color: var(--creme);
+}
+
+/* ===== HEADER ===== */
+header {
+  text-align: center;
+  padding: 2.5rem 1rem 1.5rem;
+}
+
+.badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--verde-medio), var(--verde-claro));
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 0.6rem;
+}
+
+header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.2rem, 7vw, 4.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--amarelo) 0%, var(--verde-claro) 50%, var(--azul) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.1;
+  margin-bottom: 0.3rem;
+}
+
+header p {
+  color: var(--verde-menta);
+  font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+  font-weight: 600;
+  letter-spacing: 1px;
+  opacity: 0.85;
+}
+
+/* ===== MAIN ===== */
+main {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+}
+
+/* ===== TABULEIRO ===== */
+.board {
+  display: grid;
+  grid-template-columns: 90px repeat(7, 1fr) 90px;
+  grid-template-rows:    90px repeat(7, 1fr) 90px;
+  width: min(700px, 96vw);
+  aspect-ratio: 1;
+  background: linear-gradient(145deg, #1e5c38, #143d26);
+  border-radius: 12px;
+  border: 4px solid var(--verde-claro);
+  box-shadow:
+    0 0 0 8px var(--verde-escuro),
+    0 0 0 13px var(--verde-medio),
+    0 24px 64px rgba(0,0,0,0.7);
+  overflow: hidden;
+}
+
+/* ===== CENTRO ===== */
+.center {
+  grid-column: 2 / 9;
+  grid-row: 2 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: radial-gradient(ellipse at center, #1a4a2e 0%, #0f2a1a 100%);
+  border: 1px solid rgba(76,175,125,0.15);
+}
+
+.center-icon {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  line-height: 1;
+}
+
+.center-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.3rem, 3.5vw, 2.5rem);
+  font-weight: 900;
+  color: var(--amarelo);
+  text-align: center;
+  line-height: 1.05;
+  text-shadow: 0 2px 18px rgba(245,200,66,0.35);
+}
+
+.center-sub {
+  font-size: clamp(0.45rem, 1vw, 0.7rem);
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--verde-menta);
+  text-align: center;
+}
+
+.dice-placeholder {
+  display: flex;
+  gap: 8px;
+  margin-top: 0.2rem;
+}
+
+.dice {
+  width: clamp(28px, 4.5vw, 42px);
+  height: clamp(28px, 4.5vw, 42px);
+  background: var(--creme);
+  border-radius: 8px;
+  border: 3px solid var(--terra-claro);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 2.2vw, 1.5rem);
+  box-shadow: 0 3px 10px rgba(0,0,0,0.4);
+}
+
+.btn-placeholder {
+  background: linear-gradient(135deg, var(--verde-claro), var(--verde-medio));
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: clamp(0.5rem, 1.1vw, 0.75rem);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: clamp(4px,0.8vw,7px) clamp(10px,1.8vw,18px);
+  border-radius: 20px;
+  box-shadow: 0 4px 14px rgba(76,175,125,0.35);
+}
+
+/* ===== CASAS GENÉRICAS ===== */
+.sq {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border: 1px solid rgba(76,175,125,0.2);
+  background: rgba(15,42,26,0.5);
+  overflow: hidden;
+  transition: filter 0.2s;
+}
+
+.sq:hover {
+  filter: brightness(1.2);
+  z-index: 5;
+}
+
+/* Cantos */
+.sq.corner {
+  background: linear-gradient(135deg, #2a6040, #1a4a2e);
+  border: 2px solid var(--verde-claro);
+}
+
+.sq-icon {
+  font-size: clamp(0.85rem, 2vw, 1.4rem);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.sq.corner .sq-icon {
+  font-size: clamp(1.1rem, 2.8vw, 2rem);
+}
+
+.sq-name {
+  font-size: clamp(0.27rem, 0.62vw, 0.46rem);
+  font-weight: 800;
+  color: var(--creme);
+  text-align: center;
+  line-height: 1.2;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.sq.corner .sq-name {
+  color: var(--amarelo);
+  font-size: clamp(0.28rem, 0.65vw, 0.48rem);
+}
+
+/* Barra colorida */
+.color-bar {
+  position: absolute;
+  background: currentColor;
+  width: 100%;
+  height: 7px;
+}
+
+.sq-bottom .color-bar { top: 0; }
+.sq-top    .color-bar { bottom: 0; }
+.sq-right  .color-bar { top: 0; bottom: 0; left: 0; width: 7px; height: auto; }
+.sq-left   .color-bar { top: 0; bottom: 0; right: 0; width: 7px; height: auto; }
+
+/* Cores das barras */
+.color-verde   .color-bar { background: var(--verde-claro); }
+.color-amarelo .color-bar { background: var(--amarelo); }
+.color-azul    .color-bar { background: var(--azul); }
+.color-terra   .color-bar { background: var(--terra-claro); }
+.color-laranja .color-bar { background: var(--laranja); }
+.color-menta   .color-bar { background: var(--menta); }
+
+/* Tinturas de fundo */
+.color-verde   { background: rgba(45,122,79,0.22); }
+.color-amarelo { background: rgba(245,200,66,0.12); }
+.color-azul    { background: rgba(58,159,213,0.15); }
+.color-terra   { background: rgba(196,149,106,0.15); }
+.color-laranja { background: rgba(232,135,42,0.14); }
+.color-menta   { background: rgba(110,207,163,0.12); }
+
+/* ===== BOTÃO DE INFO ===== */
+.info-btn {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: clamp(11px, 2vw, 17px);
+  height: clamp(11px, 2vw, 17px);
+  background: rgba(245,200,66,0.9);
+  border: none;
+  border-radius: 50%;
+  font-size: clamp(0.38rem, 0.85vw, 0.6rem);
+  font-weight: 900;
+  color: #3a2000;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+  transition: transform 0.15s, background 0.15s;
+}
+
+.info-btn:hover {
+  background: var(--amarelo);
+  transform: scale(1.25);
+}
+
+/* Tooltip nativo via title — basta o hover do navegador */
+
+/* ===== LEGENDA ===== */
+.legend {
+  width: min(700px, 96vw);
+  margin: 1.5rem auto 0;
+  background: rgba(30,92,56,0.35);
+  border: 1px solid rgba(76,175,125,0.2);
+  border-radius: 12px;
+  padding: 1rem 1.4rem;
+}
+
+.legend-title {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--verde-menta);
+  margin-bottom: 0.7rem;
+}
+
+.legend-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--creme);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.dot-verde    { background: var(--verde-claro); }
+.dot-amarelo  { background: var(--amarelo); }
+.dot-azul     { background: var(--azul); }
+.dot-terra    { background: var(--terra-claro); }
+.dot-laranja  { background: var(--laranja); }
+.dot-menta    { background: var(--menta); }
+.dot-especial { background: linear-gradient(135deg, var(--verde-medio), var(--amarelo)); }
+
+/* ===== FOOTER ===== */
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  color: rgba(168,230,195,0.35);
+}
