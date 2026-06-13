@@ -36,3 +36,7 @@ O objetivo do jogo é acumular riqueza através da compra e construção de prop
 - Modais educativos com informações sobre cada propriedade
 
 ## 📂 Estrutura do Projeto
+├── index.html # Página principal
+├── style.css # Estilos do projeto
+├── main.js # Lógica do jogo
+└── README.md # Documentação
