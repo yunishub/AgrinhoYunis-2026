@@ -1,6 +1,6 @@
 // --- BANCO DE DADOS DAS CASAS (AGRINHO 2026) ---
 const infoCasas = [
-  { id: 0, emoji: "🏠", tipo: "partida", titulo: "Partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Ponto de partida. Cada volta completa rende R$ 200 de incentivo ecológico!", fonte: "Agrinho 2026" },
+  { id: 0, emoji: "🏠", tipo: "partida", titulo: "Partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Ponto de partida. Cada volta completa rende R$ 250 de incentivo ecológico!", fonte: "Agrinho 2026" },
   { id: 1, emoji: "🌽", tipo: "propriedade", titulo: "Lavoura de Milho Consorciado", preco: 60, aluguel: 10, aluguelCasa: 30, aluguelPredio: 90, texto: "O milho com braquiária protege o solo contra erosões e ervas daninhas.", fonte: "Embrapa Milho e Sorgo" },
   { id: 2, emoji: "💧", tipo: "propriedade", titulo: "Gotejamento Inteligente", preco: 60, aluguel: 12, aluguelCasa: 36, aluguelPredio: 100, texto: "Sistemas de gotejamento poupam até 60% de água na irrigação agrícola.", fonte: "Agência Nacional de Águas (ANA)" },
   { id: 3, emoji: "🌲", tipo: "propriedade", titulo: "Reserva de Eucalipto", preco: 80, aluguel: 15, aluguelCasa: 45, aluguelPredio: 125, texto: "Florestas cultivadas removem volumes massivos de CO₂ da atmosfera.", fonte: "Indústria Brasileira de Árvores" },
@@ -42,6 +42,18 @@ let turnoAtual = 0;
 let jogoIniciado = false;
 let emProcessamento = false;
 const facesDados = ["🎲", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+
+// Cores disponíveis para personalização
+const CORES_DISPONIVEIS = [
+  { id: 'p1', nome: 'Vermelho', hex: '#e53935' },
+  { id: 'p2', nome: 'Azul', hex: '#1e88e5' },
+  { id: 'p3', nome: 'Amarelo', hex: '#fdd835' },
+  { id: 'p4', nome: 'Roxo', hex: '#8e24aa' },
+  { id: 'p5', nome: 'Verde', hex: '#43a047' },
+  { id: 'p6', nome: 'Laranja', hex: '#fb8c00' },
+  { id: 'p7', nome: 'Rosa', hex: '#e91e63' },
+  { id: 'p8', nome: 'Ciano', hex: '#00bcd4' }
+];
 
 // ===== SISTEMA DE MODAIS =====
 function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = null) {
@@ -187,6 +199,66 @@ async function confirmarPrisao(jogador, rodadasRestantes) {
   return resposta;
 }
 
+// ===== CONFIGURAÇÃO DE JOGADORES =====
+function gerarConfigJogadores() {
+  const qtdJogadores = parseInt(document.getElementById("qtd-jogadores").value);
+  const qtdBots = parseInt(document.getElementById("qtd-bots").value);
+  const container = document.getElementById("jogadores-config");
+  container.innerHTML = '';
+  
+  for (let i = 1; i <= qtdJogadores; i++) {
+    const eBot = i > (qtdJogadores - qtdBots);
+    const div = document.createElement('div');
+    div.className = 'config-jogador-item';
+    div.dataset.index = i;
+    
+    const corPadrao = CORES_DISPONIVEIS[i - 1] || CORES_DISPONIVEIS[0];
+    
+    div.innerHTML = `
+      <div class="config-jogador-header">
+        <span class="config-jogador-numero">#${i}</span>
+        ${eBot ? '<span class="config-bot-badge">🤖 Bot</span>' : ''}
+      </div>
+      <div class="config-jogador-campo">
+        <label>Nome:</label>
+        <input type="text" class="config-nome" value="${eBot ? `Bot Agro ${i}` : `Produtor ${i}`}" maxlength="20">
+      </div>
+      <div class="config-jogador-campo">
+        <label>Cor:</label>
+        <select class="config-cor">
+          ${CORES_DISPONIVEIS.map(c => `
+            <option value="${c.id}" ${c.id === corPadrao.id ? 'selected' : ''}>
+              ${c.nome}
+            </option>
+          `).join('')}
+        </select>
+        <div class="config-cor-preview" style="background-color: ${corPadrao.hex};"></div>
+      </div>
+    `;
+    
+    container.appendChild(div);
+    
+    // Atualizar preview de cor quando mudar
+    const select = div.querySelector('.config-cor');
+    const preview = div.querySelector('.config-cor-preview');
+    select.addEventListener('change', () => {
+      const cor = CORES_DISPONIVEIS.find(c => c.id === select.value);
+      preview.style.backgroundColor = cor.hex;
+    });
+  }
+  
+  // Atualizar quando mudar quantidade
+  document.getElementById('jogadores-config').style.display = 'block';
+}
+
+// Inicializar configuração ao carregar
+document.addEventListener('DOMContentLoaded', () => {
+  // ... código existente ...
+  document.getElementById('qtd-jogadores').addEventListener('change', gerarConfigJogadores);
+  document.getElementById('qtd-bots').addEventListener('change', gerarConfigJogadores);
+  gerarConfigJogadores();
+});
+
 // ===== INICIALIZAÇÃO =====
 document.addEventListener("DOMContentLoaded", () => {
   mapearCasasEletivas();
@@ -220,6 +292,11 @@ document.addEventListener("DOMContentLoaded", () => {
       document.querySelector('.nav-menu').classList.remove('active');
     });
   });
+  
+  // Configuração de jogadores
+  document.getElementById('qtd-jogadores').addEventListener('change', gerarConfigJogadores);
+  document.getElementById('qtd-bots').addEventListener('change', gerarConfigJogadores);
+  gerarConfigJogadores();
 });
 
 function mapearCasasEletivas() {
@@ -257,17 +334,21 @@ function iniciarPartidaAgroPoly() {
   
   document.querySelectorAll('.dono-tag, .construcao-tag').forEach(t => t.remove());
 
-  const cores = ['p1', 'p2', 'p3', 'p4'];
-  const nomesBots = ['Bot Agro', 'Bot Sustentável', 'Bot Nativo', 'Bot Verde'];
+  // Coletar configurações dos jogadores
+  const configs = document.querySelectorAll('.config-jogador-item');
   
-  for (let i = 1; i <= qtdJogadores; i++) {
-    const eBot = i > (qtdJogadores - qtdBots);
+  for (let i = 0; i < configs.length; i++) {
+    const config = configs[i];
+    const nome = config.querySelector('.config-nome').value || `Produtor ${i+1}`;
+    const corId = config.querySelector('.config-cor').value;
+    const eBot = i >= (qtdJogadores - qtdBots);
+    
     listaJogadores.push({
-      id: i,
-      nome: eBot ? `${nomesBots[i-1]} ${i}` : `Produtor ${i}`,
+      id: i + 1,
+      nome: nome,
       saldo: 1500,
       posicao: 0,
-      cor: cores[i - 1],
+      cor: corId,
       isBot: eBot,
       presoRodadas: 0,
       propriedades: []
@@ -290,8 +371,8 @@ function atualizarPlacarEDominio() {
   listaJogadores.forEach((j, idx) => {
     const div = document.createElement("div");
     div.className = `cartao-jogador ${idx === turnoAtual ? 'ativo' : ''}`;
-    const corBorda = j.id === 1 ? '#e53935' : j.id === 2 ? '#1e88e5' : j.id === 3 ? '#fdd835' : '#8e24aa';
-    div.style.borderLeftColor = corBorda;
+    const cor = CORES_DISPONIVEIS.find(c => c.id === j.cor);
+    div.style.borderLeftColor = cor ? cor.hex : '#ccc';
     
     let propsAdquiridas = infoCasas
       .filter(c => donoPropriedades[c.id] === j.id)
@@ -395,9 +476,10 @@ async function computarRolagemDados() {
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
     
+    // Passou pela Partida: Ganha R$250 (valor aumentado)
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
-      jogador.saldo += 200;
-      adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 200 de bônus!`);
+      jogador.saldo += 250;
+      adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
     }
 
     jogador.posicao = novaPosicao;
@@ -492,11 +574,12 @@ function efetuarCompra(jogador, casa) {
   construcoes[casa.id] = 0;
   
   const elCasa = nosCasasDOM[casa.id];
-  const cor = jogador.id === 1 ? '#e53935' : jogador.id === 2 ? '#1e88e5' : jogador.id === 3 ? '#fdd835' : '#8e24aa';
+  const cor = CORES_DISPONIVEIS.find(c => c.id === jogador.cor);
+  const corHex = cor ? cor.hex : '#ccc';
   
   let tag = document.createElement('div');
   tag.className = 'dono-tag';
-  tag.style.backgroundColor = cor;
+  tag.style.backgroundColor = corHex;
   elCasa.appendChild(tag);
 
   adicionarLog(`🛍️ ${jogador.nome} comprou ${casa.titulo} por R$ ${casa.preco}!`);
