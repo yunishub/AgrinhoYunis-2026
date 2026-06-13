@@ -1,51 +1,289 @@
-/* fonte diferente */
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
   font-family: 'Fredoka', sans-serif;
-  background: #f0f7f4;
-  padding: 20px;
+  background: linear-gradient(135deg, #f0f7f4 0%, #dcedc8 100%);
   color: #2e4a3f;
-  margin: 0;
+  min-height: 100vh;
+}
+
+/* ===== NAVEGAÇÃO ===== */
+.navbar {
+  background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  height: 70px;
 }
 
-h1 {
-  text-align: center;
-  color: #1b5e20;
-  font-size: 2.5rem;
-  margin-bottom: 2px;
-  text-shadow: 1px 1px 0px #fff;
+.nav-logo {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.subtitulo {
+.nav-logo i {
+  font-size: 2rem;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 30px;
+}
+
+.nav-menu a {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.nav-toggle {
+  display: none;
+  color: #fff;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  padding: 60px 20px;
+  min-height: 100vh;
+  scroll-margin-top: 70px;
+}
+
+#home {
+  background: linear-gradient(rgba(27,94,32,0.85), rgba(27,94,32,0.85)),
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><rect fill="%231b5e20" width="800" height="600"/><circle cx="400" cy="300" r="200" fill="%232e7d32"/></svg>');
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  color: #689f38;
-  margin-top: 0;
-  margin-bottom: 25px;
-  font-size: 1.1rem;
+}
+
+.hero h1 {
+  font-size: 4.5rem;
+  color: #fff;
+  text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  margin-bottom: 10px;
+}
+
+.hero-sub {
+  font-size: 1.8rem;
+  color: #a5d6a7;
+  margin-bottom: 30px;
   font-weight: 600;
 }
 
-/* tabuleiro */
+.hero-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-hero {
+  padding: 15px 40px;
+  background: #fff;
+  color: #1b5e20;
+  text-decoration: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-hero:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.btn-hero.btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 3px solid #fff;
+}
+
+.btn-hero.btn-outline:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* ===== SOBRE ===== */
+#sobre {
+  background: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#sobre h2, #ranking h2 {
+  text-align: center;
+  font-size: 2.8rem;
+  color: #1b5e20;
+  margin-bottom: 40px;
+}
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.sobre-card {
+  background: #f1f8e9;
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  transition: all 0.3s;
+  border: 1px solid #c8e6c9;
+}
+
+.sobre-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.sobre-card i {
+  font-size: 3.5rem;
+  color: #2e7d32;
+  margin-bottom: 15px;
+}
+
+.sobre-card h3 {
+  color: #1b5e20;
+  margin-bottom: 10px;
+}
+
+.sobre-card p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ===== JOGO ===== */
+#jogo {
+  background: #f0f7f4;
+  padding: 40px 20px;
+}
+
+.jogo-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.header-jogo {
+  background: white;
+  padding: 20px 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  margin-bottom: 25px;
+}
+
+.header-jogo h2 {
+  color: #1b5e20;
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.config-jogadores {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-weight: 600;
+}
+
+.config-jogadores select {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 2px solid #1b5e20;
+  font-family: 'Fredoka', sans-serif;
+  background: #fff;
+  font-size: 0.95rem;
+}
+
+#btn-iniciar {
+  padding: 8px 25px;
+  background: #1b5e20;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Fredoka', sans-serif;
+}
+
+#btn-iniciar:hover {
+  background: #2e7d32;
+  transform: scale(1.05);
+}
+
+/* ===== TABULEIRO ===== */
+.tabuleiro-wrapper {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+  margin: 0 auto;
+  max-width: 800px;
+}
+
 .tabuleiro {
   position: relative;
   display: grid;
-  grid-template-columns: 100px repeat(5, 1fr) 100px;
-  grid-template-rows: 100px repeat(5, 1fr) 100px;
-  width: min(700px, 95vw);
+  grid-template-columns: 110px repeat(5, 1fr) 110px;
+  grid-template-rows: 110px repeat(5, 1fr) 110px;
   aspect-ratio: 1;
-  margin: 0 auto;
   border: 6px solid #1b5e20;
   border-radius: 12px;
   background: #e8f5e9;
-  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  box-shadow: inset 0 0 30px rgba(27,94,32,0.1);
   overflow: hidden;
 }
 
-/* centro */
+/* ===== CENTRO ===== */
 .centro {
   grid-column: 2 / 7;
   grid-row: 2 / 7;
@@ -53,57 +291,82 @@ h1 {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 10px;
   background: #ffffff;
   border: 3px dashed #a5d6a7;
-  border-radius: 8px;
-  margin: 8px;
+  border-radius: 10px;
+  margin: 10px;
   padding: 15px;
   text-align: center;
-  font-size: 0.9rem;
-  color: #455a64;
 }
 
 .centro .logo span {
-  font-size: 2.2rem;
+  font-size: 2.8rem;
   font-weight: 700;
   color: #1b5e20;
-  letter-spacing: 2px;
-  display: block;
+  letter-spacing: 3px;
+}
+
+.centro-sub {
+  font-size: 0.9rem;
+  color: #689f38;
+  font-weight: 600;
 }
 
 .dados {
-  font-size: 2.5rem;
+  font-size: 3rem;
   line-height: 1;
-  margin: 5px 0;
-  text-shadow: 1px 2px 3px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
+  margin: 8px 0;
+  text-shadow: 1px 2px 5px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
+}
+
+.dados.animando {
+  animation: dice-roll 0.6s ease;
+}
+
+@keyframes dice-roll {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.3); }
+  50% { transform: rotate(180deg) scale(0.9); }
+  75% { transform: rotate(270deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
 }
 
 .btn-rolar {
-  background: #2e7d32;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
   color: #fff;
-  padding: 12px 30px;
-  border-radius: 25px;
-  font-size: 1rem;
-  font-weight: 600;
+  padding: 12px 35px;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
   cursor: pointer;
   border: none;
-  box-shadow: 0 4px 10px rgba(46, 125, 50, 0.3);
-  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(46,125,50,0.4);
+  transition: all 0.3s ease;
+  font-family: 'Fredoka', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.btn-rolar:hover {
-  background: #1b5e20;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px rgba(46, 125, 50, 0.4);
+.btn-rolar:hover:not(.desabilitado) {
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 8px 25px rgba(46,125,50,0.5);
 }
 
-.btn-rolar:active {
+.btn-rolar:active:not(.desabilitado) {
   transform: translateY(1px);
 }
 
-/* casas geral */
+.btn-rolar.desabilitado {
+  background: #9e9e9e !important;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* ===== CASAS ===== */
 .casa {
   position: relative;
   display: flex;
@@ -111,29 +374,34 @@ h1 {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: clamp(0.65rem, 1.1vw, 0.85rem);
+  font-size: clamp(0.6rem, 1vw, 0.8rem);
   font-weight: 600;
   padding: 6px 4px;
   border: 1px solid #c8e6c9;
-  background-color: #fafafa;
+  background: #fafafa;
   box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
-/* emojis */
+.casa:hover {
+  transform: scale(1.02);
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
 .casa span {
-  font-size: clamp(1.4rem, 2.5vw, 2.2rem);
+  font-size: clamp(1.4rem, 2.2vw, 2rem);
   margin-bottom: 2px;
 }
 
-/* cantinhos */
 .canto {
-  background: #a5d6a7 !important;
+  background: linear-gradient(135deg, #a5d6a7, #81c784) !important;
   font-weight: 700;
   color: #1b5e20;
-  border: 2px solid rgba(0,0,0,0.15) !important; 
+  border: 2px solid #1b5e20 !important;
 }
 
-/* cores das bordas */
+/* ===== CORES DAS CASAS ===== */
 .verde   { background: #f1f8e9; border-top: 6px solid #4caf50; }
 .amarelo { background: #fffde7; border-top: 6px solid #fbc02d; }
 .azul    { background: #e1f5fe; border-top: 6px solid #0288d1; }
@@ -141,8 +409,7 @@ h1 {
 .laranja { background: #fff3e0; border-top: 6px solid #f57c00; }
 .especial{ background: #f3e5f5; border-top: 6px solid #9c27b0; }
 
-/* bordas coloridas para as laterais e topo */
-/* fila direita */
+/* Bordas laterais e inferiores */
 [style*="grid-column:7"][style*="grid-row:2"],
 [style*="grid-column:7"][style*="grid-row:3"],
 [style*="grid-column:7"][style*="grid-row:4"],
@@ -156,7 +423,6 @@ h1 {
 .terra[style*="grid-column:7"]   { border-left: 6px solid #8d6e63; }
 .azul[style*="grid-column:7"]    { border-left: 6px solid #0288d1; }
 
-/* fila esquerda */
 [style*="grid-column:1"][style*="grid-row:2"],
 [style*="grid-column:1"][style*="grid-row:3"],
 [style*="grid-column:1"][style*="grid-row:4"],
@@ -170,7 +436,6 @@ h1 {
 .amarelo[style*="grid-column:1"] { border-right: 6px solid #fbc02d; }
 .azul[style*="grid-column:1"]    { border-right: 6px solid #0288d1; }
 
-/* fila de cima */
 [style*="grid-row:1"]:not(.canto) {
   border-top: 1px;
 }
@@ -181,177 +446,34 @@ h1 {
 .verde[style*="grid-row:1"]   { border-bottom: 6px solid #4caf50; }
 .amarelo[style*="grid-row:1"] { border-bottom: 6px solid #fbc02d; }
 
-/* informacoes */
+/* ===== BOTÃO INFO ===== */
 .info {
   position: absolute;
   bottom: 4px;
   right: 4px;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   background: #ffffff;
-  border: 1.5px solid #1b5e20;
+  border: 2px solid #1b5e20;
   border-radius: 50%;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: #1b5e20;
   cursor: pointer;
-  line-height: 13px;
+  line-height: 14px;
   text-align: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   padding: 0;
+  z-index: 3;
 }
 
 .info:hover {
   background: #1b5e20;
   color: #fff;
-  transform: scale(1.2);
+  transform: scale(1.2) rotate(180deg);
 }
 
-/* Estilos do Novo Cabeçalho e Painel */
-.header-jogo {
-  text-align: center;
-  margin-bottom: 15px;
-  background: white;
-  padding: 15px 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-.config-jogadores {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10px;
-  font-weight: 600;
-}
-.config-jogadores select, .config-jogadores button {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid #1b5e20;
-  font-family: 'Fredoka', sans-serif;
-}
-.config-jogadores button {
-  background: #1b5e20;
-  color: white;
-  cursor: pointer;
-}
-.painel-turnos {
-  margin-top: 12px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  padding: 5px 15px;
-  border-radius: 20px;
-  background-color: #e8f5e9;
-  display: inline-block;
-}
-
-/* Container de peões dentro das casas */
-.container-peoes {
-  display: flex;
-  gap: 4px;
-  justify-content: center;
-  position: absolute;
-  bottom: 22px;
-  width: 100%;
-}
-.peao {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
-  transition: all 0.3s ease;
-}
-.peao.p1 { background: #e53935; } /* Vermelho */
-.peao.p2 { background: #1e88e5; } /* Azul */
-.peao.p3 { background: #fdd835; } /* Amarelo */
-.peao.p4 { background: #8e24aa; } /* Roxo */
-
-/* Efeito visual de desabilitado para o botão */
-.btn-rolar.desabilitado {
-  background: #9e9e9e !important;
-  box-shadow: none;
-  cursor: not-allowed;
-}
-
-/* Cabeçalho e Painéis */
-.header-jogo {
-  text-align: center;
-  margin-bottom: 15px;
-  background: white;
-  padding: 15px 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  width: min(700px, 95vw);
-  box-sizing: border-box;
-}
-.config-jogadores {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  font-weight: 600;
-}
-.config-jogadores select, .config-jogadores button {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid #1b5e20;
-  font-family: 'Fredoka', sans-serif;
-}
-.config-jogadores button {
-  background: #1b5e20;
-  color: white;
-  cursor: pointer;
-  font-weight: bold;
-}
-.painel-turnos {
-  margin: 10px 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  padding: 6px 20px;
-  border-radius: 20px;
-  background-color: #e8f5e9;
-  display: inline-block;
-}
-
-/* Placar de Dinheiro */
-.placar-financeiro {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
-}
-.cartao-jogador {
-  background: #f9f9f9;
-  padding: 8px 12px;
-  border-radius: 6px;
-  border-left: 5px solid #ccc;
-  text-align: left;
-  font-size: 0.85rem;
-  min-width: 120px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-.cartao-jogador.ativo {
-  box-shadow: 0 0 8px rgba(27, 94, 32, 0.5);
-  background: #f1f8e9;
-}
-
-/* Histórico de Texto */
-.log-historico {
-  font-size: 0.85rem;
-  color: #555;
-  background: #eee;
-  padding: 6px;
-  border-radius: 6px;
-  max-height: 50px;
-  overflow-y: auto;
-  margin-top: 8px;
-  border: 1px solid #ddd;
-}
-
-/* Peões dentro das casas */
+/* ===== PEÕES ===== */
 .container-peoes {
   display: flex;
   gap: 3px;
@@ -359,31 +481,260 @@ h1 {
   position: absolute;
   bottom: 22px;
   width: 100%;
+  z-index: 2;
+  flex-wrap: wrap;
 }
+
 .peao {
-  width: 13px;
-  height: 13px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  transition: all 0.5s ease;
+  animation: peao-pulse 2s ease-in-out infinite;
 }
-.peao.p1 { background: #e53935; }
-.peao.p2 { background: #1e88e5; }
-.peao.p3 { background: #fdd835; }
-.peao.p4 { background: #8e24aa; }
 
-/* Indicador visual de propriedade comprada */
+@keyframes peao-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+.peao.p1 { background: linear-gradient(135deg, #e53935, #c62828); }
+.peao.p2 { background: linear-gradient(135deg, #1e88e5, #0d47a1); }
+.peao.p3 { background: linear-gradient(135deg, #fdd835, #f9a825); }
+.peao.p4 { background: linear-gradient(135deg, #8e24aa, #6a1b9a); }
+
+/* ===== DONO TAG ===== */
 .dono-tag {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
+  height: 5px;
   z-index: 5;
+  border-radius: 2px;
+  animation: slide-down 0.5s ease;
 }
 
-.btn-rolar.desabilitado {
-  background: #9e9e9e !important;
-  box-shadow: none;
-  cursor: not-allowed;
+@keyframes slide-down {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== INDICADOR DE CONSTRUÇÃO ===== */
+.construcao-tag {
+  position: absolute;
+  bottom: 40px;
+  right: 4px;
+  font-size: 0.65rem;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  z-index: 4;
+  font-weight: 700;
+}
+
+.construcao-tag.casa { background: #4caf50; }
+.construcao-tag.prédio { background: #1565c0; }
+
+/* ===== PAINEL DE JOGO ===== */
+#painel-jogo {
+  margin-top: 15px;
+}
+
+.placar-financeiro {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.cartao-jogador {
+  background: #fff;
+  padding: 10px 15px;
+  border-radius: 12px;
+  border-left: 6px solid #ccc;
+  text-align: left;
+  font-size: 0.85rem;
+  min-width: 140px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  transition: all 0.3s;
+  flex: 1;
+  max-width: 220px;
+}
+
+.cartao-jogador.ativo {
+  box-shadow: 0 0 0 3px #1b5e20, 0 4px 15px rgba(27,94,32,0.3);
+  background: #f1f8e9;
+  transform: scale(1.02);
+}
+
+.cartao-jogador .destaque {
+  font-weight: 700;
+  color: #1b5e20;
+}
+
+.cartao-jogador .propriedades {
+  font-size: 0.7rem;
+  color: #777;
+}
+
+.painel-turnos {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  padding: 8px 25px;
+  border-radius: 30px;
+  background: #e8f5e9;
+  display: inline-block;
+  border: 2px solid #a5d6a7;
+}
+
+#jogador-atual i {
+  margin-right: 8px;
+}
+
+.log-historico {
+  font-size: 0.9rem;
+  color: #444;
+  background: #f5f5f5;
+  padding: 10px 15px;
+  border-radius: 10px;
+  max-height: 60px;
+  overflow-y: auto;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-left: 4px solid #1b5e20;
+}
+
+/* ===== RANKING ===== */
+#ranking {
+  background: #fff;
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.ranking-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  background: #f1f8e9;
+  border-radius: 12px;
+  border-left: 6px solid #1b5e20;
+  font-weight: 600;
+}
+
+.ranking-empty {
+  text-align: center;
+  color: #999;
+  font-size: 1.1rem;
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: #1b5e20;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: #1b5e20;
+    padding: 20px;
+    gap: 15px;
+  }
+  .nav-menu.active {
+    display: flex;
+  }
+  .nav-toggle {
+    display: block;
+  }
+  
+  .tabuleiro {
+    grid-template-columns: 70px repeat(5, 1fr) 70px;
+    grid-template-rows: 70px repeat(5, 1fr) 70px;
+    border-width: 4px;
+  }
+  
+  .casa span {
+    font-size: 1rem;
+  }
+  .casa {
+    font-size: 0.5rem;
+    padding: 2px;
+  }
+  .centro .logo span {
+    font-size: 1.2rem;
+  }
+  .dados {
+    font-size: 1.8rem;
+  }
+  .btn-rolar {
+    padding: 6px 15px;
+    font-size: 0.8rem;
+  }
+  
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  .hero-sub {
+    font-size: 1.2rem;
+  }
+  
+  .cartao-jogador {
+    min-width: 100px;
+    font-size: 0.7rem;
+    padding: 6px 10px;
+  }
+  
+  #sobre h2, #ranking h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tabuleiro {
+    grid-template-columns: 50px repeat(5, 1fr) 50px;
+    grid-template-rows: 50px repeat(5, 1fr) 50px;
+  }
+  .casa span {
+    font-size: 0.8rem;
+  }
+  .casa {
+    font-size: 0.4rem;
+    padding: 1px;
+  }
+  .info {
+    width: 14px;
+    height: 14px;
+    font-size: 0.5rem;
+    line-height: 10px;
+    bottom: 2px;
+    right: 2px;
+  }
+  .peao {
+    width: 10px;
+    height: 10px;
+  }
 }
