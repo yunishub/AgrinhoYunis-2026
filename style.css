@@ -1002,35 +1002,92 @@ footer {
   transform: scale(1.05);
 }
 
-/* ===== TELA CHEIA ===== */
-:-webkit-full-screen .tabuleiro-wrapper {
-  max-width: 95vw;
-  padding: 10px;
-}
-
-:-webkit-full-screen .tabuleiro {
-  max-width: 95vh;
-}
-
-:-webkit-full-screen #jogo {
+/* ===== TELA CHEIA DO JOGO ===== */
+#jogo-container.fullscreen-active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #f0f7f4;
+  z-index: 9999;
   padding: 10px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-:-webkit-full-screen .header-jogo {
+#jogo-container.fullscreen-active .header-jogo {
+  max-width: 800px;
+  width: 100%;
   padding: 10px 20px;
   margin-bottom: 10px;
 }
 
-:-webkit-full-screen .config-jogadores {
-  font-size: 0.9rem;
+#jogo-container.fullscreen-active .tabuleiro-wrapper {
+  max-width: 90vh;
+  padding: 10px;
 }
 
-:-webkit-full-screen .cartao-jogador {
-  font-size: 0.7rem;
+#jogo-container.fullscreen-active .tabuleiro {
+  max-height: 70vh;
+}
+
+#jogo-container.fullscreen-active .config-jogadores {
+  font-size: 0.85rem;
+}
+
+#jogo-container.fullscreen-active .cartao-jogador {
+  font-size: 0.75rem;
   padding: 5px 10px;
   min-width: 80px;
 }
 
+#jogo-container.fullscreen-active .btn-rolar {
+  padding: 8px 20px;
+  font-size: 0.9rem;
+}
+
+#jogo-container.fullscreen-active .dados {
+  font-size: 2.5rem;
+}
+
+#jogo-container.fullscreen-active .log-historico {
+  max-height: 40px;
+  font-size: 0.8rem;
+}
+
+/* Ajuste para mobile em tela cheia */
+@media (max-width: 768px) {
+  #jogo-container.fullscreen-active .tabuleiro-wrapper {
+    padding: 5px;
+  }
+  
+  #jogo-container.fullscreen-active .tabuleiro {
+    grid-template-columns: 60px repeat(5, 1fr) 60px;
+    grid-template-rows: 60px repeat(5, 1fr) 60px;
+    border-width: 3px;
+  }
+  
+  #jogo-container.fullscreen-active .casa span {
+    font-size: 0.9rem;
+  }
+  
+  #jogo-container.fullscreen-active .casa {
+    font-size: 0.45rem;
+    padding: 2px;
+  }
+  
+  #jogo-container.fullscreen-active .centro .logo span {
+    font-size: 1.2rem;
+  }
+  
+  #jogo-container.fullscreen-active .dados {
+    font-size: 2rem;
+  }
+}
 /* ===== NOVOS EVENTOS SORTE/AZAR ===== */
 .evento-sorte {
   color: #2e7d32;

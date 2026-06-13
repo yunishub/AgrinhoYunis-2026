@@ -272,35 +272,71 @@ function gerarConfigJogadores() {
   document.getElementById('jogadores-config').style.display = 'block';
 }
 
-// ===== SISTEMA DE TELA CHEIA =====
+// ===== SISTEMA DE TELA CHEIA (APENAS O JOGO) =====
 function toggleTelaCheia() {
+  const jogoContainer = document.getElementById('jogo-container');
+  
   if (!document.fullscreenElement) {
-    document.documentElement.requestFullscreen().then(() => {
+    // Entrar em tela cheia apenas no container do jogo
+    if (jogoContainer.requestFullscreen) {
+      jogoContainer.requestFullscreen().then(() => {
+        document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
+        // Adiciona classe para estilização em tela cheia
+        jogoContainer.classList.add('fullscreen-active');
+      }).catch(err => {
+        console.log('Erro ao entrar em tela cheia:', err);
+      });
+    } else if (jogoContainer.webkitRequestFullscreen) {
+      // Safari
+      jogoContainer.webkitRequestFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-    }).catch(err => {
-      console.log('Erro ao entrar em tela cheia:', err);
-    });
+      jogoContainer.classList.add('fullscreen-active');
+    } else if (jogoContainer.msRequestFullscreen) {
+      // IE/Edge
+      jogoContainer.msRequestFullscreen();
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
+      jogoContainer.classList.add('fullscreen-active');
+    }
   } else {
-    document.exitFullscreen().then(() => {
+    // Sair da tela cheia
+    if (document.exitFullscreen) {
+      document.exitFullscreen().then(() => {
+        document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+        jogoContainer.classList.remove('fullscreen-active');
+      });
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    });
+      jogoContainer.classList.remove('fullscreen-active');
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      jogoContainer.classList.remove('fullscreen-active');
+    }
   }
 }
 
-// ===== INICIALIZAÇÃO =====
-document.addEventListener("DOMContentLoaded", () => {
-  mapearCasasEletivas();
-  document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
-  document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
-  document.getElementById("btn-tela-cheia").addEventListener("click", toggleTelaCheia);
-  
-  // Detectar saída da tela cheia
-  document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    }
-  });
-  
+// Detectar saída da tela cheia
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement) {
+    document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+    document.getElementById('jogo-container').classList.remove('fullscreen-active');
+  }
+});
+
+document.addEventListener('webkitfullscreenchange', () => {
+  if (!document.webkitFullscreenElement) {
+    document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+    document.getElementById('jogo-container').classList.remove('fullscreen-active');
+  }
+});
+
+document.addEventListener('msfullscreenchange', () => {
+  if (!document.msFullscreenElement) {
+    document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+    document.getElementById('jogo-container').classList.remove('fullscreen-active');
+  }
+});  
   document.querySelectorAll(".info").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
