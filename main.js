@@ -1,4 +1,4 @@
-// banco de dados das casas
+// ===== BANCO DE DADOS DAS CASAS =====
 const infoCasas = [
   { id: 0, emoji: "🏠", tipo: "partida", titulo: "Partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Ponto de partida. Cada volta completa rende R$ 250 de incentivo ecológico!", fonte: "Agrinho 2026" },
   { id: 1, emoji: "🌽", tipo: "propriedade", titulo: "Lavoura de Milho Consorciado", preco: 60, aluguel: 10, aluguelCasa: 30, aluguelPredio: 90, texto: "O milho com braquiária protege o solo contra erosões e ervas daninhas.", fonte: "Embrapa Milho e Sorgo" },
@@ -26,7 +26,7 @@ const infoCasas = [
   { id: 23, emoji: "🏞️", tipo: "propriedade", titulo: "Bacia Hidrográfica Protegida", preco: 420, aluguel: 160, aluguelCasa: 480, aluguelPredio: 1200, texto: "O terraceamento das encostas evita o assoreamento dos rios da comunidade.", fonte: "ANA" }
 ];
 
-// eventos de sorte e azar
+// ===== EVENTOS DE SORTE E AZAR =====
 const eventosSorte = [
   { texto: "🌱 Adubação verde fixou nitrogênio! Ganhe R$ 200.", valor: 200, emoji: "🌱" },
   { texto: "🐝 Abelhas nativas polinizaram sua lavoura! Ganhe R$ 150.", valor: 150, emoji: "🐝" },
@@ -49,7 +49,7 @@ const eventosAzar = [
   { texto: "🦠 Doença fúngica comprometeu a produção! Perda de R$ 140.", valor: -140, emoji: "🦠" }
 ];
 
-// mapeamento do tabuleiro
+// ===== MAPEAMENTO DO TABULEIRO =====
 const ordemLayoutHTML = [
   { col: 1, row: 7 }, { col: 2, row: 7 }, { col: 3, row: 7 }, { col: 4, row: 7 }, { col: 5, row: 7 }, { col: 6, row: 7 },
   { col: 7, row: 7 }, { col: 7, row: 6 }, { col: 7, row: 5 }, { col: 7, row: 4 }, { col: 7, row: 3 }, { col: 7, row: 2 },
@@ -57,7 +57,7 @@ const ordemLayoutHTML = [
   { col: 1, row: 1 }, { col: 1, row: 2 }, { col: 1, row: 3 }, { col: 1, row: 4 }, { col: 1, row: 5 }, { col: 1, row: 6 }
 ];
 
-// variáveis globais
+// ===== VARIÁVEIS GLOBAIS =====
 let nosCasasDOM = [];
 let listaJogadores = [];
 let donoPropriedades = {};
@@ -65,10 +65,11 @@ let construcoes = {};
 let turnoAtual = 0;
 let jogoIniciado = false;
 let emProcessamento = false;
-let jaComprou = false; // controle para impedir múltiplas compras por rodada
+let jaAgiu = false; // controle para impedir múltiplas ações por rodada
+let construiuEstaRodada = false; // controle para construção
 const facesDados = ["🎲", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
 
-// cores disponíveis
+// ===== CORES DISPONÍVEIS =====
 const CORES_DISPONIVEIS = [
   { id: 'p1', nome: 'Vermelho', hex: '#e53935' },
   { id: 'p2', nome: 'Azul', hex: '#1e88e5' },
@@ -80,7 +81,7 @@ const CORES_DISPONIVEIS = [
   { id: 'p8', nome: 'Ciano', hex: '#00bcd4' }
 ];
 
-// sistema de som (web audio api)
+// ===== SISTEMA DE SOM (WEB AUDIO API) =====
 let audioCtx = null;
 
 function initAudio() {
@@ -138,12 +139,7 @@ function somAlerta() {
   setTimeout(() => playTone(400, 0.2, 'sawtooth', 0.08), 250);
 }
 
-function somPassar() {
-  playTone(300, 0.1, 'sine', 0.08);
-  setTimeout(() => playTone(250, 0.1, 'sine', 0.08), 100);
-}
-
-// sistema de modais
+// ===== SISTEMA DE MODAIS =====
 function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = null) {
   return new Promise((resolve) => {
     const existente = document.querySelector('.modal-overlay');
@@ -281,7 +277,7 @@ async function confirmarPrisao(jogador, rodadasRestantes) {
   return resposta;
 }
 
-// configuração de jogadores
+// ===== CONFIGURAÇÃO DE JOGADORES =====
 function gerarConfigJogadores() {
   const qtdJogadores = parseInt(document.getElementById("qtd-jogadores").value);
   const qtdBots = parseInt(document.getElementById("qtd-bots").value);
@@ -331,19 +327,20 @@ function gerarConfigJogadores() {
   document.getElementById('jogadores-config').style.display = 'block';
 }
 
-// botões de ação
+// ===== BOTÕES DE AÇÃO =====
 function mostrarBotoesAcao(mostrar) {
   const botoes = document.getElementById('botoes-acao');
   if (botoes) {
     botoes.style.display = mostrar ? 'flex' : 'none';
   }
-  // resetar controle de compra ao mostrar/esconder botões
+  // resetar controles ao mostrar/esconder botões
   if (!mostrar) {
-    jaComprou = false;
+    jaAgiu = false;
+    construiuEstaRodada = false;
   }
 }
 
-// sistema de falência
+// ===== SISTEMA DE FALÊNCIA =====
 function declararFalencia(jogador) {
   // remove todas as propriedades do jogador
   const propriedadesDoJogador = Object.keys(donoPropriedades).filter(key => donoPropriedades[key] === jogador.id);
@@ -387,7 +384,7 @@ function declararFalencia(jogador) {
   passarTurno();
 }
 
-// inicialização
+// ===== INICIALIZAÇÃO =====
 document.addEventListener("DOMContentLoaded", () => {
   mapearCasasEletivas();
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
@@ -423,40 +420,53 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('qtd-bots').addEventListener('change', gerarConfigJogadores);
   gerarConfigJogadores();
   
+  // Botão COMPRAR - aparece apenas quando cai em propriedade e ainda não agiu
   document.getElementById('btn-comprar').addEventListener('click', function() {
     const jogador = listaJogadores[turnoAtual];
     const casa = infoCasas[jogador.posicao];
     
-    // verifica se já comprou nesta rodada
-    if (jaComprou) {
-      alert("Você já comprou uma propriedade nesta rodada!");
+    // verifica se já agiu nesta rodada
+    if (jaAgiu) {
+      alert("Você já realizou uma ação nesta rodada!");
       return;
     }
     
     if (casa.tipo === 'propriedade' && !donoPropriedades[casa.id]) {
       efetuarCompra(jogador, casa);
-      jaComprou = true; // marca que já comprou
+      jaAgiu = true; // marca que já agiu
     }
   });
   
+  // Botão CONSTRUIR - aparece apenas em propriedade própria e ainda não construiu
   document.getElementById('btn-construir').addEventListener('click', function() {
     const jogador = listaJogadores[turnoAtual];
     const casa = infoCasas[jogador.posicao];
+    
+    // verifica se já construiu nesta rodada
+    if (construiuEstaRodada) {
+      alert("Você já construiu uma vez nesta rodada!");
+      return;
+    }
+    
     if (casa.tipo === 'propriedade' && donoPropriedades[casa.id] === jogador.id) {
       const nivelAtual = construcoes[casa.id] || 0;
       if (nivelAtual < 2) {
         construirPropriedade(jogador, casa, nivelAtual);
+        construiuEstaRodada = true; // marca que já construiu
+        jaAgiu = true;
       }
     }
   });
   
+  // Botão PASSAR - passa a vez sem fazer nada
   document.getElementById('btn-passar').addEventListener('click', function() {
-    somPassar();
     mostrarBotoesAcao(false);
-    jaComprou = false;
+    jaAgiu = false;
+    construiuEstaRodada = false;
     passarTurno();
   });
   
+  // Botão FALÊNCIA
   document.getElementById('btn-falencia').addEventListener('click', function() {
     const jogador = listaJogadores[turnoAtual];
     if (!jogador || jogador.isBot) return;
@@ -506,7 +516,8 @@ function iniciarPartidaAgroPoly() {
   turnoAtual = 0;
   jogoIniciado = true;
   emProcessamento = false;
-  jaComprou = false;
+  jaAgiu = false;
+  construiuEstaRodada = false;
   
   document.querySelectorAll('.dono-tag, .construcao-tag').forEach(t => t.remove());
 
@@ -676,44 +687,65 @@ async function executarRegraDeCasa(jogador, casa) {
     const donoId = donoPropriedades[casa.id];
 
     if (!donoId) {
+      // Propriedade livre - oferece compra
       if (jogador.saldo >= casa.preco) {
         if (jogador.isBot) {
+          // Bot decide comprar ou não
           if (jogador.saldo - casa.preco > 200) {
             efetuarCompra(jogador, casa);
           } else {
             adicionarLog(`🤖 ${jogador.nome} achou arriscado comprar ${casa.titulo} agora.`);
-            finalizarEtapaCasa(casa, false);
+            passarTurno();
           }
         } else {
+          // Jogador humano escolhe
           const querComprar = await confirmarCompra(casa, jogador);
-          if (querComprar) efetuarCompra(jogador, casa);
-          else finalizarEtapaCasa(casa, true);
+          if (querComprar) {
+            efetuarCompra(jogador, casa);
+          } else {
+            adicionarLog(`${jogador.nome} decidiu não comprar ${casa.titulo}.`);
+            passarTurno();
+          }
         }
       } else {
         adicionarLog(`💸 ${jogador.nome} não possui saldo suficiente (R$ ${casa.preco}) para comprar esta área.`);
-        finalizarEtapaCasa(casa, !jogador.isBot);
+        passarTurno();
       }
     } else if (donoId === jogador.id) {
+      // Já é dono - oferece construir (apenas uma construção por rodada)
       const nivelAtual = construcoes[casa.id] || 0;
       if (nivelAtual < 2) {
         if (jogador.isBot) {
           const custo = nivelAtual === 0 ? Math.floor(casa.preco * 0.5) : Math.floor(casa.preco * 0.8);
-          if (jogador.saldo >= custo && jogador.saldo - custo > 300) {
+          if (jogador.saldo >= custo && jogador.saldo - custo > 300 && !construiuEstaRodada) {
             construirPropriedade(jogador, casa, nivelAtual);
+            construiuEstaRodada = true;
           } else {
             adicionarLog(`🤖 ${jogador.nome} não investiu em ${casa.titulo}.`);
-            finalizarEtapaCasa(casa, false);
+            passarTurno();
           }
         } else {
-          const querConstruir = await confirmarConstrucao(casa, jogador, nivelAtual);
-          if (querConstruir) construirPropriedade(jogador, casa, nivelAtual);
-          else finalizarEtapaCasa(casa, true);
+          // Jogador humano escolhe (só pode construir uma vez por rodada)
+          if (construiuEstaRodada) {
+            adicionarLog(`${jogador.nome} já construiu esta rodada.`);
+            passarTurno();
+          } else {
+            const querConstruir = await confirmarConstrucao(casa, jogador, nivelAtual);
+            if (querConstruir) {
+              construirPropriedade(jogador, casa, nivelAtual);
+              construiuEstaRodada = true;
+            } else {
+              adicionarLog(`${jogador.nome} decidiu não construir em ${casa.titulo}.`);
+              passarTurno();
+            }
+          }
         }
       } else {
         adicionarLog(`🏡 ${jogador.nome} já tem um prédio em ${casa.titulo}!`);
-        finalizarEtapaCasa(casa, !jogador.isBot);
+        passarTurno();
       }
     } else {
+      // Pagar Aluguel
       const dono = listaJogadores.find(j => j.id === donoId);
       const nivel = construcoes[casa.id] || 0;
       const valorAluguel = nivel === 0 ? casa.aluguel : nivel === 1 ? casa.aluguelCasa : casa.aluguelPredio;
@@ -724,7 +756,7 @@ async function executarRegraDeCasa(jogador, casa) {
       somDinheiro();
       await mostrarModal('💰 Aluguel Ecológico', `${jogador.nome} pagou R$ ${valorAluguel} para ${dono.nome} pelo uso de ${casa.titulo}.`, null, '💸');
       adicionarLog(`${jogador.nome} pagou R$ ${valorAluguel} de aluguel.`);
-      finalizarEtapaCasa(casa, false);
+      passarTurno();
     }
 
   } else if (casa.tipo === "sorte") {
@@ -733,7 +765,7 @@ async function executarRegraDeCasa(jogador, casa) {
     somDinheiro();
     await mostrarModal('🍀 Sorte!', `${evento.texto}`, null, evento.emoji);
     adicionarLog(`🍀 ${jogador.nome} ${evento.texto}`);
-    finalizarEtapaCasa(casa, false);
+    passarTurno();
     
   } else if (casa.tipo === "azar") {
     const evento = eventosAzar[Math.floor(Math.random() * eventosAzar.length)];
@@ -741,15 +773,15 @@ async function executarRegraDeCasa(jogador, casa) {
     somAlerta();
     await mostrarModal('⛈️ Azar!', `${evento.texto}`, null, evento.emoji);
     adicionarLog(`⛈️ ${jogador.nome} ${evento.texto}`);
-    finalizarEtapaCasa(casa, false);
+    passarTurno();
     
   } else if (casa.tipo === "prisao") {
     jogador.presoRodadas = 3;
     somAlerta();
     adicionarLog(`😓 ${jogador.nome} foi para o treinamento do SENAR por 3 rodadas!`);
-    finalizarEtapaCasa(casa, !jogador.isBot);
+    passarTurno();
   } else {
-    finalizarEtapaCasa(casa, false);
+    passarTurno();
   }
 }
 
@@ -770,11 +802,8 @@ function efetuarCompra(jogador, casa) {
   somCompra();
   adicionarLog(`🛍️ ${jogador.nome} comprou ${casa.titulo} por R$ ${casa.preco}!`);
   
-  // desabilita o botão de compra após usar
-  jaComprou = true;
-  mostrarBotoesAcao(false);
-  
-  finalizarEtapaCasa(casa, false);
+  // Passa a vez após comprar
+  passarTurno();
 }
 
 function construirPropriedade(jogador, casa, nivelAtual) {
@@ -794,30 +823,8 @@ function construirPropriedade(jogador, casa, nivelAtual) {
   somConstruir();
   adicionarLog(`🏗️ ${jogador.nome} construiu ${nivelAtual === 0 ? 'uma casa' : 'um prédio'} em ${casa.titulo}!`);
   
-  // desabilita a ação após construir
-  mostrarBotoesAcao(false);
-  jaComprou = false;
-  
-  finalizarEtapaCasa(casa, false);
-}
-
-function finalizarEtapaCasa(casa, deveMostrarModal) {
-  if (deveMostrarModal) {
-    exibirAlertaPedagogico(casa);
-  }
-  verificarFalencia();
-  atualizarPlacarEDominio();
-  emProcessamento = false;
-  
-  const jogador = listaJogadores[turnoAtual];
-  
-  // mostra botões de ação se for jogador humano e não estiver preso e não tiver comprado ainda
-  if (!jogador.isBot && jogador.presoRodadas === 0 && !jaComprou) {
-    mostrarBotoesAcao(true);
-  } else {
-    mostrarBotoesAcao(false);
-    passarTurno();
-  }
+  // Passa a vez após construir
+  passarTurno();
 }
 
 function verificarFalencia() {
@@ -831,7 +838,8 @@ function verificarFalencia() {
 
 function passarTurno() {
   mostrarBotoesAcao(false);
-  jaComprou = false;
+  jaAgiu = false;
+  construiuEstaRodada = false;
   
   let proximo = (turnoAtual + 1) % listaJogadores.length;
   let tentativas = 0;
@@ -899,7 +907,7 @@ function salvarRanking() {
     '<p class="ranking-empty">Nenhuma partida concluída. Jogue para aparecer aqui!</p>';
 }
 
-// seção informativa
+// ===== SEÇÃO INFORMATIVA =====
 function gerarSecaoInformativa() {
   const container = document.getElementById('info-grid');
   if (!container) return;
@@ -943,4 +951,4 @@ function gerarSecaoInformativa() {
     
     container.appendChild(card);
   });
-}yuns
+}
