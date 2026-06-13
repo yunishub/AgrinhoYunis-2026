@@ -437,12 +437,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
-  // Botão CONSTRUIR - aparece apenas em propriedade própria e ainda não construiu
   document.getElementById('btn-construir').addEventListener('click', function() {
     const jogador = listaJogadores[turnoAtual];
     const casa = infoCasas[jogador.posicao];
     
-    // verifica se já construiu nesta rodada
     if (construiuEstaRodada) {
       alert("Você já construiu uma vez nesta rodada!");
       return;
@@ -458,7 +456,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
-  // Botão PASSAR - passa a vez sem fazer nada
   document.getElementById('btn-passar').addEventListener('click', function() {
     mostrarBotoesAcao(false);
     jaAgiu = false;
@@ -620,7 +617,9 @@ async function processarCicloDeTurno() {
       computarRolagemDados();
     }, 1200);
   } else {
+    // para jogadores humanos, o botão fica habilitado
     btnRolar.classList.remove("desabilitado");
+    
     if (jogador.presoRodadas > 0) {
       const pagar = await confirmarPrisao(jogador, jogador.presoRodadas);
       if (pagar && jogador.saldo >= 50) {
@@ -640,6 +639,9 @@ async function processarCicloDeTurno() {
         return;
       }
     }
+    
+    // se o jogador não está preso, o botão de rolar dados fica habilitado
+    btnRolar.classList.remove("desabilitado");
   }
 }
 
@@ -657,6 +659,12 @@ async function computarRolagemDados() {
   areaDados.innerText = `${facesDados[d1]} ${facesDados[d2]}`;
   somDados();
 
+  // desabilita o botão de rolar durante a animação
+  const btnRolar = document.querySelector(".btn-rolar");
+  if (btnRolar) {
+    btnRolar.classList.add("desabilitado");
+  }
+
   setTimeout(() => {
     areaDados.classList.remove("animando");
     
@@ -672,6 +680,11 @@ async function computarRolagemDados() {
     jogador.posicao = novaPosicao;
     desenharPeoesDoJogo();
     atualizarPlacarEDominio();
+    
+    // reabilita o botão de rolar dados após a jogada
+    if (btnRolar) {
+      btnRolar.classList.remove("desabilitado");
+    }
     
     setTimeout(() => {
       executarRegraDeCasa(jogador, infoCasas[novaPosicao]);
@@ -841,12 +854,21 @@ function verificarFalencia() {
 }
 
 function passarTurno() {
-  const botoes = document.getElementById('botoes-acao');
-  if (botoes) {
-    botoes.style.display = 'none';
+  // esconde os botões de ação
+  const botoesAcao = document.getElementById('botoes-acao');
+  if (botoesAcao) {
+    botoesAcao.style.display = 'none';
   }
+  
+  // reseta os controles
   jaAgiu = false;
   construiuEstaRodada = false;
+  
+  // reabilita o botão de rolar dados para o próximo jogador
+  const btnRolar = document.querySelector(".btn-rolar");
+  if (btnRolar) {
+    btnRolar.classList.remove("desabilitado");
+  }
   
   let proximo = (turnoAtual + 1) % listaJogadores.length;
   let tentativas = 0;
@@ -858,7 +880,9 @@ function passarTurno() {
   
   if (tentativas >= listaJogadores.length) {
     adicionarLog("🏆 Todos os jogadores faliriam! Fim de jogo.");
-    document.querySelector(".btn-rolar").classList.add("desabilitado");
+    if (btnRolar) {
+      btnRolar.classList.add("desabilitado");
+    }
     jogoIniciado = false;
     salvarRanking();
     return;
