@@ -272,16 +272,14 @@ function gerarConfigJogadores() {
   document.getElementById('jogadores-config').style.display = 'block';
 }
 
-// ===== SISTEMA DE TELA CHEIA (JOGO INTEIRO) =====
+// ===== SISTEMA DE TELA CHEIA =====
 function toggleTelaCheia() {
   const jogoContainer = document.getElementById('jogo-container');
   
   if (!document.fullscreenElement) {
-    // Entrar em tela cheia
     if (jogoContainer.requestFullscreen) {
       jogoContainer.requestFullscreen().then(() => {
         document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-        // Ajustar o tabuleiro para tela cheia
         setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
       }).catch(err => {
         console.log('Erro ao entrar em tela cheia:', err);
@@ -296,7 +294,6 @@ function toggleTelaCheia() {
       setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
     }
   } else {
-    // Sair da tela cheia
     if (document.exitFullscreen) {
       document.exitFullscreen().then(() => {
         document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
@@ -320,27 +317,17 @@ function ajustarTabuleiroTelaCheia() {
   const header = document.querySelector('.header-jogo');
   
   if (tabuleiro && wrapper) {
-    // Calcular espaço disponível
     const vh = window.innerHeight;
     const vw = window.innerWidth;
-    
-    // Tamanho do header
     const headerHeight = header ? header.offsetHeight : 0;
-    
-    // Espaço disponível para o tabuleiro
     const availableHeight = vh - headerHeight - 60;
     const availableWidth = vw - 40;
-    
-    // O tabuleiro deve ser quadrado, então o tamanho máximo é o menor entre altura e largura
     const tamanhoMaximo = Math.min(availableHeight, availableWidth);
     
-    // Aplicar o tamanho
     wrapper.style.maxWidth = tamanhoMaximo + 'px';
     wrapper.style.maxHeight = tamanhoMaximo + 'px';
     wrapper.style.width = '100%';
     wrapper.style.height = '100%';
-    
-    // Forçar o tabuleiro a ser quadrado
     tabuleiro.style.width = '100%';
     tabuleiro.style.height = '100%';
     tabuleiro.style.aspectRatio = '1';
@@ -362,34 +349,42 @@ function restaurarTabuleiroNormal() {
   }
 }
 
-// Detectar mudanças de tamanho da tela
-window.addEventListener('resize', () => {
-  if (document.fullscreenElement) {
-    ajustarTabuleiroTelaCheia();
-  }
-});
-
-// Detectar saída da tela cheia
-document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement) {
-    document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    restaurarTabuleiroNormal();
-  }
-});
-
-document.addEventListener('webkitfullscreenchange', () => {
-  if (!document.webkitFullscreenElement) {
-    document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    restaurarTabuleiroNormal();
-  }
-});
-
-document.addEventListener('msfullscreenchange', () => {
-  if (!document.msFullscreenElement) {
-    document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    restaurarTabuleiroNormal();
-  }
-});  
+// ===== INICIALIZAÇÃO =====
+document.addEventListener("DOMContentLoaded", () => {
+  mapearCasasEletivas();
+  document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
+  document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
+  document.getElementById("btn-tela-cheia").addEventListener("click", toggleTelaCheia);
+  
+  // Detectar mudanças de tamanho da tela
+  window.addEventListener('resize', () => {
+    if (document.fullscreenElement) {
+      ajustarTabuleiroTelaCheia();
+    }
+  });
+  
+  // Detectar saída da tela cheia
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      restaurarTabuleiroNormal();
+    }
+  });
+  
+  document.addEventListener('webkitfullscreenchange', () => {
+    if (!document.webkitFullscreenElement) {
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      restaurarTabuleiroNormal();
+    }
+  });
+  
+  document.addEventListener('msfullscreenchange', () => {
+    if (!document.msFullscreenElement) {
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      restaurarTabuleiroNormal();
+    }
+  });
+  
   document.querySelectorAll(".info").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -600,7 +595,6 @@ async function computarRolagemDados() {
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
     
-    // Passou pela Partida: Ganha R$250
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
       jogador.saldo += 250;
       adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
@@ -675,7 +669,6 @@ async function executarRegraDeCasa(jogador, casa) {
     }
 
   } else if (casa.tipo === "sorte") {
-    // Sorte com evento aleatório
     const evento = eventosSorte[Math.floor(Math.random() * eventosSorte.length)];
     jogador.saldo += evento.valor;
     await mostrarModal('🍀 Sorte!', `${evento.texto}`, null, evento.emoji);
@@ -683,7 +676,6 @@ async function executarRegraDeCasa(jogador, casa) {
     finalizarEtapaCasa(casa, false);
     
   } else if (casa.tipo === "azar") {
-    // Azar com evento aleatório
     const evento = eventosAzar[Math.floor(Math.random() * eventosAzar.length)];
     jogador.saldo += evento.valor;
     await mostrarModal('⛈️ Azar!', `${evento.texto}`, null, evento.emoji);
