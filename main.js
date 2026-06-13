@@ -112,6 +112,12 @@ function somCompra() {
   setTimeout(() => playTone(784, 0.2, 'sine', 0.15), 300);
 }
 
+function somConstruir() {
+  playTone(440, 0.1, 'sine', 0.15);
+  setTimeout(() => playTone(554, 0.1, 'sine', 0.15), 120);
+  setTimeout(() => playTone(659, 0.15, 'sine', 0.15), 240);
+}
+
 function somDinheiro() {
   playTone(880, 0.08, 'sine', 0.12);
   setTimeout(() => playTone(1100, 0.08, 'sine', 0.12), 100);
@@ -258,22 +264,9 @@ function declararFalencia(jogador) {
 
 // ===== INICIALIZAÇÃO =====
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("DOM carregado!");
   mapearCasasEletivas();
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
-  
-  // BOTÃO DE ROLAR DADOS - VERSÃO SIMPLIFICADA
-  const btnRolar = document.querySelector(".btn-rolar");
-  console.log("Botão de rolar encontrado:", btnRolar);
-  
-  if (btnRolar) {
-    btnRolar.addEventListener("click", function() {
-      console.log("CLIQUE NO BOTÃO DE ROLAR DADOS!");
-      tentarJogadaHumana();
-    });
-  } else {
-    console.error("❌ Botão de rolar NÃO encontrado!");
-  }
+  document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
   
   document.querySelectorAll(".info").forEach(btn => {
     btn.addEventListener("click", (e) => {
@@ -350,8 +343,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function mapearCasasEletivas() {
   const todasCasas = document.querySelectorAll(".casa");
-  ordemLayoutHTML.forEach(pos => {
-    let el = Array.from(todasCasas).find(c => c.style.gridColumn === String(pos.col) && c.style.gridRow === String(pos.row));
+  ordemLayoutHTML.forEach((pos, index) => {
+    let el = Array.from(todasCasas).find(c => 
+      c.style.gridColumn === String(pos.col) && c.style.gridRow === String(pos.row)
+    );
     if (el) {
       nosCasasDOM.push(el);
       if(!el.querySelector('.container-peoes')) {
@@ -425,7 +420,6 @@ function atualizarPlacarEDominio() {
 }
 
 function tentarJogadaHumana() {
-  console.log("tentarJogadaHumana() chamada!");
   if (!jogoIniciado || emProcessamento) return;
   if (listaJogadores[turnoAtual].isBot) return;
   computarRolagemDados();
@@ -482,16 +476,13 @@ async function processarCicloDeTurno() {
   }
 }
 
-// ===== FUNÇÃO COMPUTAR ROLAGEM DADOS (RESTAURADA) =====
 async function computarRolagemDados() {
-  console.log("computarRolagemDados() chamada!");
   if (emProcessamento) return;
   emProcessamento = true;
   const jogador = listaJogadores[turnoAtual];
   const d1 = Math.floor(Math.random() * 6) + 1;
   const d2 = Math.floor(Math.random() * 6) + 1;
   const passos = d1 + d2;
-  console.log(`Dados: ${d1} + ${d2} = ${passos}`);
   const areaDados = document.querySelector(".dados");
   areaDados.classList.add("animando");
   areaDados.innerText = `${facesDados[d1]} ${facesDados[d2]}`;
@@ -500,14 +491,13 @@ async function computarRolagemDados() {
     areaDados.classList.remove("animando");
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
-    console.log(`Movendo de ${antigaPosicao} para ${novaPosicao}`);
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
       jogador.saldo += 250;
       somDinheiro();
       adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
     }
     jogador.posicao = novaPosicao;
-    desenharPeoesDoJogo(); // <--- REDESENHA OS PEÕES
+    desenharPeoesDoJogo();
     atualizarPlacarEDominio();
     document.querySelector(".btn-rolar").classList.remove("desabilitado");
     setTimeout(() => {
@@ -517,7 +507,6 @@ async function computarRolagemDados() {
 }
 
 async function executarRegraDeCasa(jogador, casa) {
-  console.log("executarRegraDeCasa() chamada!");
   adicionarLog(`${jogador.nome} parou na casa: ${casa.emoji} ${casa.titulo}`);
   if (casa.tipo === "propriedade") {
     const donoId = donoPropriedades[casa.id];
@@ -644,7 +633,6 @@ function verificarFalencia() {
 }
 
 function passarTurno() {
-  console.log("passarTurno() chamada!");
   mostrarBotoesAcao(false);
   document.querySelector(".btn-rolar").classList.remove("desabilitado");
   let proximo = (turnoAtual + 1) % listaJogadores.length;
@@ -665,7 +653,6 @@ function passarTurno() {
 }
 
 function desenharPeoesDoJogo() {
-  console.log("=== DESENHANDO PEÕES ===");
   document.querySelectorAll('.container-peoes').forEach(c => c.innerHTML = '');
   listaJogadores.forEach(j => {
     if (j.saldo >= 0) {
@@ -686,7 +673,6 @@ function desenharPeoesDoJogo() {
         else if (j.cor === 'p3') peao.style.background = '#fdd835';
         else if (j.cor === 'p4') peao.style.background = '#8e24aa';
         container.appendChild(peao);
-        console.log(`Peão ${j.nome} adicionado na casa ${j.posicao}`);
       }
     }
   });
