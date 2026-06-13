@@ -198,86 +198,43 @@ body {
   line-height: 1.6;
 }
 
-/* ===== JOGO ===== */
+/* ===== JOGO - NOVO LAYOUT ===== */
 #jogo {
   background: #f0f7f4;
-  padding: 40px 20px;
+  padding: 20px;
 }
 
 .jogo-container {
-  max-width: 1100px;
+  max-width: 1400px;
   margin: 0 auto;
-}
-
-.header-jogo {
-  background: white;
-  padding: 20px 25px;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  margin-bottom: 25px;
-}
-
-.header-jogo h2 {
-  color: #1b5e20;
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 15px;
-}
-
-.config-jogadores {
   display: flex;
-  gap: 15px;
-  align-items: center;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Lado esquerdo: Tabuleiro */
+.tabuleiro-side {
+  flex: 0 0 auto;
+  display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  font-weight: 600;
 }
 
-.config-jogadores select {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 2px solid #1b5e20;
-  font-family: 'Fredoka', sans-serif;
-  background: #fff;
-  font-size: 0.95rem;
-}
-
-#btn-iniciar {
-  padding: 8px 25px;
-  background: #1b5e20;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-weight: 700;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-family: 'Fredoka', sans-serif;
-}
-
-#btn-iniciar:hover {
-  background: #2e7d32;
-  transform: scale(1.05);
-}
-
-/* ===== TABULEIRO ===== */
 .tabuleiro-wrapper {
   background: white;
-  padding: 20px;
-  border-radius: 20px;
+  padding: 10px;
+  border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0,0,0,0.12);
-  margin: 0 auto;
-  max-width: 800px;
+  max-width: 600px;
 }
 
 .tabuleiro {
   position: relative;
   display: grid;
-  grid-template-columns: 110px repeat(5, 1fr) 110px;
-  grid-template-rows: 110px repeat(5, 1fr) 110px;
+  grid-template-columns: 80px repeat(5, 1fr) 80px;
+  grid-template-rows: 80px repeat(5, 1fr) 80px;
   aspect-ratio: 1;
-  border: 6px solid #1b5e20;
-  border-radius: 12px;
+  border: 4px solid #1b5e20;
+  border-radius: 10px;
   background: #e8f5e9;
   box-shadow: inset 0 0 30px rgba(27,94,32,0.1);
   overflow: hidden;
@@ -291,32 +248,32 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   background: #ffffff;
   border: 3px dashed #a5d6a7;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 15px;
+  border-radius: 8px;
+  margin: 5px;
+  padding: 10px;
   text-align: center;
 }
 
 .centro .logo span {
-  font-size: 2.8rem;
+  font-size: 1.8rem;
   font-weight: 700;
   color: #1b5e20;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
 .centro-sub {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   color: #689f38;
   font-weight: 600;
 }
 
 .dados {
-  font-size: 3rem;
+  font-size: 2rem;
   line-height: 1;
-  margin: 8px 0;
+  margin: 3px 0;
   text-shadow: 1px 2px 5px rgba(0,0,0,0.15);
   transition: transform 0.3s ease;
 }
@@ -336,23 +293,23 @@ body {
 .btn-rolar {
   background: linear-gradient(135deg, #2e7d32, #1b5e20);
   color: #fff;
-  padding: 12px 35px;
-  border-radius: 30px;
-  font-size: 1.1rem;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
   border: none;
-  box-shadow: 0 4px 15px rgba(46,125,50,0.4);
+  box-shadow: 0 4px 12px rgba(46,125,50,0.4);
   transition: all 0.3s ease;
   font-family: 'Fredoka', sans-serif;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .btn-rolar:hover:not(.desabilitado) {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 8px 25px rgba(46,125,50,0.5);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(46,125,50,0.5);
 }
 
 .btn-rolar:active:not(.desabilitado) {
@@ -374,9 +331,9 @@ body {
   align-items: center;
   justify-content: center;
   text-align: center;
-  font-size: clamp(0.6rem, 1vw, 0.8rem);
+  font-size: clamp(0.4rem, 0.8vw, 0.7rem);
   font-weight: 600;
-  padding: 6px 4px;
+  padding: 3px 2px;
   border: 1px solid #c8e6c9;
   background: #fafafa;
   box-sizing: border-box;
@@ -390,8 +347,8 @@ body {
 }
 
 .casa span {
-  font-size: clamp(1.4rem, 2.2vw, 2rem);
-  margin-bottom: 2px;
+  font-size: clamp(1rem, 1.8vw, 1.6rem);
+  margin-bottom: 1px;
 }
 
 .canto {
@@ -402,12 +359,12 @@ body {
 }
 
 /* ===== CORES DAS CASAS ===== */
-.verde   { background: #f1f8e9; border-top: 6px solid #4caf50; }
-.amarelo { background: #fffde7; border-top: 6px solid #fbc02d; }
-.azul    { background: #e1f5fe; border-top: 6px solid #0288d1; }
-.terra   { background: #efebe9; border-top: 6px solid #8d6e63; }
-.laranja { background: #fff3e0; border-top: 6px solid #f57c00; }
-.especial{ background: #f3e5f5; border-top: 6px solid #9c27b0; }
+.verde   { background: #f1f8e9; border-top: 4px solid #4caf50; }
+.amarelo { background: #fffde7; border-top: 4px solid #fbc02d; }
+.azul    { background: #e1f5fe; border-top: 4px solid #0288d1; }
+.terra   { background: #efebe9; border-top: 4px solid #8d6e63; }
+.laranja { background: #fff3e0; border-top: 4px solid #f57c00; }
+.especial{ background: #f3e5f5; border-top: 4px solid #9c27b0; }
 
 /* Bordas laterais e inferiores */
 [style*="grid-column:7"][style*="grid-row:2"],
@@ -417,11 +374,11 @@ body {
 [style*="grid-column:7"][style*="grid-row:6"] {
   border-top: 1px;
 }
-.verde[style*="grid-column:7"]   { border-left: 6px solid #4caf50; }
-.laranja[style*="grid-column:7"] { border-left: 6px solid #f57c00; }
-.especial[style*="grid-column:7"]{ border-left: 6px solid #9c27b0; }
-.terra[style*="grid-column:7"]   { border-left: 6px solid #8d6e63; }
-.azul[style*="grid-column:7"]    { border-left: 6px solid #0288d1; }
+.verde[style*="grid-column:7"]   { border-left: 4px solid #4caf50; }
+.laranja[style*="grid-column:7"] { border-left: 4px solid #f57c00; }
+.especial[style*="grid-column:7"]{ border-left: 4px solid #9c27b0; }
+.terra[style*="grid-column:7"]   { border-left: 4px solid #8d6e63; }
+.azul[style*="grid-column:7"]    { border-left: 4px solid #0288d1; }
 
 [style*="grid-column:1"][style*="grid-row:2"],
 [style*="grid-column:1"][style*="grid-row:3"],
@@ -430,37 +387,37 @@ body {
 [style*="grid-column:1"][style*="grid-row:6"] {
   border-top: 1px;
 }
-.verde[style*="grid-column:1"]   { border-right: 6px solid #4caf50; }
-.terra[style*="grid-column:1"]   { border-right: 6px solid #8d6e63; }
-.especial[style*="grid-column:1"]{ border-right: 6px solid #9c27b0; }
-.amarelo[style*="grid-column:1"] { border-right: 6px solid #fbc02d; }
-.azul[style*="grid-column:1"]    { border-right: 6px solid #0288d1; }
+.verde[style*="grid-column:1"]   { border-right: 4px solid #4caf50; }
+.terra[style*="grid-column:1"]   { border-right: 4px solid #8d6e63; }
+.especial[style*="grid-column:1"]{ border-right: 4px solid #9c27b0; }
+.amarelo[style*="grid-column:1"] { border-right: 4px solid #fbc02d; }
+.azul[style*="grid-column:1"]    { border-right: 4px solid #0288d1; }
 
 [style*="grid-row:1"]:not(.canto) {
   border-top: 1px;
 }
-.laranja[style*="grid-row:1"] { border-bottom: 6px solid #f57c00; }
-.azul[style*="grid-row:1"]    { border-bottom: 6px solid #0288d1; }
-.especial[style*="grid-row:1"]{ border-bottom: 6px solid #9c27b0; }
-.terra[style*="grid-row:1"]   { border-bottom: 6px solid #8d6e63; }
-.verde[style*="grid-row:1"]   { border-bottom: 6px solid #4caf50; }
-.amarelo[style*="grid-row:1"] { border-bottom: 6px solid #fbc02d; }
+.laranja[style*="grid-row:1"] { border-bottom: 4px solid #f57c00; }
+.azul[style*="grid-row:1"]    { border-bottom: 4px solid #0288d1; }
+.especial[style*="grid-row:1"]{ border-bottom: 4px solid #9c27b0; }
+.terra[style*="grid-row:1"]   { border-bottom: 4px solid #8d6e63; }
+.verde[style*="grid-row:1"]   { border-bottom: 4px solid #4caf50; }
+.amarelo[style*="grid-row:1"] { border-bottom: 4px solid #fbc02d; }
 
 /* ===== BOTÃO INFO ===== */
 .info {
   position: absolute;
-  bottom: 4px;
-  right: 4px;
-  width: 18px;
-  height: 18px;
+  bottom: 2px;
+  right: 2px;
+  width: 14px;
+  height: 14px;
   background: #ffffff;
-  border: 2px solid #1b5e20;
+  border: 1.5px solid #1b5e20;
   border-radius: 50%;
-  font-size: 0.7rem;
+  font-size: 0.5rem;
   font-weight: 700;
   color: #1b5e20;
   cursor: pointer;
-  line-height: 14px;
+  line-height: 11px;
   text-align: center;
   transition: all 0.3s ease;
   padding: 0;
@@ -476,21 +433,21 @@ body {
 /* ===== PEÕES ===== */
 .container-peoes {
   display: flex;
-  gap: 3px;
+  gap: 2px;
   justify-content: center;
   position: absolute;
-  bottom: 22px;
+  bottom: 18px;
   width: 100%;
   z-index: 2;
   flex-wrap: wrap;
 }
 
 .peao {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  border: 1.5px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
   transition: all 0.5s ease;
   animation: peao-pulse 2s ease-in-out infinite;
 }
@@ -511,7 +468,7 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 5px;
+  height: 4px;
   z-index: 5;
   border-radius: 2px;
   animation: slide-down 0.5s ease;
@@ -525,13 +482,13 @@ body {
 /* ===== INDICADOR DE CONSTRUÇÃO ===== */
 .construcao-tag {
   position: absolute;
-  bottom: 40px;
-  right: 4px;
-  font-size: 0.65rem;
+  bottom: 30px;
+  right: 2px;
+  font-size: 0.5rem;
   background: rgba(0,0,0,0.7);
   color: #fff;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 1px 4px;
+  border-radius: 3px;
   z-index: 4;
   font-weight: 700;
 }
@@ -539,35 +496,202 @@ body {
 .construcao-tag.casa { background: #4caf50; }
 .construcao-tag.prédio { background: #1565c0; }
 
+/* ===== LADO DIREITO: PAINEL ===== */
+.painel-side {
+  flex: 1;
+  min-width: 280px;
+  max-width: 400px;
+}
+
+.header-jogo {
+  background: white;
+  padding: 15px 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.header-jogo h2 {
+  color: #1b5e20;
+  font-size: 1.4rem;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.config-jogadores {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.config-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.config-row select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 2px solid #1b5e20;
+  font-family: 'Fredoka', sans-serif;
+  background: #fff;
+  font-size: 0.85rem;
+}
+
+.config-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#btn-iniciar {
+  padding: 8px 20px;
+  background: #1b5e20;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Fredoka', sans-serif;
+}
+
+#btn-iniciar:hover {
+  background: #2e7d32;
+  transform: scale(1.05);
+}
+
+.btn-tela-cheia {
+  padding: 8px 15px;
+  background: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.btn-tela-cheia:hover {
+  background: #0d47a1;
+  transform: scale(1.05);
+}
+
+/* ===== CONFIGURAÇÃO DE JOGADORES ===== */
+.jogadores-config {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.config-jogador-item {
+  background: #f8fdf8;
+  border: 1px solid #c8e6c9;
+  border-radius: 8px;
+  padding: 8px 10px;
+  transition: all 0.3s;
+}
+
+.config-jogador-item:hover {
+  border-color: #4caf50;
+}
+
+.config-jogador-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.config-jogador-numero {
+  font-weight: 700;
+  color: #1b5e20;
+  font-size: 0.8rem;
+}
+
+.config-bot-badge {
+  background: #9e9e9e;
+  color: white;
+  padding: 1px 8px;
+  border-radius: 10px;
+  font-size: 0.6rem;
+  font-weight: 700;
+}
+
+.config-jogador-campo {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+}
+
+.config-jogador-campo label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #555;
+  min-width: 30px;
+}
+
+.config-jogador-campo input {
+  flex: 1;
+  padding: 3px 6px;
+  border: 1px solid #c8e6c9;
+  border-radius: 4px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.75rem;
+}
+
+.config-jogador-campo select {
+  flex: 1;
+  padding: 3px 6px;
+  border: 1px solid #c8e6c9;
+  border-radius: 4px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 0.7rem;
+}
+
+.config-cor-preview {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  flex-shrink: 0;
+}
+
 /* ===== PAINEL DE JOGO ===== */
 #painel-jogo {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 
 .placar-financeiro {
   display: flex;
-  justify-content: center;
-  gap: 15px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .cartao-jogador {
   background: #fff;
-  padding: 10px 15px;
-  border-radius: 12px;
-  border-left: 6px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 8px;
+  border-left: 4px solid #ccc;
   text-align: left;
-  font-size: 0.85rem;
-  min-width: 140px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  font-size: 0.7rem;
+  min-width: 100px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   transition: all 0.3s;
   flex: 1;
-  max-width: 220px;
 }
 
 .cartao-jogador.ativo {
-  box-shadow: 0 0 0 3px #1b5e20, 0 4px 15px rgba(27,94,32,0.3);
+  box-shadow: 0 0 0 2px #1b5e20, 0 4px 12px rgba(27,94,32,0.25);
   background: #f1f8e9;
   transform: scale(1.02);
 }
@@ -578,36 +702,90 @@ body {
 }
 
 .cartao-jogador .propriedades {
-  font-size: 0.7rem;
+  font-size: 0.6rem;
   color: #777;
 }
 
 .painel-turnos {
-  margin: 10px 0;
-  font-size: 1.2rem;
+  margin: 5px 0;
+  font-size: 1rem;
   font-weight: 700;
-  padding: 8px 25px;
-  border-radius: 30px;
+  padding: 5px 15px;
+  border-radius: 20px;
   background: #e8f5e9;
   display: inline-block;
   border: 2px solid #a5d6a7;
 }
 
 #jogador-atual i {
-  margin-right: 8px;
+  margin-right: 6px;
 }
 
 .log-historico {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   color: #444;
   background: #f5f5f5;
-  padding: 10px 15px;
-  border-radius: 10px;
-  max-height: 60px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  max-height: 50px;
   overflow-y: auto;
-  margin-top: 8px;
+  margin-top: 5px;
   border: 1px solid #ddd;
-  border-left: 4px solid #1b5e20;
+  border-left: 3px solid #1b5e20;
+}
+
+/* ===== BOTÕES DE AÇÃO ===== */
+.botoes-acao {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.btn-acao {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Fredoka', sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-acao:hover {
+  transform: scale(1.05);
+}
+
+.btn-comprar {
+  background: #2e7d32;
+  color: white;
+}
+
+.btn-comprar:hover {
+  background: #1b5e20;
+}
+
+.btn-construir {
+  background: #f57c00;
+  color: white;
+}
+
+.btn-construir:hover {
+  background: #e65100;
+}
+
+.btn-passar {
+  background: #757575;
+  color: white;
+}
+
+.btn-passar:hover {
+  background: #616161;
 }
 
 /* ===== RANKING ===== */
@@ -618,7 +796,7 @@ body {
 .ranking-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 12px;
   max-width: 600px;
   margin: 0 auto;
 }
@@ -626,17 +804,17 @@ body {
 .ranking-item {
   display: flex;
   justify-content: space-between;
-  padding: 15px 20px;
+  padding: 12px 18px;
   background: #f1f8e9;
-  border-radius: 12px;
-  border-left: 6px solid #1b5e20;
+  border-radius: 10px;
+  border-left: 5px solid #1b5e20;
   font-weight: 600;
 }
 
 .ranking-empty {
   text-align: center;
   color: #999;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 /* ===== FOOTER ===== */
@@ -652,509 +830,69 @@ footer {
 }
 
 /* ===== RESPONSIVO ===== */
-@media (max-width: 768px) {
-  .nav-menu {
-    display: none;
+@media (max-width: 900px) {
+  .jogo-container {
     flex-direction: column;
-    position: absolute;
-    top: 70px;
-    left: 0;
+    align-items: center;
+  }
+  
+  .tabuleiro-side {
     width: 100%;
-    background: #1b5e20;
-    padding: 20px;
-    gap: 15px;
-  }
-  .nav-menu.active {
     display: flex;
-  }
-  .nav-toggle {
-    display: block;
+    justify-content: center;
   }
   
-  .tabuleiro {
-    grid-template-columns: 70px repeat(5, 1fr) 70px;
-    grid-template-rows: 70px repeat(5, 1fr) 70px;
-    border-width: 4px;
+  .tabuleiro-wrapper {
+    max-width: 450px;
   }
   
-  .casa span {
-    font-size: 1rem;
-  }
-  .casa {
-    font-size: 0.5rem;
-    padding: 2px;
-  }
-  .centro .logo span {
-    font-size: 1.2rem;
-  }
-  .dados {
-    font-size: 1.8rem;
-  }
-  .btn-rolar {
-    padding: 6px 15px;
-    font-size: 0.8rem;
+  .painel-side {
+    width: 100%;
+    max-width: 450px;
   }
   
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-  .hero-sub {
-    font-size: 1.2rem;
-  }
-  
-  .cartao-jogador {
-    min-width: 100px;
-    font-size: 0.7rem;
-    padding: 6px 10px;
-  }
-  
-  #sobre h2, #ranking h2 {
-    font-size: 2rem;
+  .jogadores-config {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+  .tabuleiro-wrapper {
+    max-width: 320px;
+  }
+  
   .tabuleiro {
     grid-template-columns: 50px repeat(5, 1fr) 50px;
     grid-template-rows: 50px repeat(5, 1fr) 50px;
+    border-width: 3px;
   }
+  
   .casa span {
     font-size: 0.8rem;
   }
+  
   .casa {
     font-size: 0.4rem;
-    padding: 1px;
   }
-  .info {
-    width: 14px;
-    height: 14px;
-    font-size: 0.5rem;
-    line-height: 10px;
-    bottom: 2px;
-    right: 2px;
+  
+  .centro .logo span {
+    font-size: 1.2rem;
   }
-  .peao {
-    width: 10px;
-    height: 10px;
+  
+  .dados {
+    font-size: 1.5rem;
   }
-}
-
-/* ===== MODAIS PERSONALIZADOS ===== */
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.modal-box {
-  background: white;
-  padding: 25px 30px;
-  border-radius: 24px;
-  max-width: 90%;
-  width: 380px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  animation: slideUp 0.3s ease;
-  text-align: center;
-  position: relative;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.modal-box h3 {
-  color: #1b5e20;
-  font-size: 1.3rem;
-  margin-bottom: 10px;
-  font-family: 'Fredoka', sans-serif;
-}
-
-.modal-box .modal-emoji {
-  font-size: 2.5rem;
-  display: block;
-  margin-bottom: 8px;
-}
-
-.modal-box p {
-  font-size: 1rem;
-  color: #444;
-  line-height: 1.5;
-  margin-bottom: 18px;
-  font-family: 'Fredoka', sans-serif;
-}
-
-.modal-box .modal-fonte {
-  font-size: 0.75rem;
-  color: #888;
-  font-style: italic;
-  margin-bottom: 15px;
-}
-
-.modal-box .modal-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.modal-box .btn-modal {
-  padding: 10px 30px;
-  border: none;
-  border-radius: 30px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  font-family: 'Fredoka', sans-serif;
-  min-width: 100px;
-}
-
-.modal-box .btn-modal:hover {
-  transform: scale(1.05);
-}
-
-.modal-box .btn-modal.primary {
-  background: #1b5e20;
-  color: white;
-  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
-}
-
-.modal-box .btn-modal.primary:hover {
-  background: #2e7d32;
-}
-
-.modal-box .btn-modal.secondary {
-  background: #e0e0e0;
-  color: #333;
-}
-
-.modal-box .btn-modal.secondary:hover {
-  background: #d0d0d0;
-}
-
-.modal-box .btn-modal.danger {
-  background: #c62828;
-  color: white;
-}
-
-.modal-box .btn-modal.danger:hover {
-  background: #e53935;
-}
-
-/* Para telas pequenas */
-@media (max-width: 480px) {
-  .modal-box {
-    padding: 20px;
-    width: 90%;
+  
+  .btn-rolar {
+    font-size: 0.7rem;
+    padding: 5px 12px;
   }
-  .modal-box h3 {
-    font-size: 1.1rem;
-  }
-  .modal-box p {
-    font-size: 0.9rem;
-  }
-  .modal-box .btn-modal {
-    padding: 8px 20px;
-    font-size: 0.85rem;
-    min-width: 80px;
-  }
-}
-
-/* ===== CONFIGURAÇÃO DE JOGADORES ===== */
-.config-row {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 15px;
-}
-
-.jogadores-config {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 12px;
-  margin: 10px 0;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.config-jogador-item {
-  background: #f8fdf8;
-  border: 2px solid #c8e6c9;
-  border-radius: 12px;
-  padding: 12px 15px;
-  transition: all 0.3s;
-}
-
-.config-jogador-item:hover {
-  border-color: #4caf50;
-  transform: translateY(-2px);
-}
-
-.config-jogador-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
-.config-jogador-numero {
-  font-weight: 700;
-  color: #1b5e20;
-  font-size: 0.9rem;
-}
-
-.config-bot-badge {
-  background: #9e9e9e;
-  color: white;
-  padding: 2px 10px;
-  border-radius: 12px;
-  font-size: 0.7rem;
-  font-weight: 700;
-}
-
-.config-jogador-campo {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-.config-jogador-campo label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #555;
-  min-width: 35px;
-}
-
-.config-jogador-campo input {
-  flex: 1;
-  padding: 4px 8px;
-  border: 1px solid #c8e6c9;
-  border-radius: 6px;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.85rem;
-}
-
-.config-jogador-campo select {
-  flex: 1;
-  padding: 4px 8px;
-  border: 1px solid #c8e6c9;
-  border-radius: 6px;
-  font-family: 'Fredoka', sans-serif;
-  font-size: 0.8rem;
-}
-
-.config-cor-preview {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: 2px solid #ddd;
-  flex-shrink: 0;
-}
-
-/* ===== BOTÃO TELA CHEIA ===== */
-.btn-tela-cheia {
-  padding: 8px 15px;
-  background: #1565c0;
-  color: white;
-  border: none;
-  border-radius: 25px;
-  font-weight: 700;
-  font-size: 0.9rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-family: 'Fredoka', sans-serif;
-  margin-left: 10px;
-}
-
-.btn-tela-cheia:hover {
-  background: #0d47a1;
-  transform: scale(1.05);
-}
-
-/* ===== TELA CHEIA ===== */
-:-webkit-full-screen #jogo-container {
-  background: #f0f7f4;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-:-webkit-full-screen .tabuleiro-wrapper {
-  max-width: 90vh !important;
-  padding: 5px;
-}
-
-:-webkit-full-screen .header-jogo {
-  max-width: 90vh;
-  padding: 8px 15px;
-  margin-bottom: 8px;
-}
-
-:-webkit-full-screen .config-jogadores {
-  font-size: 0.8rem;
-}
-
-:-webkit-full-screen .cartao-jogador {
-  font-size: 0.7rem;
-  padding: 4px 8px;
-  min-width: 70px;
-}
-
-:-webkit-full-screen .btn-rolar {
-  padding: 6px 15px;
-  font-size: 0.8rem;
-}
-
-:-webkit-full-screen .dados {
-  font-size: 2rem;
-}
-
-:-webkit-full-screen .log-historico {
-  max-height: 35px;
-  font-size: 0.75rem;
-}
-
-:-moz-full-screen #jogo-container {
-  background: #f0f7f4;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-:-ms-fullscreen #jogo-container {
-  background: #f0f7f4;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* ===== RESPONSIVO PARA CONFIGURAÇÃO ===== */
-@media (max-width: 600px) {
+  
   .jogadores-config {
     grid-template-columns: 1fr;
   }
   
-  .config-row {
-    flex-direction: column;
-    gap: 8px;
+  .painel-side {
+    max-width: 100%;
   }
-}
-
-/* ===== CORREÇÃO TELA CHEIA ===== */
-#jogo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-:-webkit-full-screen #jogo-container {
-  background: #f0f7f4;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-}
-
-:-webkit-full-screen .header-jogo {
-  max-width: 90vh;
-  padding: 8px 15px;
-  margin: 0 auto 8px auto;
-}
-
-:-webkit-full-screen .tabuleiro-wrapper {
-  max-width: 90vh !important;
-  max-height: 90vh !important;
-  padding: 5px;
-  margin: 0 auto;
-}
-
-:-webkit-full-screen .tabuleiro {
-  width: 100% !important;
-  height: 100% !important;
-  aspect-ratio: 1;
-}
-
-:-webkit-full-screen .centro {
-  padding: 5px;
-  gap: 5px;
-}
-
-:-webkit-full-screen .centro .logo span {
-  font-size: 1.8rem;
-}
-
-:-webkit-full-screen .dados {
-  font-size: 2rem;
-}
-
-:-webkit-full-screen .btn-rolar {
-  padding: 6px 15px;
-  font-size: 0.8rem;
-}
-
-:-webkit-full-screen .config-jogadores {
-  font-size: 0.8rem;
-}
-
-:-webkit-full-screen .cartao-jogador {
-  font-size: 0.7rem;
-  padding: 4px 8px;
-  min-width: 70px;
-}
-
-:-webkit-full-screen .log-historico {
-  max-height: 35px;
-  font-size: 0.75rem;
-}
-
-/* Firefox */
-:-moz-full-screen #jogo-container {
-  background: #f0f7f4;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-}
-
-/* IE/Edge */
-:-ms-fullscreen #jogo-container {
-  background: #f0f7f4;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
 }

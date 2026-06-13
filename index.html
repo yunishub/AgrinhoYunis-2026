@@ -63,156 +63,173 @@
   <!-- JOGO -->
   <section id="jogo" class="section">
     <div class="jogo-container" id="jogo-container">
-      <div class="header-jogo">
-        <h2><i class="fas fa-dice"></i> Tabuleiro AgroPoly</h2>
-        
-        <div id="config-inicial" class="config-jogadores">
-          <div class="config-row">
-            <label for="qtd-jogadores"><i class="fas fa-user"></i> Jogadores:</label>
-            <select id="qtd-jogadores">
-              <option value="2">2 Jogadores</option>
-              <option value="3">3 Jogadores</option>
-              <option value="4" selected>4 Jogadores</option>
-            </select>
+      
+      <!-- Lado Esquerdo: Tabuleiro -->
+      <div class="tabuleiro-side">
+        <div class="tabuleiro-wrapper">
+          <div class="tabuleiro">
+            <div class="centro">
+              <p class="logo"><span>AGROPOLY</span></p>
+              <p class="centro-sub">🌿 Produção & Natureza</p>
+              <div class="dados">🎲</div>
+              <div class="btn-rolar"><i class="fas fa-dice"></i> Rolar Dados</div>
+            </div>
+
+            <!-- FILA DE BAIXO -->
+            <div class="casa canto" style="grid-column:1; grid-row:7;" data-id="0">
+              <span>🏠</span><br>Partida
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa amarelo" style="grid-column:2; grid-row:7;" data-id="1">
+              <span>🌽</span><br>Milho
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa azul" style="grid-column:3; grid-row:7;" data-id="2">
+              <span>💧</span><br>Gotejamento
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa verde" style="grid-column:4; grid-row:7;" data-id="3">
+              <span>🌲</span><br>Eucalipto
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa laranja" style="grid-column:5; grid-row:7;" data-id="4">
+              <span>☀️</span><br>Solar
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa terra" style="grid-column:6; grid-row:7;" data-id="5">
+              <span>♻️</span><br>Campo Limpo
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa canto" style="grid-column:7; grid-row:7;" data-id="6">
+              <span>⛺</span><br>EcoTurismo
+              <button class="info" title="Informação">i</button>
+            </div>
+
+            <!-- FILA DIREITA -->
+            <div class="casa verde" style="grid-column:7; grid-row:6;" data-id="7">
+              <span>🌳</span><br>Reserva Legal
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa laranja" style="grid-column:7; grid-row:5;" data-id="8">
+              <span>⚡</span><br>Biodigestor
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa especial" style="grid-column:7; grid-row:4;" data-id="9">
+              <span>🍀</span><br>Sorte
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa terra" style="grid-column:7; grid-row:3;" data-id="10">
+              <span>🐝</span><br>Meliponário
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa azul" style="grid-column:7; grid-row:2;" data-id="11">
+              <span>🐄</span><br>Pecuária CN
+              <button class="info" title="Informação">i</button>
+            </div>
+
+            <!-- FILA DE CIMA -->
+            <div class="casa canto" style="grid-column:7; grid-row:1;" data-id="12">
+              <span>😓</span><br>Treinamento
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa laranja" style="grid-column:6; grid-row:1;" data-id="13">
+              <span>💨</span><br>Carbono
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa azul" style="grid-column:5; grid-row:1;" data-id="14">
+              <span>🌊</span><br>Nascentes
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa especial" style="grid-column:4; grid-row:1;" data-id="15">
+              <span>⛈️</span><br>Azar Climático
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa terra" style="grid-column:3; grid-row:1;" data-id="16">
+              <span>👨‍👩‍👧</span><br>Sucessão
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa verde" style="grid-column:2; grid-row:1;" data-id="17">
+              <span>🦋</span><br>Biofábrica
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa amarelo canto" style="grid-column:1; grid-row:1;" data-id="18">
+              <span>🌻</span><br>Girassol
+              <button class="info" title="Informação">i</button>
+            </div>
+
+            <!-- FILA ESQUERDA -->
+            <div class="casa verde" style="grid-column:1; grid-row:2;" data-id="19">
+              <span>🦜</span><br>Corredor
+              <button class="info" title="Toque aqui para uma informação">i</button>
+            </div>
+            <div class="casa terra" style="grid-column:1; grid-row:3;" data-id="20">
+              <span>🐑</span><br>Silvipastoril
+              <button class="info" title="i">i</button>
+            </div>
+            <div class="casa especial" style="grid-column:1; grid-row:4;" data-id="21">
+              <span>🍃</span><br>Adubação
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa amarelo" style="grid-column:1; grid-row:5;" data-id="22">
+              <span>🫘</span><br>Rizóbios
+              <button class="info" title="Informação">i</button>
+            </div>
+            <div class="casa azul" style="grid-column:1; grid-row:6;" data-id="23">
+              <span>🏞️</span><br>Bacia Protegida
+              <button class="info" title="Informação">i</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lado Direito: Painel -->
+      <div class="painel-side">
+        <div class="header-jogo">
+          <h2><i class="fas fa-dice"></i> AgroPoly</h2>
+          
+          <div id="config-inicial" class="config-jogadores">
+            <div class="config-row">
+              <label for="qtd-jogadores"><i class="fas fa-user"></i> Jogadores:</label>
+              <select id="qtd-jogadores">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+              </select>
+              
+              <label for="qtd-bots"><i class="fas fa-robot"></i> Bots:</label>
+              <select id="qtd-bots">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
             
-            <label for="qtd-bots"><i class="fas fa-robot"></i> Bots:</label>
-            <select id="qtd-bots">
-              <option value="0">Nenhum</option>
-              <option value="1">1 Bot</option>
-              <option value="2">2 Bots</option>
-              <option value="3">3 Bots</option>
-            </select>
-          </div>
-          
-          <div id="jogadores-config" class="jogadores-config"></div>
-          
-          <button id="btn-iniciar"><i class="fas fa-play"></i> Iniciar Jogo</button>
-          <button id="btn-tela-cheia" class="btn-tela-cheia"><i class="fas fa-expand"></i> Tela Cheia</button>
-        </div>
-
-        <div id="painel-jogo" style="display:none;">
-          <div id="placar-financeiro" class="placar-financeiro"></div>
-          <div class="painel-turnos">
-            <span id="jogador-atual"><i class="fas fa-user"></i> Aguardando...</span>
-          </div>
-          <div id="LOG-historico" class="log-historico">Bem-vindo ao AgroPoly! Configure os jogadores e clique em Iniciar.</div>
-        </div>
-      </div>
-
-      <div class="tabuleiro-wrapper">
-        <div class="tabuleiro">
-          <div class="centro">
-            <p class="logo"><span>AGROPOLY</span></p>
-            <p class="centro-sub">🌿 Produção & Natureza</p>
-            <div class="dados">🎲</div>
-            <div class="btn-rolar"><i class="fas fa-dice"></i> Rolar Dados</div>
+            <div id="jogadores-config" class="jogadores-config"></div>
+            
+            <div class="config-actions">
+              <button id="btn-iniciar"><i class="fas fa-play"></i> Iniciar</button>
+              <button id="btn-tela-cheia" class="btn-tela-cheia"><i class="fas fa-expand"></i> Tela Cheia</button>
+            </div>
           </div>
 
-          <!-- FILA DE BAIXO -->
-          <div class="casa canto" style="grid-column:1; grid-row:7;" data-id="0">
-            <span>🏠</span><br>Partida
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa amarelo" style="grid-column:2; grid-row:7;" data-id="1">
-            <span>🌽</span><br>Milho
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa azul" style="grid-column:3; grid-row:7;" data-id="2">
-            <span>💧</span><br>Gotejamento
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa verde" style="grid-column:4; grid-row:7;" data-id="3">
-            <span>🌲</span><br>Eucalipto
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa laranja" style="grid-column:5; grid-row:7;" data-id="4">
-            <span>☀️</span><br>Solar
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa terra" style="grid-column:6; grid-row:7;" data-id="5">
-            <span>♻️</span><br>Campo Limpo
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa canto" style="grid-column:7; grid-row:7;" data-id="6">
-            <span>⛺</span><br>EcoTurismo
-            <button class="info" title="Informação">i</button>
-          </div>
-
-          <!-- FILA DIREITA -->
-          <div class="casa verde" style="grid-column:7; grid-row:6;" data-id="7">
-            <span>🌳</span><br>Reserva Legal
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa laranja" style="grid-column:7; grid-row:5;" data-id="8">
-            <span>⚡</span><br>Biodigestor
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa especial" style="grid-column:7; grid-row:4;" data-id="9">
-            <span>🍀</span><br>Sorte
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa terra" style="grid-column:7; grid-row:3;" data-id="10">
-            <span>🐝</span><br>Meliponário
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa azul" style="grid-column:7; grid-row:2;" data-id="11">
-            <span>🐄</span><br>Pecuária CN
-            <button class="info" title="Informação">i</button>
-          </div>
-
-          <!-- FILA DE CIMA -->
-          <div class="casa canto" style="grid-column:7; grid-row:1;" data-id="12">
-            <span>😓</span><br>Treinamento
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa laranja" style="grid-column:6; grid-row:1;" data-id="13">
-            <span>💨</span><br>Carbono
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa azul" style="grid-column:5; grid-row:1;" data-id="14">
-            <span>🌊</span><br>Nascentes
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa especial" style="grid-column:4; grid-row:1;" data-id="15">
-            <span>⛈️</span><br>Azar Climático
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa terra" style="grid-column:3; grid-row:1;" data-id="16">
-            <span>👨‍👩‍👧</span><br>Sucessão
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa verde" style="grid-column:2; grid-row:1;" data-id="17">
-            <span>🦋</span><br>Biofábrica
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa amarelo canto" style="grid-column:1; grid-row:1;" data-id="18">
-            <span>🌻</span><br>Girassol
-            <button class="info" title="Informação">i</button>
-          </div>
-
-          <!-- FILA ESQUERDA -->
-          <div class="casa verde" style="grid-column:1; grid-row:2;" data-id="19">
-            <span>🦜</span><br>Corredor
-            <button class="info" title="Toque aqui para uma informação">i</button>
-          </div>
-          <div class="casa terra" style="grid-column:1; grid-row:3;" data-id="20">
-            <span>🐑</span><br>Silvipastoril
-            <button class="info" title="i">i</button>
-          </div>
-          <div class="casa especial" style="grid-column:1; grid-row:4;" data-id="21">
-            <span>🍃</span><br>Adubação
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa amarelo" style="grid-column:1; grid-row:5;" data-id="22">
-            <span>🫘</span><br>Rizóbios
-            <button class="info" title="Informação">i</button>
-          </div>
-          <div class="casa azul" style="grid-column:1; grid-row:6;" data-id="23">
-            <span>🏞️</span><br>Bacia Protegida
-            <button class="info" title="Informação">i</button>
+          <div id="painel-jogo" style="display:none;">
+            <div id="placar-financeiro" class="placar-financeiro"></div>
+            <div class="painel-turnos">
+              <span id="jogador-atual"><i class="fas fa-user"></i> Aguardando...</span>
+            </div>
+            <div id="LOG-historico" class="log-historico">Bem-vindo ao AgroPoly! Configure os jogadores e clique em Iniciar.</div>
+            
+            <!-- Botões de ação -->
+            <div id="botoes-acao" class="botoes-acao" style="display:none;">
+              <button id="btn-comprar" class="btn-acao btn-comprar"><i class="fas fa-shopping-cart"></i> Comprar</button>
+              <button id="btn-construir" class="btn-acao btn-construir"><i class="fas fa-building"></i> Construir</button>
+              <button id="btn-passar" class="btn-acao btn-passar"><i class="fas fa-forward"></i> Passar</button>
+            </div>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
