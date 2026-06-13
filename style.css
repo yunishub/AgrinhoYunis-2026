@@ -309,6 +309,13 @@ body {
   gap: 8px;
 }
 
+.btn-rolar {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
 .btn-rolar:hover:not(.desabilitado) {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 8px 20px rgba(46,125,50,0.5);
