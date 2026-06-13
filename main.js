@@ -1,4 +1,4 @@
-// --- BANCO DE DADOS DAS CASAS (AGRINHO 2026) ---
+// ===== BANCO DE DADOS DAS CASAS =====
 const infoCasas = [
   { id: 0, emoji: "🏠", tipo: "partida", titulo: "Partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Ponto de partida. Cada volta completa rende R$ 250 de incentivo ecológico!", fonte: "Agrinho 2026" },
   { id: 1, emoji: "🌽", tipo: "propriedade", titulo: "Lavoura de Milho Consorciado", preco: 60, aluguel: 10, aluguelCasa: 30, aluguelPredio: 90, texto: "O milho com braquiária protege o solo contra erosões e ervas daninhas.", fonte: "Embrapa Milho e Sorgo" },
@@ -49,7 +49,7 @@ const eventosAzar = [
   { texto: "🦠 Doença fúngica comprometeu a produção! Perda de R$ 140.", valor: -140, emoji: "🦠" }
 ];
 
-// Mapeamento exato de linhas/colunas do HTML
+// ===== MAPEAMENTO DO TABULEIRO =====
 const ordemLayoutHTML = [
   { col: 1, row: 7 }, { col: 2, row: 7 }, { col: 3, row: 7 }, { col: 4, row: 7 }, { col: 5, row: 7 }, { col: 6, row: 7 },
   { col: 7, row: 7 }, { col: 7, row: 6 }, { col: 7, row: 5 }, { col: 7, row: 4 }, { col: 7, row: 3 }, { col: 7, row: 2 },
@@ -57,6 +57,7 @@ const ordemLayoutHTML = [
   { col: 1, row: 1 }, { col: 1, row: 2 }, { col: 1, row: 3 }, { col: 1, row: 4 }, { col: 1, row: 5 }, { col: 1, row: 6 }
 ];
 
+// ===== VARIÁVEIS GLOBAIS =====
 let nosCasasDOM = [];
 let listaJogadores = [];
 let donoPropriedades = {};
@@ -66,7 +67,7 @@ let jogoIniciado = false;
 let emProcessamento = false;
 const facesDados = ["🎲", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
 
-// Cores disponíveis para personalização
+// ===== CORES DISPONÍVEIS =====
 const CORES_DISPONIVEIS = [
   { id: 'p1', nome: 'Vermelho', hex: '#e53935' },
   { id: 'p2', nome: 'Azul', hex: '#1e88e5' },
@@ -78,7 +79,7 @@ const CORES_DISPONIVEIS = [
   { id: 'p8', nome: 'Ciano', hex: '#00bcd4' }
 ];
 
-// ===== SISTEMA DE SOM (usando Web Audio API) =====
+// ===== SISTEMA DE SOM (Web Audio API) =====
 let audioCtx = null;
 
 function initAudio() {
@@ -229,18 +230,11 @@ async function exibirAlertaPedagogico(casa) {
 }
 
 async function confirmarCompra(casa, jogador) {
-  const nivelAtual = construcoes[casa.id] || 0;
   let mensagem = `
     <strong>${casa.titulo}</strong><br>
     💰 Preço: R$ ${casa.preco}<br>
     🏠 Aluguel: R$ ${casa.aluguel}
   `;
-  
-  if (nivelAtual < 2) {
-    const custoConstrucao = nivelAtual === 0 ? Math.floor(casa.preco * 0.5) : Math.floor(casa.preco * 0.8);
-    const novoAluguel = nivelAtual === 0 ? casa.aluguelCasa : casa.aluguelPredio;
-    mensagem += `<br><br>🏗️ Construir ${nivelAtual === 0 ? 'Casa' : 'Prédio'}: R$ ${custoConstrucao}<br>Aluguel passará para R$ ${novoAluguel}`;
-  }
   
   const resposta = await mostrarModal(
     '🌱 Investir na propriedade?',
@@ -336,104 +330,6 @@ function gerarConfigJogadores() {
   document.getElementById('jogadores-config').style.display = 'block';
 }
 
-// ===== SISTEMA DE TELA CHEIA =====
-function toggleTelaCheia() {
-  const jogoContainer = document.getElementById('jogo-container');
-  
-  if (!document.fullscreenElement) {
-    if (jogoContainer.requestFullscreen) {
-      jogoContainer.requestFullscreen().then(() => {
-        document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-        document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-compress"></i> Sair';
-        setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
-      }).catch(err => {
-        console.log('Erro ao entrar em tela cheia:', err);
-      });
-    } else if (jogoContainer.webkitRequestFullscreen) {
-      jogoContainer.webkitRequestFullscreen();
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
-    } else if (jogoContainer.msRequestFullscreen) {
-      jogoContainer.msRequestFullscreen();
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
-    }
-  } else {
-    if (document.exitFullscreen) {
-      document.exitFullscreen().then(() => {
-        document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-        document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-        restaurarTabuleiroNormal();
-      });
-    } else if (document.webkitExitFullscreen) {
-      document.webkitExitFullscreen();
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      restaurarTabuleiroNormal();
-    } else if (document.msExitFullscreen) {
-      document.msExitFullscreen();
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      restaurarTabuleiroNormal();
-    }
-  }
-}
-
-function ajustarTabuleiroTelaCheia() {
-  const tabuleiroWrapper = document.querySelector('.tabuleiro-wrapper');
-  const tabuleiro = document.querySelector('.tabuleiro');
-  const painelSide = document.querySelector('.painel-side');
-  const painelJogo = document.getElementById('painel-jogo');
-  
-  if (tabuleiroWrapper && tabuleiro) {
-    const vh = window.innerHeight;
-    const vw = window.innerWidth;
-    
-    let tamanho = Math.min(vh - 40, vw - 40);
-    tamanho = Math.min(tamanho, 700);
-    tamanho = Math.max(tamanho, 300);
-    
-    tabuleiroWrapper.style.maxWidth = tamanho + 'px';
-    tabuleiroWrapper.style.maxHeight = tamanho + 'px';
-    tabuleiroWrapper.style.width = tamanho + 'px';
-    tabuleiroWrapper.style.height = tamanho + 'px';
-    tabuleiroWrapper.style.padding = '10px';
-    tabuleiroWrapper.style.margin = '0 auto';
-    
-    tabuleiro.style.width = '100%';
-    tabuleiro.style.height = '100%';
-    tabuleiro.style.aspectRatio = '1';
-    
-    if (painelSide) painelSide.style.display = 'none';
-    if (painelJogo) painelJogo.style.display = 'none';
-  }
-}
-
-function restaurarTabuleiroNormal() {
-  const tabuleiroWrapper = document.querySelector('.tabuleiro-wrapper');
-  const tabuleiro = document.querySelector('.tabuleiro');
-  const painelSide = document.querySelector('.painel-side');
-  const painelJogo = document.getElementById('painel-jogo');
-  
-  if (tabuleiroWrapper && tabuleiro) {
-    tabuleiroWrapper.style.maxWidth = '600px';
-    tabuleiroWrapper.style.maxHeight = 'none';
-    tabuleiroWrapper.style.width = 'auto';
-    tabuleiroWrapper.style.height = 'auto';
-    tabuleiroWrapper.style.padding = '10px';
-    tabuleiroWrapper.style.margin = '0 auto';
-    
-    tabuleiro.style.width = '100%';
-    tabuleiro.style.height = 'auto';
-    tabuleiro.style.aspectRatio = '1';
-    
-    if (painelSide) painelSide.style.display = 'block';
-    if (painelJogo) painelJogo.style.display = 'block';
-  }
-}
-
 // ===== BOTÕES DE AÇÃO =====
 function mostrarBotoesAcao(mostrar) {
   const botoes = document.getElementById('botoes-acao');
@@ -447,38 +343,6 @@ document.addEventListener("DOMContentLoaded", () => {
   mapearCasasEletivas();
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
   document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
-  document.getElementById("btn-tela-cheia").addEventListener("click", toggleTelaCheia);
-  document.getElementById("btn-tela-cheia-jogo").addEventListener("click", toggleTelaCheia);
-  
-  window.addEventListener('resize', () => {
-    if (document.fullscreenElement) {
-      ajustarTabuleiroTelaCheia();
-    }
-  });
-  
-  document.addEventListener('fullscreenchange', () => {
-    if (!document.fullscreenElement) {
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      restaurarTabuleiroNormal();
-    }
-  });
-  
-  document.addEventListener('webkitfullscreenchange', () => {
-    if (!document.webkitFullscreenElement) {
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      restaurarTabuleiroNormal();
-    }
-  });
-  
-  document.addEventListener('msfullscreenchange', () => {
-    if (!document.msFullscreenElement) {
-      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      restaurarTabuleiroNormal();
-    }
-  });
   
   document.querySelectorAll(".info").forEach(btn => {
     btn.addEventListener("click", (e) => {

@@ -198,7 +198,7 @@ body {
   line-height: 1.6;
 }
 
-/* ===== JOGO - NOVO LAYOUT ===== */
+/* ===== JOGO - LAYOUT ===== */
 #jogo {
   background: #f0f7f4;
   padding: 20px;
@@ -565,24 +565,6 @@ body {
   transform: scale(1.05);
 }
 
-.btn-tela-cheia {
-  padding: 8px 15px;
-  background: #1565c0;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-family: 'Fredoka', sans-serif;
-}
-
-.btn-tela-cheia:hover {
-  background: #0d47a1;
-  transform: scale(1.05);
-}
-
 /* ===== CONFIGURAÇÃO DE JOGADORES ===== */
 .jogadores-config {
   display: grid;
@@ -786,31 +768,6 @@ body {
 
 .btn-passar:hover {
   background: #616161;
-}
-
-/* ===== BOTÃO TELA CHEIA NO JOGO ===== */
-.jogo-actions {
-  display: flex;
-  justify-content: center;
-  margin-top: 5px;
-}
-
-#btn-tela-cheia-jogo {
-  padding: 6px 15px;
-  background: #1565c0;
-  color: white;
-  border: none;
-  border-radius: 20px;
-  font-weight: 700;
-  font-size: 0.8rem;
-  cursor: pointer;
-  transition: all 0.3s;
-  font-family: 'Fredoka', sans-serif;
-}
-
-#btn-tela-cheia-jogo:hover {
-  background: #0d47a1;
-  transform: scale(1.05);
 }
 
 /* ===== RANKING ===== */
