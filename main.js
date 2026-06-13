@@ -273,6 +273,7 @@ function gerarConfigJogadores() {
 }
 
 // ===== SISTEMA DE TELA CHEIA =====
+// ===== SISTEMA DE TELA CHEIA =====
 function toggleTelaCheia() {
   const jogoContainer = document.getElementById('jogo-container');
   
@@ -280,18 +281,19 @@ function toggleTelaCheia() {
     if (jogoContainer.requestFullscreen) {
       jogoContainer.requestFullscreen().then(() => {
         document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-        setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
+        // Aguardar um pouco para o navegador aplicar o fullscreen
+        setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
       }).catch(err => {
         console.log('Erro ao entrar em tela cheia:', err);
       });
     } else if (jogoContainer.webkitRequestFullscreen) {
       jogoContainer.webkitRequestFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
+      setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
     } else if (jogoContainer.msRequestFullscreen) {
       jogoContainer.msRequestFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
+      setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
     }
   } else {
     if (document.exitFullscreen) {
@@ -311,6 +313,97 @@ function toggleTelaCheia() {
   }
 }
 
+function ajustarTabuleiroTelaCheia() {
+  const tabuleiroWrapper = document.querySelector('.tabuleiro-wrapper');
+  const tabuleiro = document.querySelector('.tabuleiro');
+  const headerJogo = document.querySelector('.header-jogo');
+  const centro = document.querySelector('.centro');
+  
+  if (tabuleiroWrapper && tabuleiro) {
+    // Obter dimensões da janela
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    
+    // Calcular espaço disponível
+    let headerHeight = 0;
+    if (headerJogo) {
+      headerHeight = headerJogo.offsetHeight;
+      // Adicionar margem extra
+      headerHeight += 20;
+    }
+    
+    // Espaço disponível para o tabuleiro (considerando padding)
+    const paddingTotal = 40; // 20px em cada lado
+    const availableHeight = vh - headerHeight - paddingTotal;
+    const availableWidth = vw - paddingTotal;
+    
+    // O tabuleiro deve ser quadrado, então o tamanho máximo é o menor entre altura e largura
+    let tamanhoMaximo = Math.min(availableHeight, availableWidth);
+    
+    // Limitar tamanho mínimo para garantir visibilidade
+    tamanhoMaximo = Math.max(tamanhoMaximo, 300);
+    
+    // Aplicar o tamanho ao wrapper
+    tabuleiroWrapper.style.maxWidth = tamanhoMaximo + 'px';
+    tabuleiroWrapper.style.maxHeight = tamanhoMaximo + 'px';
+    tabuleiroWrapper.style.width = tamanhoMaximo + 'px';
+    tabuleiroWrapper.style.height = tamanhoMaximo + 'px';
+    tabuleiroWrapper.style.margin = '0 auto';
+    tabuleiroWrapper.style.padding = '10px';
+    
+    // Ajustar o tabuleiro
+    tabuleiro.style.width = '100%';
+    tabuleiro.style.height = '100%';
+    tabuleiro.style.aspectRatio = '1';
+    
+    // Ajustar o centro do tabuleiro para ficar legível
+    if (centro) {
+      centro.style.padding = '5px';
+      centro.style.gap = '5px';
+    }
+    
+    // Ajustar o header em tela cheia
+    if (headerJogo) {
+      headerJogo.style.maxWidth = tamanhoMaximo + 'px';
+      headerJogo.style.margin = '0 auto 10px auto';
+      headerJogo.style.padding = '10px 15px';
+    }
+    
+    // Forçar reflow
+    tabuleiroWrapper.style.display = 'block';
+  }
+}
+
+function restaurarTabuleiroNormal() {
+  const tabuleiroWrapper = document.querySelector('.tabuleiro-wrapper');
+  const tabuleiro = document.querySelector('.tabuleiro');
+  const headerJogo = document.querySelector('.header-jogo');
+  const centro = document.querySelector('.centro');
+  
+  if (tabuleiroWrapper && tabuleiro) {
+    tabuleiroWrapper.style.maxWidth = '800px';
+    tabuleiroWrapper.style.maxHeight = 'none';
+    tabuleiroWrapper.style.width = 'auto';
+    tabuleiroWrapper.style.height = 'auto';
+    tabuleiroWrapper.style.margin = '0 auto';
+    tabuleiroWrapper.style.padding = '20px';
+    
+    tabuleiro.style.width = '100%';
+    tabuleiro.style.height = 'auto';
+    tabuleiro.style.aspectRatio = '1';
+    
+    if (centro) {
+      centro.style.padding = '15px';
+      centro.style.gap = '10px';
+    }
+    
+    if (headerJogo) {
+      headerJogo.style.maxWidth = 'none';
+      headerJogo.style.margin = '0 0 20px 0';
+      headerJogo.style.padding = '20px 25px';
+    }
+  }
+}
 function ajustarTabuleiroTelaCheia() {
   const tabuleiro = document.querySelector('.tabuleiro');
   const wrapper = document.querySelector('.tabuleiro-wrapper');

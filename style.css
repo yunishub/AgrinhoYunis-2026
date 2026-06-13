@@ -1063,3 +1063,98 @@ footer {
     gap: 8px;
   }
 }
+
+/* ===== CORREÇÃO TELA CHEIA ===== */
+#jogo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+:-webkit-full-screen #jogo-container {
+  background: #f0f7f4;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+:-webkit-full-screen .header-jogo {
+  max-width: 90vh;
+  padding: 8px 15px;
+  margin: 0 auto 8px auto;
+}
+
+:-webkit-full-screen .tabuleiro-wrapper {
+  max-width: 90vh !important;
+  max-height: 90vh !important;
+  padding: 5px;
+  margin: 0 auto;
+}
+
+:-webkit-full-screen .tabuleiro {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 1;
+}
+
+:-webkit-full-screen .centro {
+  padding: 5px;
+  gap: 5px;
+}
+
+:-webkit-full-screen .centro .logo span {
+  font-size: 1.8rem;
+}
+
+:-webkit-full-screen .dados {
+  font-size: 2rem;
+}
+
+:-webkit-full-screen .btn-rolar {
+  padding: 6px 15px;
+  font-size: 0.8rem;
+}
+
+:-webkit-full-screen .config-jogadores {
+  font-size: 0.8rem;
+}
+
+:-webkit-full-screen .cartao-jogador {
+  font-size: 0.7rem;
+  padding: 4px 8px;
+  min-width: 70px;
+}
+
+:-webkit-full-screen .log-historico {
+  max-height: 35px;
+  font-size: 0.75rem;
+}
+
+/* Firefox */
+:-moz-full-screen #jogo-container {
+  background: #f0f7f4;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* IE/Edge */
+:-ms-fullscreen #jogo-container {
+  background: #f0f7f4;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+}
