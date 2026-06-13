@@ -1,7 +1,51 @@
+// --- BANCO DE DADOS DAS CASAS (AGRINHO 2026) ---
+const infoCasas = [
+  { id: 0, emoji: "🏠", tipo: "partida", titulo: "Partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Ponto de partida. Cada volta completa rende R$ 200 de incentivo ecológico!", fonte: "Agrinho 2026" },
+  { id: 1, emoji: "🌽", tipo: "propriedade", titulo: "Lavoura de Milho Consorciado", preco: 60, aluguel: 10, aluguelCasa: 30, aluguelPredio: 90, texto: "O milho com braquiária protege o solo contra erosões e ervas daninhas.", fonte: "Embrapa Milho e Sorgo" },
+  { id: 2, emoji: "💧", tipo: "propriedade", titulo: "Gotejamento Inteligente", preco: 60, aluguel: 12, aluguelCasa: 36, aluguelPredio: 100, texto: "Sistemas de gotejamento poupam até 60% de água na irrigação agrícola.", fonte: "Agência Nacional de Águas (ANA)" },
+  { id: 3, emoji: "🌲", tipo: "propriedade", titulo: "Reserva de Eucalipto", preco: 80, aluguel: 15, aluguelCasa: 45, aluguelPredio: 125, texto: "Florestas cultivadas removem volumes massivos de CO₂ da atmosfera.", fonte: "Indústria Brasileira de Árvores" },
+  { id: 4, emoji: "☀️", tipo: "propriedade", titulo: "Usinas Fotovoltaicas Rurais", preco: 100, aluguel: 20, aluguelCasa: 60, aluguelPredio: 160, texto: "Painéis solares geram energia limpa para bombear água e acionar cercas.", fonte: "ABSOLAR" },
+  { id: 5, emoji: "♻️", tipo: "propriedade", titulo: "Centro Campo Limpo", preco: 120, aluguel: 25, aluguelCasa: 75, aluguelPredio: 200, texto: "O Brasil destina corretamente 94% das embalagens de defensivos vazias.", fonte: "inpEV" },
+  { id: 6, emoji: "⛺", tipo: "propriedade", titulo: "Hotel de EcoTurismo", preco: 140, aluguel: 30, aluguelCasa: 90, aluguelPredio: 240, texto: "Gera receita alternativa para a agricultura familiar mantendo as matas em pé.", fonte: "Ministério do Turismo" },
+  { id: 7, emoji: "🌳", tipo: "propriedade", titulo: "Reserva Legal Controlada", preco: 160, aluguel: 35, aluguelCasa: 105, aluguelPredio: 280, texto: "O cumprimento do Código Florestal protege recursos hídricos e fauna.", fonte: "Código Florestal Brasileiro" },
+  { id: 8, emoji: "⚡", tipo: "propriedade", titulo: "Biodigestor de Biogás", preco: 180, aluguel: 40, aluguelCasa: 120, aluguelPredio: 320, texto: "Transforma dejetos animais em gás metano e eletricidade para a fazenda.", fonte: "CIBiogás" },
+  { id: 9, emoji: "🍀", tipo: "sorte", titulo: "Sorte Ecológica", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Seu manejo reduziu pragas! O mercado pagou um bônus de +R$ 150 pela sua safra.", fonte: "Prêmio Produtividade Verde" },
+  { id: 10, emoji: "🐝", tipo: "propriedade", titulo: "Meliponário de Polinização", preco: 200, aluguel: 50, aluguelCasa: 150, aluguelPredio: 400, texto: "Proteger abelhas nativas garante a polinização de 75% das culturas agrícolas.", fonte: "FAO / Embrapa" },
+  { id: 11, emoji: "🐄", tipo: "propriedade", titulo: "Pecuária Carbono Neutro", preco: 220, aluguel: 55, aluguelCasa: 165, aluguelPredio: 440, texto: "Manejo rotacionado de pastos acelera a engorda e mitiga gases estufa.", fonte: "Plano ABC+ Federal" },
+  { id: 12, emoji: "😓", tipo: "prisao", titulo: "Treinamento do SENAR", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Você cometeu um erro técnico e deve aguardar 3 rodadas estudando aplicação correta de insumos. Pague R$ 50 para sair antecipadamente.", fonte: "Capacitação Rural" },
+  { id: 13, emoji: "💨", tipo: "propriedade", titulo: "Fazenda de Crédito de Carbono", preco: 240, aluguel: 65, aluguelCasa: 195, aluguelPredio: 500, texto: "Matas preservadas geram ativos comercializáveis internacionalmente.", fonte: "Mercado Global de Carbono" },
+  { id: 14, emoji: "🌊", tipo: "propriedade", titulo: "Nascentes Isoladas", preco: 260, aluguel: 75, aluguelCasa: 225, aluguelPredio: 600, texto: "Isolar áreas de nascentes evita contaminações biológicas na água.", fonte: "SENAR Práticas" },
+  { id: 15, emoji: "⛈️", tipo: "azar", titulo: "Azar Climático", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Uma tempestade de granizo castigou a colheita destelhada. Pague R$ 150 de conserto.", fonte: "INMET / Alerta" },
+  { id: 16, emoji: "👨‍👩‍👧", tipo: "propriedade", titulo: "Núcleo de Sucessão Familiar", preco: 280, aluguel: 80, aluguelCasa: 240, aluguelPredio: 640, texto: "Capacitar jovens com tecnologia no campo garante sustentabilidade a longo prazo.", fonte: "IBGE Censo Agro" },
+  { id: 17, emoji: "🦋", tipo: "propriedade", titulo: "Biofábrica de Macroorganismos", preco: 300, aluguel: 90, aluguelCasa: 270, aluguelPredio: 720, texto: "Inimigos naturais (como vespas) eliminam lagartas sem agredir o ecossistema.", fonte: "Embrapa Meio Ambiente" },
+  { id: 18, emoji: "🌻", tipo: "propriedade", titulo: "Plantação de Girassóis", preco: 320, aluguel: 100, aluguelCasa: 300, aluguelPredio: 800, texto: "Rotação estratégica que descompacta a terra e quebra o ciclo de fungos.", fonte: "Embrapa Soja" },
+  { id: 19, emoji: "🦜", tipo: "propriedade", titulo: "Corredor Ecológico", preco: 350, aluguel: 120, aluguelCasa: 360, aluguelPredio: 950, texto: "Conectar fragmentos florestais permite o tráfego seguro de aves nativas.", fonte: "ICMBio" },
+  { id: 20, emoji: "🐑", tipo: "propriedade", titulo: "Integração Silvipastoril", preco: 360, aluguel: 130, aluguelCasa: 390, aluguelPredio: 1000, texto: "Criar ovinos sob pomares provê adubo orgânico e reduz capina química.", fonte: "SEBRAE Agro" },
+  { id: 21, emoji: "🍃", tipo: "sorte", titulo: "Sorte: Adubação Verde", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Leguminosas fixaram nitrogênio no solo! Economia de R$ 100 em fertilizantes sintéticos.", fonte: "Embrapa Agrobiologia" },
+  { id: 22, emoji: "🫘", tipo: "propriedade", titulo: "Inoculação de Rizóbios", preco: 400, aluguel: 150, aluguelCasa: 450, aluguelPredio: 1100, texto: "Bactérias simbióticas capturam o nitrogênio do ar alimentando a soja sem poluir.", fonte: "Embrapa Soja" },
+  { id: 23, emoji: "🏞️", tipo: "propriedade", titulo: "Bacia Hidrográfica Protegida", preco: 420, aluguel: 160, aluguelCasa: 480, aluguelPredio: 1200, texto: "O terraceamento das encostas evita o assoreamento dos rios da comunidade.", fonte: "ANA" }
+];
+
+// Mapeamento exato de linhas/colunas do HTML
+const ordemLayoutHTML = [
+  { col: 1, row: 7 }, { col: 2, row: 7 }, { col: 3, row: 7 }, { col: 4, row: 7 }, { col: 5, row: 7 }, { col: 6, row: 7 },
+  { col: 7, row: 7 }, { col: 7, row: 6 }, { col: 7, row: 5 }, { col: 7, row: 4 }, { col: 7, row: 3 }, { col: 7, row: 2 },
+  { col: 7, row: 1 }, { col: 6, row: 1 }, { col: 5, row: 1 }, { col: 4, row: 1 }, { col: 3, row: 1 }, { col: 2, row: 1 },
+  { col: 1, row: 1 }, { col: 1, row: 2 }, { col: 1, row: 3 }, { col: 1, row: 4 }, { col: 1, row: 5 }, { col: 1, row: 6 }
+];
+
+let nosCasasDOM = [];
+let listaJogadores = [];
+let donoPropriedades = {};
+let construcoes = {};
+let turnoAtual = 0;
+let jogoIniciado = false;
+let emProcessamento = false;
+const facesDados = ["🎲", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
+
 // ===== SISTEMA DE MODAIS =====
 function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = null) {
   return new Promise((resolve) => {
-    // Remove modal existente
     const existente = document.querySelector('.modal-overlay');
     if (existente) existente.remove();
     
@@ -18,18 +62,15 @@ function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = nul
     if (fonte) html += `<div class="modal-fonte">📍 ${fonte}</div>`;
     
     if (botoes === null) {
-      // Modal informativo (apenas OK)
       html += `<div class="modal-buttons">
         <button class="btn-modal primary" id="modal-ok">OK</button>
       </div>`;
     } else if (typeof botoes === 'object' && botoes.length === 2) {
-      // Modal com duas opções (Sim/Não)
       html += `<div class="modal-buttons">
         <button class="btn-modal secondary" id="modal-nao">${botoes[0]}</button>
         <button class="btn-modal primary" id="modal-sim">${botoes[1]}</button>
       </div>`;
     } else if (typeof botoes === 'object' && botoes.length === 3) {
-      // Modal com três opções (ex: pagar ou não)
       html += `<div class="modal-buttons">
         <button class="btn-modal secondary" id="modal-opcao1">${botoes[0]}</button>
         <button class="btn-modal primary" id="modal-opcao2">${botoes[1]}</button>
@@ -41,12 +82,17 @@ function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = nul
     overlay.appendChild(box);
     document.body.appendChild(overlay);
     
-    // Configurar eventos
     if (botoes === null) {
       document.getElementById('modal-ok').onclick = () => {
         overlay.remove();
         resolve(true);
       };
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          overlay.remove();
+          resolve(true);
+        }
+      });
     } else if (typeof botoes === 'object' && botoes.length === 2) {
       document.getElementById('modal-sim').onclick = () => {
         overlay.remove();
@@ -70,21 +116,9 @@ function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = nul
         resolve(2);
       };
     }
-    
-    // Fechar ao clicar fora (apenas para modais informativos)
-    if (botoes === null) {
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) {
-          overlay.remove();
-          resolve(true);
-        }
-      });
-    }
   });
 }
 
-// Função para exibir informações da casa (substitui alert)
-// Substitua a função antiga por esta:
 async function exibirAlertaPedagogico(casa) {
   await mostrarModal(
     casa.titulo,
@@ -95,7 +129,6 @@ async function exibirAlertaPedagogico(casa) {
   );
 }
 
-// Função para substituir confirm() em compras
 async function confirmarCompra(casa, jogador) {
   const nivelAtual = construcoes[casa.id] || 0;
   let mensagem = `
@@ -121,7 +154,6 @@ async function confirmarCompra(casa, jogador) {
   return resposta;
 }
 
-// Função para substituir confirm() em construções
 async function confirmarConstrucao(casa, jogador, nivelAtual) {
   const custo = nivelAtual === 0 ? Math.floor(casa.preco * 0.5) : Math.floor(casa.preco * 0.8);
   const tipo = nivelAtual === 0 ? 'Casa' : 'Prédio';
@@ -141,7 +173,6 @@ async function confirmarConstrucao(casa, jogador, nivelAtual) {
   return resposta;
 }
 
-// Função para substituir confirm() em prisão
 async function confirmarPrisao(jogador, rodadasRestantes) {
   const resposta = await mostrarModal(
     '⛓️ Treinamento do SENAR',
@@ -155,6 +186,9 @@ async function confirmarPrisao(jogador, rodadasRestantes) {
   
   return resposta;
 }
+
+// ===== INICIALIZAÇÃO =====
+document.addEventListener("DOMContentLoaded", () => {
   mapearCasasEletivas();
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
   document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
@@ -171,6 +205,20 @@ async function confirmarPrisao(jogador, rodadasRestantes) {
   // Menu mobile
   document.querySelector('.nav-toggle').addEventListener('click', () => {
     document.querySelector('.nav-menu').classList.toggle('active');
+  });
+  
+  // Navegação suave
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      const target = document.querySelector(targetId);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      this.classList.add('active');
+      document.querySelector('.nav-menu').classList.remove('active');
+    });
   });
 });
 
@@ -207,7 +255,6 @@ function iniciarPartidaAgroPoly() {
   jogoIniciado = true;
   emProcessamento = false;
   
-  // Limpar tags antigas
   document.querySelectorAll('.dono-tag, .construcao-tag').forEach(t => t.remove());
 
   const cores = ['p1', 'p2', 'p3', 'p4'];
@@ -246,7 +293,6 @@ function atualizarPlacarEDominio() {
     const corBorda = j.id === 1 ? '#e53935' : j.id === 2 ? '#1e88e5' : j.id === 3 ? '#fdd835' : '#8e24aa';
     div.style.borderLeftColor = corBorda;
     
-    // Propriedades do jogador
     let propsAdquiridas = infoCasas
       .filter(c => donoPropriedades[c.id] === j.id)
       .map(c => {
@@ -349,7 +395,6 @@ async function computarRolagemDados() {
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
     
-    // Passou pela Partida: Ganha R$200
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
       jogador.saldo += 200;
       adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 200 de bônus!`);
@@ -428,17 +473,14 @@ async function executarRegraDeCasa(jogador, casa) {
     jogador.saldo += bonus;
     adicionarLog(`🍀 ${jogador.nome} ganhou R$ ${bonus} de bônus!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
-    
   } else if (casa.tipo === "azar") {
     jogador.saldo -= 150;
     adicionarLog(`⛈️ ${jogador.nome} perdeu R$ 150 com o azar climático!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
-    
   } else if (casa.tipo === "prisao") {
     jogador.presoRodadas = 3;
     adicionarLog(`😓 ${jogador.nome} foi para o treinamento do SENAR por 3 rodadas!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
-    
   } else {
     finalizarEtapaCasa(casa, false);
   }
@@ -447,9 +489,8 @@ async function executarRegraDeCasa(jogador, casa) {
 function efetuarCompra(jogador, casa) {
   jogador.saldo -= casa.preco;
   donoPropriedades[casa.id] = jogador.id;
-  construcoes[casa.id] = 0; // Terreno vazio
+  construcoes[casa.id] = 0;
   
-  // Tag de propriedade
   const elCasa = nosCasasDOM[casa.id];
   const cor = jogador.id === 1 ? '#e53935' : jogador.id === 2 ? '#1e88e5' : jogador.id === 3 ? '#fdd835' : '#8e24aa';
   
@@ -467,9 +508,7 @@ function construirPropriedade(jogador, casa, nivelAtual) {
   jogador.saldo -= custo;
   construcoes[casa.id] = nivelAtual + 1;
   
-  // Atualizar visual
   const elCasa = nosCasasDOM[casa.id];
-  // Remove tag antiga de construção se existir
   const tagAntiga = elCasa.querySelector('.construcao-tag');
   if (tagAntiga) tagAntiga.remove();
   
@@ -502,17 +541,14 @@ function verificarFalencia() {
 }
 
 function passarTurno() {
-  // Passa o controle ao próximo jogador ativo
   let proximo = (turnoAtual + 1) % listaJogadores.length;
   let tentativas = 0;
   
-  // Pula jogadores falidos
   while (listaJogadores[proximo].saldo <= 0 && tentativas < listaJogadores.length) {
     proximo = (proximo + 1) % listaJogadores.length;
     tentativas++;
   }
   
-  // Se todos falidos, fim de jogo
   if (tentativas >= listaJogadores.length) {
     adicionarLog("🏆 Todos os jogadores faliriam! Fim de jogo.");
     document.querySelector(".btn-rolar").classList.add("desabilitado");
@@ -533,7 +569,6 @@ function desenharPeoesDoJogo() {
       const bola = document.createElement('div');
       bola.className = `peao ${j.cor}`;
       bola.title = j.nome;
-      // Adiciona efeito de animação na posição atual
       if (j.posicao === listaJogadores[turnoAtual].posicao && jogoIniciado) {
         bola.style.animation = 'peao-pulse 0.5s ease-in-out 3';
       }
@@ -551,7 +586,6 @@ function adicionarLog(msg) {
 }
 
 function salvarRanking() {
-  // Simula salvamento de ranking no localStorage
   const ranking = listaJogadores
     .filter(j => j.saldo > 0)
     .sort((a, b) => b.saldo - a.saldo)
@@ -572,40 +606,3 @@ function salvarRanking() {
     `).join('') :
     '<p class="ranking-empty">Nenhuma partida concluída.</p>';
 }
-document.addEventListener('DOMContentLoaded', function() {
-  // Navegação suave entre seções
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      
-      const target = document.querySelector(targetId);
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-      
-      // Atualiza link ativo
-      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
-      
-      // Fecha menu mobile
-      document.querySelector('.nav-menu').classList.remove('active');
-    });
-  });
-  
-  // Observador de interseção para destacar seção atual
-  const sections = document.querySelectorAll('.section');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        document.querySelectorAll('.nav-link').forEach(l => {
-          l.classList.toggle('active', l.getAttribute('href') === `#${id}`);
-        });
-      }
-    });
-  }, { threshold: 0.3 });
-  
-  sections.forEach(section => observer.observe(section));
-});

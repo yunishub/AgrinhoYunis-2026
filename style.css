@@ -737,8 +737,9 @@ footer {
     width: 10px;
     height: 10px;
   }
-  
-  /* ===== MODAIS PERSONALIZADOS ===== */
+}
+
+/* ===== MODAIS PERSONALIZADOS ===== */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -871,5 +872,4 @@ footer {
     font-size: 0.85rem;
     min-width: 80px;
   }
-}
 }
