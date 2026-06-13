@@ -309,13 +309,6 @@ body {
   gap: 8px;
 }
 
-.btn-rolar {
-  display: block !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: auto !important;
-}
-
 .btn-rolar:hover:not(.desabilitado) {
   transform: translateY(-2px) scale(1.03);
   box-shadow: 0 8px 20px rgba(46,125,50,0.5);
@@ -466,10 +459,10 @@ body {
   50% { transform: scale(1.15); }
 }
 
-.peao.p1 { background: #e53935; }
-.peao.p2 { background: #1e88e5; }
-.peao.p3 { background: #fdd835; }
-.peao.p4 { background: #8e24aa; }
+.peao.p1 { background: linear-gradient(135deg, #e53935, #c62828); }
+.peao.p2 { background: linear-gradient(135deg, #1e88e5, #0d47a1); }
+.peao.p3 { background: linear-gradient(135deg, #fdd835, #f9a825); }
+.peao.p4 { background: linear-gradient(135deg, #8e24aa, #6a1b9a); }
 
 /* tag de dono da propriedade */
 .dono-tag {

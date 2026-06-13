@@ -264,6 +264,7 @@ function declararFalencia(jogador) {
 
 // ===== INICIALIZAÇÃO =====
 document.addEventListener("DOMContentLoaded", function() {
+  console.log("DOM carregado!");
   mapearCasasEletivas();
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
   document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
@@ -661,17 +662,6 @@ function desenharPeoesDoJogo() {
         const peao = document.createElement('div');
         peao.className = `peao ${j.cor}`;
         peao.title = j.nome;
-        peao.style.width = '12px';
-        peao.style.height = '12px';
-        peao.style.borderRadius = '50%';
-        peao.style.border = '2px solid white';
-        peao.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-        peao.style.display = 'inline-block';
-        peao.style.margin = '1px';
-        if (j.cor === 'p1') peao.style.background = '#e53935';
-        else if (j.cor === 'p2') peao.style.background = '#1e88e5';
-        else if (j.cor === 'p3') peao.style.background = '#fdd835';
-        else if (j.cor === 'p4') peao.style.background = '#8e24aa';
         container.appendChild(peao);
       }
     }
