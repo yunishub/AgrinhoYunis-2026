@@ -940,3 +940,52 @@ function gerarSecaoInformativa() {
     container.appendChild(card);
   });
 }
+// ===== TESTE DO BOTÃO =====
+console.log("=== TESTE DE BOTÕES ===");
+
+// Verifica se o botão de rolar dados existe
+const btnRolar = document.querySelector(".btn-rolar");
+if (btnRolar) {
+  console.log("✅ Botão 'Rolar Dados' ENCONTRADO!");
+  console.log("Texto do botão:", btnRolar.innerText);
+  
+  // Adiciona um listener de teste
+  btnRolar.addEventListener("click", function() {
+    console.log("🔴 CLIQUE NO BOTÃO DETECTADO!");
+    alert("O botão está funcionando! Se você viu este alerta, o problema não é o botão.");
+  });
+} else {
+  console.log("❌ Botão 'Rolar Dados' NÃO ENCONTRADO!");
+}
+
+// Verifica o botão de iniciar
+const btnIniciar = document.getElementById("btn-iniciar");
+if (btnIniciar) {
+  console.log("✅ Botão 'Iniciar' ENCONTRADO!");
+} else {
+  console.log("❌ Botão 'Iniciar' NÃO ENCONTRADO!");
+}
+
+// Verifica os botões de ação
+const btnComprar = document.getElementById("btn-comprar");
+if (btnComprar) {
+  console.log("✅ Botão 'Comprar' ENCONTRADO!");
+} else {
+  console.log("❌ Botão 'Comprar' NÃO ENCONTRADO!");
+}
+
+const btnConstruir = document.getElementById("btn-construir");
+if (btnConstruir) {
+  console.log("✅ Botão 'Construir' ENCONTRADO!");
+} else {
+  console.log("❌ Botão 'Construir' NÃO ENCONTRADO!");
+}
+
+const btnPassar = document.getElementById("btn-passar");
+if (btnPassar) {
+  console.log("✅ Botão 'Passar' ENCONTRADO!");
+} else {
+  console.log("❌ Botão 'Passar' NÃO ENCONTRADO!");
+}
+
+console.log("=== FIM DO TESTE ===");
