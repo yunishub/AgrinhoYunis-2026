@@ -272,69 +272,122 @@ function gerarConfigJogadores() {
   document.getElementById('jogadores-config').style.display = 'block';
 }
 
-// ===== SISTEMA DE TELA CHEIA (APENAS O JOGO) =====
+// ===== SISTEMA DE TELA CHEIA (JOGO INTEIRO) =====
 function toggleTelaCheia() {
   const jogoContainer = document.getElementById('jogo-container');
   
   if (!document.fullscreenElement) {
-    // Entrar em tela cheia apenas no container do jogo
+    // Entrar em tela cheia
     if (jogoContainer.requestFullscreen) {
       jogoContainer.requestFullscreen().then(() => {
         document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-        // Adiciona classe para estilização em tela cheia
-        jogoContainer.classList.add('fullscreen-active');
+        // Ajustar o tabuleiro para tela cheia
+        setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
       }).catch(err => {
         console.log('Erro ao entrar em tela cheia:', err);
       });
     } else if (jogoContainer.webkitRequestFullscreen) {
-      // Safari
       jogoContainer.webkitRequestFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      jogoContainer.classList.add('fullscreen-active');
+      setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
     } else if (jogoContainer.msRequestFullscreen) {
-      // IE/Edge
       jogoContainer.msRequestFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
-      jogoContainer.classList.add('fullscreen-active');
+      setTimeout(() => ajustarTabuleiroTelaCheia(), 100);
     }
   } else {
     // Sair da tela cheia
     if (document.exitFullscreen) {
       document.exitFullscreen().then(() => {
         document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-        jogoContainer.classList.remove('fullscreen-active');
+        restaurarTabuleiroNormal();
       });
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      jogoContainer.classList.remove('fullscreen-active');
+      restaurarTabuleiroNormal();
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-      jogoContainer.classList.remove('fullscreen-active');
+      restaurarTabuleiroNormal();
     }
   }
 }
+
+function ajustarTabuleiroTelaCheia() {
+  const tabuleiro = document.querySelector('.tabuleiro');
+  const wrapper = document.querySelector('.tabuleiro-wrapper');
+  const header = document.querySelector('.header-jogo');
+  
+  if (tabuleiro && wrapper) {
+    // Calcular espaço disponível
+    const vh = window.innerHeight;
+    const vw = window.innerWidth;
+    
+    // Tamanho do header
+    const headerHeight = header ? header.offsetHeight : 0;
+    
+    // Espaço disponível para o tabuleiro
+    const availableHeight = vh - headerHeight - 60;
+    const availableWidth = vw - 40;
+    
+    // O tabuleiro deve ser quadrado, então o tamanho máximo é o menor entre altura e largura
+    const tamanhoMaximo = Math.min(availableHeight, availableWidth);
+    
+    // Aplicar o tamanho
+    wrapper.style.maxWidth = tamanhoMaximo + 'px';
+    wrapper.style.maxHeight = tamanhoMaximo + 'px';
+    wrapper.style.width = '100%';
+    wrapper.style.height = '100%';
+    
+    // Forçar o tabuleiro a ser quadrado
+    tabuleiro.style.width = '100%';
+    tabuleiro.style.height = '100%';
+    tabuleiro.style.aspectRatio = '1';
+  }
+}
+
+function restaurarTabuleiroNormal() {
+  const tabuleiro = document.querySelector('.tabuleiro');
+  const wrapper = document.querySelector('.tabuleiro-wrapper');
+  
+  if (tabuleiro && wrapper) {
+    wrapper.style.maxWidth = '800px';
+    wrapper.style.maxHeight = 'none';
+    wrapper.style.width = 'auto';
+    wrapper.style.height = 'auto';
+    tabuleiro.style.width = '100%';
+    tabuleiro.style.height = 'auto';
+    tabuleiro.style.aspectRatio = '1';
+  }
+}
+
+// Detectar mudanças de tamanho da tela
+window.addEventListener('resize', () => {
+  if (document.fullscreenElement) {
+    ajustarTabuleiroTelaCheia();
+  }
+});
 
 // Detectar saída da tela cheia
 document.addEventListener('fullscreenchange', () => {
   if (!document.fullscreenElement) {
     document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    document.getElementById('jogo-container').classList.remove('fullscreen-active');
+    restaurarTabuleiroNormal();
   }
 });
 
 document.addEventListener('webkitfullscreenchange', () => {
   if (!document.webkitFullscreenElement) {
     document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    document.getElementById('jogo-container').classList.remove('fullscreen-active');
+    restaurarTabuleiroNormal();
   }
 });
 
 document.addEventListener('msfullscreenchange', () => {
   if (!document.msFullscreenElement) {
     document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
-    document.getElementById('jogo-container').classList.remove('fullscreen-active');
+    restaurarTabuleiroNormal();
   }
 });  
   document.querySelectorAll(".info").forEach(btn => {
