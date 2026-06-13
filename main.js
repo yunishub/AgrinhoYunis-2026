@@ -489,10 +489,11 @@ async function computarRolagemDados() {
   areaDados.innerText = `${facesDados[d1]} ${facesDados[d2]}`;
   somDados();
   setTimeout(() => {
+    emProcessamento = false;
     areaDados.classList.remove("animando");
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
-    if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
+    if (novaPosicao < antigaPosicao || novaPosicao === 0) {
       jogador.saldo += 250;
       somDinheiro();
       adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
