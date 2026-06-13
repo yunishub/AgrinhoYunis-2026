@@ -78,6 +78,69 @@ const CORES_DISPONIVEIS = [
   { id: 'p8', nome: 'Ciano', hex: '#00bcd4' }
 ];
 
+// ===== SISTEMA DE SOM (usando Web Audio API) =====
+let audioCtx = null;
+
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+}
+
+function playTone(freq, duration, type = 'sine', volume = 0.2) {
+  try {
+    initAudio();
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+    
+    oscillator.type = type;
+    oscillator.frequency.value = freq;
+    
+    gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    
+    oscillator.start();
+    oscillator.stop(audioCtx.currentTime + duration);
+  } catch (e) {}
+}
+
+function somDados() {
+  playTone(800, 0.1, 'sine', 0.1);
+  setTimeout(() => playTone(600, 0.1, 'sine', 0.1), 100);
+  setTimeout(() => playTone(400, 0.15, 'sine', 0.1), 200);
+}
+
+function somCompra() {
+  playTone(523, 0.15, 'sine', 0.15);
+  setTimeout(() => playTone(659, 0.15, 'sine', 0.15), 150);
+  setTimeout(() => playTone(784, 0.2, 'sine', 0.15), 300);
+}
+
+function somConstruir() {
+  playTone(440, 0.1, 'sine', 0.15);
+  setTimeout(() => playTone(554, 0.1, 'sine', 0.15), 120);
+  setTimeout(() => playTone(659, 0.15, 'sine', 0.15), 240);
+}
+
+function somDinheiro() {
+  playTone(880, 0.08, 'sine', 0.12);
+  setTimeout(() => playTone(1100, 0.08, 'sine', 0.12), 100);
+  setTimeout(() => playTone(1320, 0.12, 'sine', 0.12), 200);
+}
+
+function somAlerta() {
+  playTone(500, 0.2, 'sawtooth', 0.08);
+  setTimeout(() => playTone(400, 0.2, 'sawtooth', 0.08), 250);
+}
+
+function somPassar() {
+  playTone(300, 0.1, 'sine', 0.08);
+  setTimeout(() => playTone(250, 0.1, 'sine', 0.08), 100);
+}
+
 // ===== SISTEMA DE MODAIS =====
 function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = null) {
   return new Promise((resolve) => {
@@ -155,6 +218,7 @@ function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = nul
 }
 
 async function exibirAlertaPedagogico(casa) {
+  somAlerta();
   await mostrarModal(
     casa.titulo,
     `"${casa.texto}"`,
@@ -280,6 +344,7 @@ function toggleTelaCheia() {
     if (jogoContainer.requestFullscreen) {
       jogoContainer.requestFullscreen().then(() => {
         document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
+        document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-compress"></i> Sair';
         setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
       }).catch(err => {
         console.log('Erro ao entrar em tela cheia:', err);
@@ -287,25 +352,30 @@ function toggleTelaCheia() {
     } else if (jogoContainer.webkitRequestFullscreen) {
       jogoContainer.webkitRequestFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
+      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-compress"></i> Sair';
       setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
     } else if (jogoContainer.msRequestFullscreen) {
       jogoContainer.msRequestFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
+      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-compress"></i> Sair';
       setTimeout(() => ajustarTabuleiroTelaCheia(), 200);
     }
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen().then(() => {
         document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+        document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
         restaurarTabuleiroNormal();
       });
     } else if (document.webkitExitFullscreen) {
       document.webkitExitFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
       restaurarTabuleiroNormal();
     } else if (document.msExitFullscreen) {
       document.msExitFullscreen();
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
       restaurarTabuleiroNormal();
     }
   }
@@ -315,14 +385,13 @@ function ajustarTabuleiroTelaCheia() {
   const tabuleiroWrapper = document.querySelector('.tabuleiro-wrapper');
   const tabuleiro = document.querySelector('.tabuleiro');
   const painelSide = document.querySelector('.painel-side');
+  const painelJogo = document.getElementById('painel-jogo');
   
   if (tabuleiroWrapper && tabuleiro) {
-    // Em tela cheia, mostrar apenas o tabuleiro
     const vh = window.innerHeight;
     const vw = window.innerWidth;
     
-    // Tamanho do tabuleiro baseado na altura da tela
-    let tamanho = Math.min(vh - 60, vw - 60);
+    let tamanho = Math.min(vh - 40, vw - 40);
     tamanho = Math.min(tamanho, 700);
     tamanho = Math.max(tamanho, 300);
     
@@ -337,10 +406,8 @@ function ajustarTabuleiroTelaCheia() {
     tabuleiro.style.height = '100%';
     tabuleiro.style.aspectRatio = '1';
     
-    // Esconder painel lateral em tela cheia
-    if (painelSide) {
-      painelSide.style.display = 'none';
-    }
+    if (painelSide) painelSide.style.display = 'none';
+    if (painelJogo) painelJogo.style.display = 'none';
   }
 }
 
@@ -348,6 +415,7 @@ function restaurarTabuleiroNormal() {
   const tabuleiroWrapper = document.querySelector('.tabuleiro-wrapper');
   const tabuleiro = document.querySelector('.tabuleiro');
   const painelSide = document.querySelector('.painel-side');
+  const painelJogo = document.getElementById('painel-jogo');
   
   if (tabuleiroWrapper && tabuleiro) {
     tabuleiroWrapper.style.maxWidth = '600px';
@@ -361,10 +429,8 @@ function restaurarTabuleiroNormal() {
     tabuleiro.style.height = 'auto';
     tabuleiro.style.aspectRatio = '1';
     
-    // Mostrar painel lateral novamente
-    if (painelSide) {
-      painelSide.style.display = 'block';
-    }
+    if (painelSide) painelSide.style.display = 'block';
+    if (painelJogo) painelJogo.style.display = 'block';
   }
 }
 
@@ -382,18 +448,18 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
   document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
   document.getElementById("btn-tela-cheia").addEventListener("click", toggleTelaCheia);
+  document.getElementById("btn-tela-cheia-jogo").addEventListener("click", toggleTelaCheia);
   
-  // Detectar mudanças de tamanho da tela
   window.addEventListener('resize', () => {
     if (document.fullscreenElement) {
       ajustarTabuleiroTelaCheia();
     }
   });
   
-  // Detectar saída da tela cheia
   document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement) {
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
       restaurarTabuleiroNormal();
     }
   });
@@ -401,6 +467,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener('webkitfullscreenchange', () => {
     if (!document.webkitFullscreenElement) {
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
       restaurarTabuleiroNormal();
     }
   });
@@ -408,6 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.addEventListener('msfullscreenchange', () => {
     if (!document.msFullscreenElement) {
       document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+      document.getElementById('btn-tela-cheia-jogo').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
       restaurarTabuleiroNormal();
     }
   });
@@ -421,12 +489,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
   
-  // Menu mobile
   document.querySelector('.nav-toggle').addEventListener('click', () => {
     document.querySelector('.nav-menu').classList.toggle('active');
   });
   
-  // Navegação suave
   document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', function(e) {
       e.preventDefault();
@@ -440,25 +506,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
   
-  // Configuração de jogadores
   document.getElementById('qtd-jogadores').addEventListener('change', gerarConfigJogadores);
   document.getElementById('qtd-bots').addEventListener('change', gerarConfigJogadores);
   gerarConfigJogadores();
   
-  // Botões de ação
   document.getElementById('btn-comprar').addEventListener('click', function() {
-    // Lógica para comprar será implementada
-    console.log('Botão comprar clicado');
+    const jogador = listaJogadores[turnoAtual];
+    const casa = infoCasas[jogador.posicao];
+    if (casa.tipo === 'propriedade' && !donoPropriedades[casa.id]) {
+      efetuarCompra(jogador, casa);
+    }
   });
   
   document.getElementById('btn-construir').addEventListener('click', function() {
-    // Lógica para construir será implementada
-    console.log('Botão construir clicado');
+    const jogador = listaJogadores[turnoAtual];
+    const casa = infoCasas[jogador.posicao];
+    if (casa.tipo === 'propriedade' && donoPropriedades[casa.id] === jogador.id) {
+      const nivelAtual = construcoes[casa.id] || 0;
+      if (nivelAtual < 2) {
+        construirPropriedade(jogador, casa, nivelAtual);
+      }
+    }
   });
   
   document.getElementById('btn-passar').addEventListener('click', function() {
-    // Lógica para passar a vez
-    console.log('Botão passar clicado');
+    somPassar();
+    mostrarBotoesAcao(false);
     passarTurno();
   });
 });
@@ -632,6 +705,7 @@ async function computarRolagemDados() {
   const areaDados = document.querySelector(".dados");
   areaDados.classList.add("animando");
   areaDados.innerText = `${facesDados[d1]} ${facesDados[d2]}`;
+  somDados();
 
   setTimeout(() => {
     areaDados.classList.remove("animando");
@@ -639,9 +713,9 @@ async function computarRolagemDados() {
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
     
-    // Passou pela Partida: Ganha R$250
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
       jogador.saldo += 250;
+      somDinheiro();
       adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
     }
 
@@ -708,6 +782,7 @@ async function executarRegraDeCasa(jogador, casa) {
       jogador.saldo -= valorAluguel;
       dono.saldo += valorAluguel;
       
+      somDinheiro();
       await mostrarModal('💰 Aluguel Ecológico', `${jogador.nome} pagou R$ ${valorAluguel} para ${dono.nome} pelo uso de ${casa.titulo}.`, null, '💸');
       adicionarLog(`${jogador.nome} pagou R$ ${valorAluguel} de aluguel.`);
       finalizarEtapaCasa(casa, false);
@@ -716,6 +791,7 @@ async function executarRegraDeCasa(jogador, casa) {
   } else if (casa.tipo === "sorte") {
     const evento = eventosSorte[Math.floor(Math.random() * eventosSorte.length)];
     jogador.saldo += evento.valor;
+    somDinheiro();
     await mostrarModal('🍀 Sorte!', `${evento.texto}`, null, evento.emoji);
     adicionarLog(`🍀 ${jogador.nome} ${evento.texto}`);
     finalizarEtapaCasa(casa, false);
@@ -723,12 +799,14 @@ async function executarRegraDeCasa(jogador, casa) {
   } else if (casa.tipo === "azar") {
     const evento = eventosAzar[Math.floor(Math.random() * eventosAzar.length)];
     jogador.saldo += evento.valor;
+    somAlerta();
     await mostrarModal('⛈️ Azar!', `${evento.texto}`, null, evento.emoji);
     adicionarLog(`⛈️ ${jogador.nome} ${evento.texto}`);
     finalizarEtapaCasa(casa, false);
     
   } else if (casa.tipo === "prisao") {
     jogador.presoRodadas = 3;
+    somAlerta();
     adicionarLog(`😓 ${jogador.nome} foi para o treinamento do SENAR por 3 rodadas!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
   } else {
@@ -749,7 +827,8 @@ function efetuarCompra(jogador, casa) {
   tag.className = 'dono-tag';
   tag.style.backgroundColor = corHex;
   elCasa.appendChild(tag);
-
+  
+  somCompra();
   adicionarLog(`🛍️ ${jogador.nome} comprou ${casa.titulo} por R$ ${casa.preco}!`);
   finalizarEtapaCasa(casa, false);
 }
@@ -768,6 +847,7 @@ function construirPropriedade(jogador, casa, nivelAtual) {
   tag.innerText = nivelAtual === 0 ? '🏠 Casa' : '🏢 Prédio';
   elCasa.appendChild(tag);
   
+  somConstruir();
   adicionarLog(`🏗️ ${jogador.nome} construiu ${nivelAtual === 0 ? 'uma casa' : 'um prédio'} em ${casa.titulo}!`);
   finalizarEtapaCasa(casa, false);
 }
@@ -780,7 +860,6 @@ function finalizarEtapaCasa(casa, deveMostrarModal) {
   atualizarPlacarEDominio();
   emProcessamento = false;
   
-  // Mostrar botões de ação se for jogador humano e não estiver preso
   const jogador = listaJogadores[turnoAtual];
   if (!jogador.isBot && jogador.presoRodadas === 0) {
     mostrarBotoesAcao(true);
@@ -800,7 +879,6 @@ function verificarFalencia() {
 }
 
 function passarTurno() {
-  // Esconder botões de ação
   mostrarBotoesAcao(false);
   
   let proximo = (turnoAtual + 1) % listaJogadores.length;

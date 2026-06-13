@@ -788,6 +788,31 @@ body {
   background: #616161;
 }
 
+/* ===== BOTÃO TELA CHEIA NO JOGO ===== */
+.jogo-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+#btn-tela-cheia-jogo {
+  padding: 6px 15px;
+  background: #1565c0;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Fredoka', sans-serif;
+}
+
+#btn-tela-cheia-jogo:hover {
+  background: #0d47a1;
+  transform: scale(1.05);
+}
+
 /* ===== RANKING ===== */
 #ranking {
   background: #fff;
@@ -894,5 +919,140 @@ footer {
   
   .painel-side {
     max-width: 100%;
+  }
+}
+
+/* ===== MODAIS PERSONALIZADOS ===== */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-box {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 24px;
+  max-width: 90%;
+  width: 380px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.3s ease;
+  text-align: center;
+  position: relative;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-box h3 {
+  color: #1b5e20;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.modal-box .modal-emoji {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.modal-box p {
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.5;
+  margin-bottom: 18px;
+  font-family: 'Fredoka', sans-serif;
+}
+
+.modal-box .modal-fonte {
+  font-size: 0.75rem;
+  color: #888;
+  font-style: italic;
+  margin-bottom: 15px;
+}
+
+.modal-box .modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.modal-box .btn-modal {
+  padding: 10px 30px;
+  border: none;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Fredoka', sans-serif;
+  min-width: 100px;
+}
+
+.modal-box .btn-modal:hover {
+  transform: scale(1.05);
+}
+
+.modal-box .btn-modal.primary {
+  background: #1b5e20;
+  color: white;
+  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.3);
+}
+
+.modal-box .btn-modal.primary:hover {
+  background: #2e7d32;
+}
+
+.modal-box .btn-modal.secondary {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.modal-box .btn-modal.secondary:hover {
+  background: #d0d0d0;
+}
+
+.modal-box .btn-modal.danger {
+  background: #c62828;
+  color: white;
+}
+
+.modal-box .btn-modal.danger:hover {
+  background: #e53935;
+}
+
+/* Para telas pequenas */
+@media (max-width: 480px) {
+  .modal-box {
+    padding: 20px;
+    width: 90%;
+  }
+  .modal-box h3 {
+    font-size: 1.1rem;
+  }
+  .modal-box p {
+    font-size: 0.9rem;
+  }
+  .modal-box .btn-modal {
+    padding: 8px 20px;
+    font-size: 0.85rem;
+    min-width: 80px;
   }
 }
