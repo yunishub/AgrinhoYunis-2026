@@ -10,12 +10,6 @@ AgroPoly é um jogo estilo Monopoly desenvolvido para o concurso Agrinho 2026, c
 
 O objetivo do jogo é acumular riqueza através da compra e construção de propriedades sustentáveis, enquanto os jogadores aprendem sobre práticas agrícolas que equilibram produção e preservação ambiental.
 
-## 🛠️ Tecnologias Utilizadas
-
-- HTML5 (semântico e acessível)
-- CSS3 (Flexbox, Grid, Media Queries, animações)
-- JavaScript (DOM manipulation, eventos, Web Audio API)
-
 ## 🚀 Como Jogar
 
 1. Configure o número de jogadores e bots (opcional)
@@ -35,8 +29,3 @@ O objetivo do jogo é acumular riqueza através da compra e construção de prop
 - Bônus de R$ 250 ao completar uma volta
 - Modais educativos com informações sobre cada propriedade
 
-## 📂 Estrutura do Projeto
-├── index.html # Página principal
-├── style.css # Estilos do projeto
-├── main.js # Lógica do jogo
-└── README.md # Documentação
