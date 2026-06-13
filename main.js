@@ -810,3 +810,71 @@ function salvarRanking() {
     `).join('') :
     '<p class="ranking-empty">Nenhuma partida concluída.</p>';
 }
+// Adicione no final do arquivo main.js, antes do salvarRanking()
+
+// ===== GERAR SEÇÃO INFORMATIVA =====
+function gerarSecaoInformativa() {
+  const container = document.getElementById('info-grid');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  
+  // Ordenar casas por ID
+  const casasOrdenadas = [...infoCasas].sort((a, b) => a.id - b.id);
+  
+  // Definir emojis para tipos
+  const tipoEmoji = {
+    'partida': '🚩',
+    'propriedade': '🏡',
+    'sorte': '🍀',
+    'azar': '💥',
+    'prisao': '⛓️'
+  };
+  
+  // Definir classes para tipos
+  const tipoClass = {
+    'partida': 'partida',
+    'propriedade': 'propriedade',
+    'sorte': 'sorte',
+    'azar': 'azar',
+    'prisao': 'prisao'
+  };
+  
+  casasOrdenadas.forEach(casa => {
+    const card = document.createElement('div');
+    card.className = `info-card ${tipoClass[casa.tipo] || ''}`;
+    
+    let precoHTML = '';
+    if (casa.preco > 0) {
+      precoHTML = `<div class="info-preco">💰 R$ ${casa.preco}</div>`;
+    }
+    
+    let aluguelHTML = '';
+    if (casa.aluguel > 0) {
+      aluguelHTML = `<div class="info-preco" style="background:#fff3e0;color:#e65100;">🏠 Aluguel: R$ ${casa.aluguel} | Casa: R$ ${casa.aluguelCasa} | Prédio: R$ ${casa.aluguelPredio}</div>`;
+    }
+    
+    card.innerHTML = `
+      <div class="info-card-header">
+        <span class="info-emoji">${casa.emoji}</span>
+        <h4>${casa.titulo}</h4>
+      </div>
+      <p>"${casa.texto}"</p>
+      ${precoHTML}
+      ${aluguelHTML}
+      <div class="info-fonte">📍 ${casa.fonte}</div>
+    `;
+    
+    container.appendChild(card);
+  });
+}
+
+// Chamar a função ao carregar a página
+document.addEventListener("DOMContentLoaded", function() {
+  // ... código existente ...
+  
+  // Gerar seção informativa
+  setTimeout(() => {
+    gerarSecaoInformativa();
+  }, 100);
+});
