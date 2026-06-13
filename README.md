@@ -28,4 +28,3 @@ O objetivo do jogo é acumular riqueza através da compra e construção de prop
 - Eventos de sorte e azar variados (mais de 8 eventos cada)
 - Bônus de R$ 250 ao completar uma volta
 - Modais educativos com informações sobre cada propriedade
-
