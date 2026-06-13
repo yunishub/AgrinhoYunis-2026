@@ -486,20 +486,42 @@ async function processarCicloDeTurno() {
 }
 
 function desenharPeoesDoJogo() {
-  console.log("desenharPeoesDoJogo() chamada!");
-  document.querySelectorAll('.container-peoes').forEach(c => c.innerHTML = '');
-
+  console.log("=== DESENHANDO PEÕES ===");
+  
+  // limpa todos os containers
+  document.querySelectorAll('.container-peoes').forEach(c => {
+    c.innerHTML = '';
+    console.log("Container limpo:", c);
+  });
+  
+  // desenha cada jogador
   listaJogadores.forEach(j => {
-    if(j.saldo >= 0){
-      const container = nosCasasDOM[j.posicao].querySelector('.container-peoes');
+    if (j.saldo >= 0) {
+      const casaId = j.posicao;
+      const container = nosCasasDOM[casaId].querySelector('.container-peoes');
+      
       if (container) {
-        const bola = document.createElement('div');
-        bola.className = `peao ${j.cor}`;
-        bola.title = j.nome;
-        container.appendChild(bola);
-        console.log(`Peão ${j.nome} desenhado na casa ${j.posicao}`);
+        const peao = document.createElement('div');
+        peao.className = `peao ${j.cor}`;
+        peao.title = j.nome;
+        peao.style.width = '12px';
+        peao.style.height = '12px';
+        peao.style.borderRadius = '50%';
+        peao.style.border = '2px solid white';
+        peao.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+        peao.style.display = 'inline-block';
+        peao.style.margin = '1px';
+        
+        // define a cor baseada na classe
+        if (j.cor === 'p1') peao.style.background = '#e53935';
+        else if (j.cor === 'p2') peao.style.background = '#1e88e5';
+        else if (j.cor === 'p3') peao.style.background = '#fdd835';
+        else if (j.cor === 'p4') peao.style.background = '#8e24aa';
+        
+        container.appendChild(peao);
+        console.log(`Peão ${j.nome} adicionado na casa ${casaId}`);
       } else {
-        console.error(`Container não encontrado na casa ${j.posicao}`);
+        console.error(`Container não encontrado na casa ${casaId}`);
       }
     }
   });
