@@ -482,37 +482,24 @@ async function processarCicloDeTurno() {
   }
 }
 
-async function computarRolagemDados() {
-  console.log("computarRolagemDados() chamada!");
-  if (emProcessamento) return;
-  emProcessamento = true;
-  const jogador = listaJogadores[turnoAtual];
-  const d1 = Math.floor(Math.random() * 6) + 1;
-  const d2 = Math.floor(Math.random() * 6) + 1;
-  const passos = d1 + d2;
-  console.log(`Dados: ${d1} + ${d2} = ${passos}`);
-  const areaDados = document.querySelector(".dados");
-  areaDados.classList.add("animando");
-  areaDados.innerText = `${facesDados[d1]} ${facesDados[d2]}`;
-  somDados();
-  setTimeout(() => {
-    areaDados.classList.remove("animando");
-    let antigaPosicao = jogador.posicao;
-    let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
-    console.log(`Movendo de ${antigaPosicao} para ${novaPosicao}`);
-    if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
-      jogador.saldo += 250;
-      somDinheiro();
-      adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
+function desenharPeoesDoJogo() {
+  console.log("desenharPeoesDoJogo() chamada!");
+  document.querySelectorAll('.container-peoes').forEach(c => c.innerHTML = '');
+
+  listaJogadores.forEach(j => {
+    if(j.saldo >= 0){
+      const container = nosCasasDOM[j.posicao].querySelector('.container-peoes');
+      if (container) {
+        const bola = document.createElement('div');
+        bola.className = `peao ${j.cor}`;
+        bola.title = j.nome;
+        container.appendChild(bola);
+        console.log(`Peão ${j.nome} desenhado na casa ${j.posicao}`);
+      } else {
+        console.error(`Container não encontrado na casa ${j.posicao}`);
+      }
     }
-    jogador.posicao = novaPosicao;
-    desenharPeoesDoJogo();
-    atualizarPlacarEDominio();
-    document.querySelector(".btn-rolar").classList.remove("desabilitado");
-    setTimeout(() => {
-      executarRegraDeCasa(jogador, infoCasas[novaPosicao]);
-    }, 400);
-  }, 600);
+  });
 }
 
 async function executarRegraDeCasa(jogador, casa) {
