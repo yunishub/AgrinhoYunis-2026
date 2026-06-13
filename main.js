@@ -429,6 +429,9 @@ function tentarJogadaHumana() {
   if (!jogoIniciado || emProcessamento) return;
   if (listaJogadores[turnoAtual].isBot) return;
   computarRolagemDados();
+  setTimeout(() => {
+  desenharPeoesDoJogo(); // força o redesenho após a movimentação
+}, 200);
 }
 
 async function processarCicloDeTurno() {
