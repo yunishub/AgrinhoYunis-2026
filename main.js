@@ -84,6 +84,7 @@ function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = nul
 }
 
 // Função para exibir informações da casa (substitui alert)
+// Substitua a função antiga por esta:
 async function exibirAlertaPedagogico(casa) {
   await mostrarModal(
     casa.titulo,
@@ -427,31 +428,17 @@ async function executarRegraDeCasa(jogador, casa) {
     jogador.saldo += bonus;
     adicionarLog(`🍀 ${jogador.nome} ganhou R$ ${bonus} de bônus!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
+    
   } else if (casa.tipo === "azar") {
     jogador.saldo -= 150;
     adicionarLog(`⛈️ ${jogador.nome} perdeu R$ 150 com o azar climático!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
+    
   } else if (casa.tipo === "prisao") {
     jogador.presoRodadas = 3;
     adicionarLog(`😓 ${jogador.nome} foi para o treinamento do SENAR por 3 rodadas!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
-  } else {
-    finalizarEtapaCasa(casa, false);
-  }
-
-  } else if (casa.tipo === "sorte") {
-    const bonus = casa.id === 9 ? 150 : 100;
-    jogador.saldo += bonus;
-    adicionarLog(`🍀 ${jogador.nome} ganhou R$ ${bonus} de bônus!`);
-    finalizarEtapaCasa(casa, !jogador.isBot);
-  } else if (casa.tipo === "azar") {
-    jogador.saldo -= 150;
-    adicionarLog(`⛈️ ${jogador.nome} perdeu R$ 150 com o azar climático!`);
-    finalizarEtapaCasa(casa, !jogador.isBot);
-  } else if (casa.tipo === "prisao") {
-    jogador.presoRodadas = 3;
-    adicionarLog(`😓 ${jogador.nome} foi para o treinamento do SENAR por 3 rodadas!`);
-    finalizarEtapaCasa(casa, !jogador.isBot);
+    
   } else {
     finalizarEtapaCasa(casa, false);
   }
@@ -503,10 +490,6 @@ function finalizarEtapaCasa(casa, deveMostrarModal) {
   atualizarPlacarEDominio();
   emProcessamento = false;
   passarTurno();
-}
-
-function exibirAlertaPedagogico(casa) {
-  alert(`🌱 [${casa.titulo}]\n\n"${casa.texto}"\n\n📍 ${casa.fonte}`);
 }
 
 function verificarFalencia() {
