@@ -9,21 +9,44 @@ const infoCasas = [
   { id: 6, emoji: "⛺", tipo: "propriedade", titulo: "Hotel de EcoTurismo", preco: 140, aluguel: 30, aluguelCasa: 90, aluguelPredio: 240, texto: "Gera receita alternativa para a agricultura familiar mantendo as matas em pé.", fonte: "Ministério do Turismo" },
   { id: 7, emoji: "🌳", tipo: "propriedade", titulo: "Reserva Legal Controlada", preco: 160, aluguel: 35, aluguelCasa: 105, aluguelPredio: 280, texto: "O cumprimento do Código Florestal protege recursos hídricos e fauna.", fonte: "Código Florestal Brasileiro" },
   { id: 8, emoji: "⚡", tipo: "propriedade", titulo: "Biodigestor de Biogás", preco: 180, aluguel: 40, aluguelCasa: 120, aluguelPredio: 320, texto: "Transforma dejetos animais em gás metano e eletricidade para a fazenda.", fonte: "CIBiogás" },
-  { id: 9, emoji: "🍀", tipo: "sorte", titulo: "Sorte Ecológica", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Seu manejo reduziu pragas! O mercado pagou um bônus de +R$ 150 pela sua safra.", fonte: "Prêmio Produtividade Verde" },
+  { id: 9, emoji: "🍀", tipo: "sorte", titulo: "Sorte Ecológica", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Seu manejo sustentável trouxe benefícios!", fonte: "Prêmio Produtividade Verde" },
   { id: 10, emoji: "🐝", tipo: "propriedade", titulo: "Meliponário de Polinização", preco: 200, aluguel: 50, aluguelCasa: 150, aluguelPredio: 400, texto: "Proteger abelhas nativas garante a polinização de 75% das culturas agrícolas.", fonte: "FAO / Embrapa" },
   { id: 11, emoji: "🐄", tipo: "propriedade", titulo: "Pecuária Carbono Neutro", preco: 220, aluguel: 55, aluguelCasa: 165, aluguelPredio: 440, texto: "Manejo rotacionado de pastos acelera a engorda e mitiga gases estufa.", fonte: "Plano ABC+ Federal" },
   { id: 12, emoji: "😓", tipo: "prisao", titulo: "Treinamento do SENAR", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Você cometeu um erro técnico e deve aguardar 3 rodadas estudando aplicação correta de insumos. Pague R$ 50 para sair antecipadamente.", fonte: "Capacitação Rural" },
   { id: 13, emoji: "💨", tipo: "propriedade", titulo: "Fazenda de Crédito de Carbono", preco: 240, aluguel: 65, aluguelCasa: 195, aluguelPredio: 500, texto: "Matas preservadas geram ativos comercializáveis internacionalmente.", fonte: "Mercado Global de Carbono" },
   { id: 14, emoji: "🌊", tipo: "propriedade", titulo: "Nascentes Isoladas", preco: 260, aluguel: 75, aluguelCasa: 225, aluguelPredio: 600, texto: "Isolar áreas de nascentes evita contaminações biológicas na água.", fonte: "SENAR Práticas" },
-  { id: 15, emoji: "⛈️", tipo: "azar", titulo: "Azar Climático", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Uma tempestade de granizo castigou a colheita destelhada. Pague R$ 150 de conserto.", fonte: "INMET / Alerta" },
+  { id: 15, emoji: "⛈️", tipo: "azar", titulo: "Azar Climático", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Eventos climáticos extremos afetaram sua produção!", fonte: "INMET / Alerta" },
   { id: 16, emoji: "👨‍👩‍👧", tipo: "propriedade", titulo: "Núcleo de Sucessão Familiar", preco: 280, aluguel: 80, aluguelCasa: 240, aluguelPredio: 640, texto: "Capacitar jovens com tecnologia no campo garante sustentabilidade a longo prazo.", fonte: "IBGE Censo Agro" },
   { id: 17, emoji: "🦋", tipo: "propriedade", titulo: "Biofábrica de Macroorganismos", preco: 300, aluguel: 90, aluguelCasa: 270, aluguelPredio: 720, texto: "Inimigos naturais (como vespas) eliminam lagartas sem agredir o ecossistema.", fonte: "Embrapa Meio Ambiente" },
   { id: 18, emoji: "🌻", tipo: "propriedade", titulo: "Plantação de Girassóis", preco: 320, aluguel: 100, aluguelCasa: 300, aluguelPredio: 800, texto: "Rotação estratégica que descompacta a terra e quebra o ciclo de fungos.", fonte: "Embrapa Soja" },
   { id: 19, emoji: "🦜", tipo: "propriedade", titulo: "Corredor Ecológico", preco: 350, aluguel: 120, aluguelCasa: 360, aluguelPredio: 950, texto: "Conectar fragmentos florestais permite o tráfego seguro de aves nativas.", fonte: "ICMBio" },
   { id: 20, emoji: "🐑", tipo: "propriedade", titulo: "Integração Silvipastoril", preco: 360, aluguel: 130, aluguelCasa: 390, aluguelPredio: 1000, texto: "Criar ovinos sob pomares provê adubo orgânico e reduz capina química.", fonte: "SEBRAE Agro" },
-  { id: 21, emoji: "🍃", tipo: "sorte", titulo: "Sorte: Adubação Verde", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Leguminosas fixaram nitrogênio no solo! Economia de R$ 100 em fertilizantes sintéticos.", fonte: "Embrapa Agrobiologia" },
+  { id: 21, emoji: "🍃", tipo: "sorte", titulo: "Sorte: Adubação Verde", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Práticas de adubação verde trouxeram benefícios!", fonte: "Embrapa Agrobiologia" },
   { id: 22, emoji: "🫘", tipo: "propriedade", titulo: "Inoculação de Rizóbios", preco: 400, aluguel: 150, aluguelCasa: 450, aluguelPredio: 1100, texto: "Bactérias simbióticas capturam o nitrogênio do ar alimentando a soja sem poluir.", fonte: "Embrapa Soja" },
   { id: 23, emoji: "🏞️", tipo: "propriedade", titulo: "Bacia Hidrográfica Protegida", preco: 420, aluguel: 160, aluguelCasa: 480, aluguelPredio: 1200, texto: "O terraceamento das encostas evita o assoreamento dos rios da comunidade.", fonte: "ANA" }
+];
+
+// ===== EVENTOS DE SORTE E AZAR =====
+const eventosSorte = [
+  { texto: "🌱 Adubação verde fixou nitrogênio! Ganhe R$ 200.", valor: 200, emoji: "🌱" },
+  { texto: "🐝 Abelhas nativas polinizaram sua lavoura! Ganhe R$ 150.", valor: 150, emoji: "🐝" },
+  { texto: "☀️ Clima favorável aumentou sua produção! Ganhe R$ 180.", valor: 180, emoji: "☀️" },
+  { texto: "💧 Sistema de irrigação eficiente economizou água! Ganhe R$ 120.", valor: 120, emoji: "💧" },
+  { texto: "🌾 Manejo integrado de pragas reduziu perdas! Ganhe R$ 250.", valor: 250, emoji: "🌾" },
+  { texto: "🔄 Rotação de culturas melhorou o solo! Ganhe R$ 160.", valor: 160, emoji: "🔄" },
+  { texto: "🌿 Compostagem orgânica enriqueceu seu solo! Ganhe R$ 140.", valor: 140, emoji: "🌿" },
+  { texto: "💡 Você adotou energia solar! Economize R$ 200.", valor: 200, emoji: "💡" }
+];
+
+const eventosAzar = [
+  { texto: "⛈️ Tempestade de granizo danificou a colheita! Perda de R$ 200.", valor: -200, emoji: "⛈️" },
+  { texto: "🐛 Praga de gafanhotos atacou sua lavoura! Perda de R$ 150.", valor: -150, emoji: "🐛" },
+  { texto: "🔥 Incêndio florestal destruiu parte da reserva! Perda de R$ 250.", valor: -250, emoji: "🔥" },
+  { texto: "🌊 Enchente alagou suas plantações! Perda de R$ 180.", valor: -180, emoji: "🌊" },
+  { texto: "🐀 Roedores danificaram seus armazéns! Perda de R$ 120.", valor: -120, emoji: "🐀" },
+  { texto: "💨 Vendaval derrubou estruturas! Perda de R$ 160.", valor: -160, emoji: "💨" },
+  { texto: "🌡️ Onda de calor secou sua lavoura! Perda de R$ 220.", valor: -220, emoji: "🌡️" },
+  { texto: "🦠 Doença fúngica comprometeu a produção! Perda de R$ 140.", valor: -140, emoji: "🦠" }
 ];
 
 // Mapeamento exato de linhas/colunas do HTML
@@ -238,7 +261,6 @@ function gerarConfigJogadores() {
     
     container.appendChild(div);
     
-    // Atualizar preview de cor quando mudar
     const select = div.querySelector('.config-cor');
     const preview = div.querySelector('.config-cor-preview');
     select.addEventListener('change', () => {
@@ -247,23 +269,37 @@ function gerarConfigJogadores() {
     });
   }
   
-  // Atualizar quando mudar quantidade
   document.getElementById('jogadores-config').style.display = 'block';
 }
 
-// Inicializar configuração ao carregar
-document.addEventListener('DOMContentLoaded', () => {
-  // ... código existente ...
-  document.getElementById('qtd-jogadores').addEventListener('change', gerarConfigJogadores);
-  document.getElementById('qtd-bots').addEventListener('change', gerarConfigJogadores);
-  gerarConfigJogadores();
-});
+// ===== SISTEMA DE TELA CHEIA =====
+function toggleTelaCheia() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().then(() => {
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-compress"></i> Sair';
+    }).catch(err => {
+      console.log('Erro ao entrar em tela cheia:', err);
+    });
+  } else {
+    document.exitFullscreen().then(() => {
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+    });
+  }
+}
 
 // ===== INICIALIZAÇÃO =====
 document.addEventListener("DOMContentLoaded", () => {
   mapearCasasEletivas();
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
   document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
+  document.getElementById("btn-tela-cheia").addEventListener("click", toggleTelaCheia);
+  
+  // Detectar saída da tela cheia
+  document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+      document.getElementById('btn-tela-cheia').innerHTML = '<i class="fas fa-expand"></i> Tela Cheia';
+    }
+  });
   
   document.querySelectorAll(".info").forEach(btn => {
     btn.addEventListener("click", (e) => {
@@ -334,7 +370,6 @@ function iniciarPartidaAgroPoly() {
   
   document.querySelectorAll('.dono-tag, .construcao-tag').forEach(t => t.remove());
 
-  // Coletar configurações dos jogadores
   const configs = document.querySelectorAll('.config-jogador-item');
   
   for (let i = 0; i < configs.length; i++) {
@@ -476,7 +511,7 @@ async function computarRolagemDados() {
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
     
-    // Passou pela Partida: Ganha R$250 (valor aumentado)
+    // Passou pela Partida: Ganha R$250
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
       jogador.saldo += 250;
       adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
@@ -551,14 +586,21 @@ async function executarRegraDeCasa(jogador, casa) {
     }
 
   } else if (casa.tipo === "sorte") {
-    const bonus = casa.id === 9 ? 150 : 100;
-    jogador.saldo += bonus;
-    adicionarLog(`🍀 ${jogador.nome} ganhou R$ ${bonus} de bônus!`);
-    finalizarEtapaCasa(casa, !jogador.isBot);
+    // Sorte com evento aleatório
+    const evento = eventosSorte[Math.floor(Math.random() * eventosSorte.length)];
+    jogador.saldo += evento.valor;
+    await mostrarModal('🍀 Sorte!', `${evento.texto}`, null, evento.emoji);
+    adicionarLog(`🍀 ${jogador.nome} ${evento.texto}`);
+    finalizarEtapaCasa(casa, false);
+    
   } else if (casa.tipo === "azar") {
-    jogador.saldo -= 150;
-    adicionarLog(`⛈️ ${jogador.nome} perdeu R$ 150 com o azar climático!`);
-    finalizarEtapaCasa(casa, !jogador.isBot);
+    // Azar com evento aleatório
+    const evento = eventosAzar[Math.floor(Math.random() * eventosAzar.length)];
+    jogador.saldo += evento.valor;
+    await mostrarModal('⛈️ Azar!', `${evento.texto}`, null, evento.emoji);
+    adicionarLog(`⛈️ ${jogador.nome} ${evento.texto}`);
+    finalizarEtapaCasa(casa, false);
+    
   } else if (casa.tipo === "prisao") {
     jogador.presoRodadas = 3;
     adicionarLog(`😓 ${jogador.nome} foi para o treinamento do SENAR por 3 rodadas!`);
