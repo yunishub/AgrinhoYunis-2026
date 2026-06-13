@@ -595,6 +595,7 @@ async function computarRolagemDados() {
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
     
+    // Passou pela Partida: Ganha R$250
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
       jogador.saldo += 250;
       adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
