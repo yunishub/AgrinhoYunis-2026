@@ -16,7 +16,7 @@ body {
   min-height: 100vh;
 }
 
-/* ===== menu de navegação ===== */
+/* navegação */
 .navbar {
   background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
   padding: 0 2rem;
@@ -79,7 +79,7 @@ body {
   cursor: pointer;
 }
 
-/* ===== seções ===== */
+/* seções */
 .section {
   padding: 60px 20px;
   min-height: 100vh;
@@ -147,7 +147,7 @@ body {
   background: rgba(255,255,255,0.15);
 }
 
-/* ===== seção sobre ===== */
+/* sobre */
 #sobre {
   background: #fff;
 }
@@ -200,7 +200,7 @@ body {
   line-height: 1.6;
 }
 
-/* ===== seção jogo ===== */
+/* jogo */
 #jogo {
   background: #f0f7f4;
   padding: 20px;
@@ -325,7 +325,7 @@ body {
   opacity: 0.7;
 }
 
-/* ===== casas do tabuleiro ===== */
+/* casas do tabuleiro */
 .casa {
   position: relative;
   display: flex;
@@ -498,7 +498,7 @@ body {
 .construcao-tag.casa { background: #4caf50; }
 .construcao-tag.prédio { background: #1565c0; }
 
-/* ===== lado direito: painel ===== */
+/* lado direito: painel */
 .painel-side {
   flex: 1;
   min-width: 280px;
@@ -806,7 +806,7 @@ body {
   transform: scale(0.95);
 }
 
-/* ===== seção ranking ===== */
+/* ranking */
 #ranking {
   background: #fff;
 }
@@ -835,7 +835,7 @@ body {
   font-size: 1rem;
 }
 
-/* ===== seção informativa ===== */
+/* informações */
 #info {
   background: #f5faf5;
 }
@@ -947,7 +947,7 @@ body {
   font-size: 1.8rem;
 }
 
-/* ===== rodapé ===== */
+/* rodapé */
 footer {
   background: #1b5e20;
   color: #fff;
@@ -964,7 +964,7 @@ footer {
   opacity: 0.7;
 }
 
-/* ===== responsividade ===== */
+/* responsividade */
 @media (max-width: 900px) {
   .jogo-container {
     flex-direction: column;
@@ -1078,7 +1078,7 @@ footer {
   }
 }
 
-/* ===== modais personalizados ===== */
+/* modais personalizados */
 .modal-overlay {
   position: fixed;
   top: 0;

@@ -1,55 +1,55 @@
-// ===== banco de dados das casas =====
+// banco de dados das casas
 const infoCasas = [
-  { id: 0, emoji: "🏠", tipo: "partida", titulo: "partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "ponto de partida. cada volta completa rende r$ 250 de incentivo ecológico!", fonte: "agrinho 2026" },
-  { id: 1, emoji: "🌽", tipo: "propriedade", titulo: "lavoura de milho consorciado", preco: 60, aluguel: 10, aluguelCasa: 30, aluguelPredio: 90, texto: "o milho com braquiária protege o solo contra erosões e ervas daninhas.", fonte: "embrapa milho e sorgo" },
-  { id: 2, emoji: "💧", tipo: "propriedade", titulo: "gotejamento inteligente", preco: 60, aluguel: 12, aluguelCasa: 36, aluguelPredio: 100, texto: "sistemas de gotejamento poupam até 60% de água na irrigação agrícola.", fonte: "agência nacional de águas (ana)" },
-  { id: 3, emoji: "🌲", tipo: "propriedade", titulo: "reserva de eucalipto", preco: 80, aluguel: 15, aluguelCasa: 45, aluguelPredio: 125, texto: "florestas cultivadas removem volumes massivos de co₂ da atmosfera.", fonte: "indústria brasileira de árvores" },
-  { id: 4, emoji: "☀️", tipo: "propriedade", titulo: "usinas fotovoltaicas rurais", preco: 100, aluguel: 20, aluguelCasa: 60, aluguelPredio: 160, texto: "painéis solares geram energia limpa para bombear água e acionar cercas.", fonte: "absolar" },
-  { id: 5, emoji: "♻️", tipo: "propriedade", titulo: "centro campo limpo", preco: 120, aluguel: 25, aluguelCasa: 75, aluguelPredio: 200, texto: "o brasil destina corretamente 94% das embalagens de defensivos vazias.", fonte: "inpev" },
-  { id: 6, emoji: "⛺", tipo: "propriedade", titulo: "hotel de ecoturismo", preco: 140, aluguel: 30, aluguelCasa: 90, aluguelPredio: 240, texto: "gera receita alternativa para a agricultura familiar mantendo as matas em pé.", fonte: "ministério do turismo" },
-  { id: 7, emoji: "🌳", tipo: "propriedade", titulo: "reserva legal controlada", preco: 160, aluguel: 35, aluguelCasa: 105, aluguelPredio: 280, texto: "o cumprimento do código florestal protege recursos hídricos e fauna.", fonte: "código florestal brasileiro" },
-  { id: 8, emoji: "⚡", tipo: "propriedade", titulo: "biodigestor de biogás", preco: 180, aluguel: 40, aluguelCasa: 120, aluguelPredio: 320, texto: "transforma dejetos animais em gás metano e eletricidade para a fazenda.", fonte: "cibiogás" },
-  { id: 9, emoji: "🍀", tipo: "sorte", titulo: "sorte ecológica", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "seu manejo sustentável trouxe benefícios!", fonte: "prêmio produtividade verde" },
-  { id: 10, emoji: "🐝", tipo: "propriedade", titulo: "meliponário de polinização", preco: 200, aluguel: 50, aluguelCasa: 150, aluguelPredio: 400, texto: "proteger abelhas nativas garante a polinização de 75% das culturas agrícolas.", fonte: "fao / embrapa" },
-  { id: 11, emoji: "🐄", tipo: "propriedade", titulo: "pecuária carbono neutro", preco: 220, aluguel: 55, aluguelCasa: 165, aluguelPredio: 440, texto: "manejo rotacionado de pastos acelera a engorda e mitiga gases estufa.", fonte: "plano abc+ federal" },
-  { id: 12, emoji: "😓", tipo: "prisao", titulo: "treinamento do senar", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "você cometeu um erro técnico e deve aguardar 3 rodadas estudando aplicação correta de insumos. pague r$ 50 para sair antecipadamente.", fonte: "capacitação rural" },
-  { id: 13, emoji: "💨", tipo: "propriedade", titulo: "fazenda de crédito de carbono", preco: 240, aluguel: 65, aluguelCasa: 195, aluguelPredio: 500, texto: "matas preservadas geram ativos comercializáveis internacionalmente.", fonte: "mercado global de carbono" },
-  { id: 14, emoji: "🌊", tipo: "propriedade", titulo: "nascentes isoladas", preco: 260, aluguel: 75, aluguelCasa: 225, aluguelPredio: 600, texto: "isolar áreas de nascentes evita contaminações biológicas na água.", fonte: "senar práticas" },
-  { id: 15, emoji: "⛈️", tipo: "azar", titulo: "azar climático", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "eventos climáticos extremos afetaram sua produção!", fonte: "inmet / alerta" },
-  { id: 16, emoji: "👨‍👩‍👧", tipo: "propriedade", titulo: "núcleo de sucessão familiar", preco: 280, aluguel: 80, aluguelCasa: 240, aluguelPredio: 640, texto: "capacitar jovens com tecnologia no campo garante sustentabilidade a longo prazo.", fonte: "ibge censo agro" },
-  { id: 17, emoji: "🦋", tipo: "propriedade", titulo: "biofábrica de macroorganismos", preco: 300, aluguel: 90, aluguelCasa: 270, aluguelPredio: 720, texto: "inimigos naturais (como vespas) eliminam lagartas sem agredir o ecossistema.", fonte: "embrapa meio ambiente" },
-  { id: 18, emoji: "🌻", tipo: "propriedade", titulo: "plantação de girassóis", preco: 320, aluguel: 100, aluguelCasa: 300, aluguelPredio: 800, texto: "rotação estratégica que descompacta a terra e quebra o ciclo de fungos.", fonte: "embrapa soja" },
-  { id: 19, emoji: "🦜", tipo: "propriedade", titulo: "corredor ecológico", preco: 350, aluguel: 120, aluguelCasa: 360, aluguelPredio: 950, texto: "conectar fragmentos florestais permite o tráfego seguro de aves nativas.", fonte: "icmbio" },
-  { id: 20, emoji: "🐑", tipo: "propriedade", titulo: "integração silvipastoril", preco: 360, aluguel: 130, aluguelCasa: 390, aluguelPredio: 1000, texto: "criar ovinos sob pomares provê adubo orgânico e reduz capina química.", fonte: "sebrae agro" },
-  { id: 21, emoji: "🍃", tipo: "sorte", titulo: "sorte: adubação verde", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "leguminosas fixaram nitrogênio no solo! economia de r$ 100 em fertilizantes sintéticos.", fonte: "embrapa agrobiologia" },
-  { id: 22, emoji: "🫘", tipo: "propriedade", titulo: "inoculação de rizóbios", preco: 400, aluguel: 150, aluguelCasa: 450, aluguelPredio: 1100, texto: "bactérias simbióticas capturam o nitrogênio do ar alimentando a soja sem poluir.", fonte: "embrapa soja" },
-  { id: 23, emoji: "🏞️", tipo: "propriedade", titulo: "bacia hidrográfica protegida", preco: 420, aluguel: 160, aluguelCasa: 480, aluguelPredio: 1200, texto: "o terraceamento das encostas evita o assoreamento dos rios da comunidade.", fonte: "ana" }
+  { id: 0, emoji: "🏠", tipo: "partida", titulo: "Partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Ponto de partida. Cada volta completa rende R$ 250 de incentivo ecológico!", fonte: "Agrinho 2026" },
+  { id: 1, emoji: "🌽", tipo: "propriedade", titulo: "Lavoura de Milho Consorciado", preco: 60, aluguel: 10, aluguelCasa: 30, aluguelPredio: 90, texto: "O milho com braquiária protege o solo contra erosões e ervas daninhas.", fonte: "Embrapa Milho e Sorgo" },
+  { id: 2, emoji: "💧", tipo: "propriedade", titulo: "Gotejamento Inteligente", preco: 60, aluguel: 12, aluguelCasa: 36, aluguelPredio: 100, texto: "Sistemas de gotejamento poupam até 60% de água na irrigação agrícola.", fonte: "Agência Nacional de Águas (ANA)" },
+  { id: 3, emoji: "🌲", tipo: "propriedade", titulo: "Reserva de Eucalipto", preco: 80, aluguel: 15, aluguelCasa: 45, aluguelPredio: 125, texto: "Florestas cultivadas removem volumes massivos de CO₂ da atmosfera.", fonte: "Indústria Brasileira de Árvores" },
+  { id: 4, emoji: "☀️", tipo: "propriedade", titulo: "Usinas Fotovoltaicas Rurais", preco: 100, aluguel: 20, aluguelCasa: 60, aluguelPredio: 160, texto: "Painéis solares geram energia limpa para bombear água e acionar cercas.", fonte: "ABSOLAR" },
+  { id: 5, emoji: "♻️", tipo: "propriedade", titulo: "Centro Campo Limpo", preco: 120, aluguel: 25, aluguelCasa: 75, aluguelPredio: 200, texto: "O Brasil destina corretamente 94% das embalagens de defensivos vazias.", fonte: "inpEV" },
+  { id: 6, emoji: "⛺", tipo: "propriedade", titulo: "Hotel de EcoTurismo", preco: 140, aluguel: 30, aluguelCasa: 90, aluguelPredio: 240, texto: "Gera receita alternativa para a agricultura familiar mantendo as matas em pé.", fonte: "Ministério do Turismo" },
+  { id: 7, emoji: "🌳", tipo: "propriedade", titulo: "Reserva Legal Controlada", preco: 160, aluguel: 35, aluguelCasa: 105, aluguelPredio: 280, texto: "O cumprimento do Código Florestal protege recursos hídricos e fauna.", fonte: "Código Florestal Brasileiro" },
+  { id: 8, emoji: "⚡", tipo: "propriedade", titulo: "Biodigestor de Biogás", preco: 180, aluguel: 40, aluguelCasa: 120, aluguelPredio: 320, texto: "Transforma dejetos animais em gás metano e eletricidade para a fazenda.", fonte: "CIBiogás" },
+  { id: 9, emoji: "🍀", tipo: "sorte", titulo: "Sorte Ecológica", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Seu manejo sustentável trouxe benefícios!", fonte: "Prêmio Produtividade Verde" },
+  { id: 10, emoji: "🐝", tipo: "propriedade", titulo: "Meliponário de Polinização", preco: 200, aluguel: 50, aluguelCasa: 150, aluguelPredio: 400, texto: "Proteger abelhas nativas garante a polinização de 75% das culturas agrícolas.", fonte: "FAO / Embrapa" },
+  { id: 11, emoji: "🐄", tipo: "propriedade", titulo: "Pecuária Carbono Neutro", preco: 220, aluguel: 55, aluguelCasa: 165, aluguelPredio: 440, texto: "Manejo rotacionado de pastos acelera a engorda e mitiga gases estufa.", fonte: "Plano ABC+ Federal" },
+  { id: 12, emoji: "😓", tipo: "prisao", titulo: "Treinamento do SENAR", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Você cometeu um erro técnico e deve aguardar 3 rodadas estudando aplicação correta de insumos. Pague R$ 50 para sair antecipadamente.", fonte: "Capacitação Rural" },
+  { id: 13, emoji: "💨", tipo: "propriedade", titulo: "Fazenda de Crédito de Carbono", preco: 240, aluguel: 65, aluguelCasa: 195, aluguelPredio: 500, texto: "Matas preservadas geram ativos comercializáveis internacionalmente.", fonte: "Mercado Global de Carbono" },
+  { id: 14, emoji: "🌊", tipo: "propriedade", titulo: "Nascentes Isoladas", preco: 260, aluguel: 75, aluguelCasa: 225, aluguelPredio: 600, texto: "Isolar áreas de nascentes evita contaminações biológicas na água.", fonte: "SENAR Práticas" },
+  { id: 15, emoji: "⛈️", tipo: "azar", titulo: "Azar Climático", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Eventos climáticos extremos afetaram sua produção!", fonte: "INMET / Alerta" },
+  { id: 16, emoji: "👨‍👩‍👧", tipo: "propriedade", titulo: "Núcleo de Sucessão Familiar", preco: 280, aluguel: 80, aluguelCasa: 240, aluguelPredio: 640, texto: "Capacitar jovens com tecnologia no campo garante sustentabilidade a longo prazo.", fonte: "IBGE Censo Agro" },
+  { id: 17, emoji: "🦋", tipo: "propriedade", titulo: "Biofábrica de Macroorganismos", preco: 300, aluguel: 90, aluguelCasa: 270, aluguelPredio: 720, texto: "Inimigos naturais (como vespas) eliminam lagartas sem agredir o ecossistema.", fonte: "Embrapa Meio Ambiente" },
+  { id: 18, emoji: "🌻", tipo: "propriedade", titulo: "Plantação de Girassóis", preco: 320, aluguel: 100, aluguelCasa: 300, aluguelPredio: 800, texto: "Rotação estratégica que descompacta a terra e quebra o ciclo de fungos.", fonte: "Embrapa Soja" },
+  { id: 19, emoji: "🦜", tipo: "propriedade", titulo: "Corredor Ecológico", preco: 350, aluguel: 120, aluguelCasa: 360, aluguelPredio: 950, texto: "Conectar fragmentos florestais permite o tráfego seguro de aves nativas.", fonte: "ICMBio" },
+  { id: 20, emoji: "🐑", tipo: "propriedade", titulo: "Integração Silvipastoril", preco: 360, aluguel: 130, aluguelCasa: 390, aluguelPredio: 1000, texto: "Criar ovinos sob pomares provê adubo orgânico e reduz capina química.", fonte: "SEBRAE Agro" },
+  { id: 21, emoji: "🍃", tipo: "sorte", titulo: "Sorte: Adubação Verde", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Leguminosas fixaram nitrogênio no solo! Economia de R$ 100 em fertilizantes sintéticos.", fonte: "Embrapa Agrobiologia" },
+  { id: 22, emoji: "🫘", tipo: "propriedade", titulo: "Inoculação de Rizóbios", preco: 400, aluguel: 150, aluguelCasa: 450, aluguelPredio: 1100, texto: "Bactérias simbióticas capturam o nitrogênio do ar alimentando a soja sem poluir.", fonte: "Embrapa Soja" },
+  { id: 23, emoji: "🏞️", tipo: "propriedade", titulo: "Bacia Hidrográfica Protegida", preco: 420, aluguel: 160, aluguelCasa: 480, aluguelPredio: 1200, texto: "O terraceamento das encostas evita o assoreamento dos rios da comunidade.", fonte: "ANA" }
 ];
 
-// ===== eventos de sorte e azar =====
+// eventos de sorte e azar
 const eventosSorte = [
-  { texto: "🌱 adubação verde fixou nitrogênio! ganhe r$ 200.", valor: 200, emoji: "🌱" },
-  { texto: "🐝 abelhas nativas polinizaram sua lavoura! ganhe r$ 150.", valor: 150, emoji: "🐝" },
-  { texto: "☀️ clima favorável aumentou sua produção! ganhe r$ 180.", valor: 180, emoji: "☀️" },
-  { texto: "💧 sistema de irrigação eficiente economizou água! ganhe r$ 120.", valor: 120, emoji: "💧" },
-  { texto: "🌾 manejo integrado de pragas reduziu perdas! ganhe r$ 250.", valor: 250, emoji: "🌾" },
-  { texto: "🔄 rotação de culturas melhorou o solo! ganhe r$ 160.", valor: 160, emoji: "🔄" },
-  { texto: "🌿 compostagem orgânica enriqueceu seu solo! ganhe r$ 140.", valor: 140, emoji: "🌿" },
-  { texto: "💡 você adotou energia solar! economize r$ 200.", valor: 200, emoji: "💡" }
+  { texto: "🌱 Adubação verde fixou nitrogênio! Ganhe R$ 200.", valor: 200, emoji: "🌱" },
+  { texto: "🐝 Abelhas nativas polinizaram sua lavoura! Ganhe R$ 150.", valor: 150, emoji: "🐝" },
+  { texto: "☀️ Clima favorável aumentou sua produção! Ganhe R$ 180.", valor: 180, emoji: "☀️" },
+  { texto: "💧 Sistema de irrigação eficiente economizou água! Ganhe R$ 120.", valor: 120, emoji: "💧" },
+  { texto: "🌾 Manejo integrado de pragas reduziu perdas! Ganhe R$ 250.", valor: 250, emoji: "🌾" },
+  { texto: "🔄 Rotação de culturas melhorou o solo! Ganhe R$ 160.", valor: 160, emoji: "🔄" },
+  { texto: "🌿 Compostagem orgânica enriqueceu seu solo! Ganhe R$ 140.", valor: 140, emoji: "🌿" },
+  { texto: "💡 Você adotou energia solar! Economize R$ 200.", valor: 200, emoji: "💡" }
 ];
 
 const eventosAzar = [
-  { texto: "⛈️ tempestade de granizo danificou a colheita! perda de r$ 200.", valor: -200, emoji: "⛈️" },
-  { texto: "🐛 praga de gafanhotos atacou sua lavoura! perda de r$ 150.", valor: -150, emoji: "🐛" },
-  { texto: "🔥 incêndio florestal destruiu parte da reserva! perda de r$ 250.", valor: -250, emoji: "🔥" },
-  { texto: "🌊 enchente alagou suas plantações! perda de r$ 180.", valor: -180, emoji: "🌊" },
-  { texto: "🐀 roedores danificaram seus armazéns! perda de r$ 120.", valor: -120, emoji: "🐀" },
-  { texto: "💨 vendaval derrubou estruturas! perda de r$ 160.", valor: -160, emoji: "💨" },
-  { texto: "🌡️ onda de calor secou sua lavoura! perda de r$ 220.", valor: -220, emoji: "🌡️" },
-  { texto: "🦠 doença fúngica comprometeu a produção! perda de r$ 140.", valor: -140, emoji: "🦠" }
+  { texto: "⛈️ Tempestade de granizo danificou a colheita! Perda de R$ 200.", valor: -200, emoji: "⛈️" },
+  { texto: "🐛 Praga de gafanhotos atacou sua lavoura! Perda de R$ 150.", valor: -150, emoji: "🐛" },
+  { texto: "🔥 Incêndio florestal destruiu parte da reserva! Perda de R$ 250.", valor: -250, emoji: "🔥" },
+  { texto: "🌊 Enchente alagou suas plantações! Perda de R$ 180.", valor: -180, emoji: "🌊" },
+  { texto: "🐀 Roedores danificaram seus armazéns! Perda de R$ 120.", valor: -120, emoji: "🐀" },
+  { texto: "💨 Vendaval derrubou estruturas! Perda de R$ 160.", valor: -160, emoji: "💨" },
+  { texto: "🌡️ Onda de calor secou sua lavoura! Perda de R$ 220.", valor: -220, emoji: "🌡️" },
+  { texto: "🦠 Doença fúngica comprometeu a produção! Perda de R$ 140.", valor: -140, emoji: "🦠" }
 ];
 
-// ===== mapeamento do tabuleiro =====
+// mapeamento do tabuleiro
 const ordemLayoutHTML = [
   { col: 1, row: 7 }, { col: 2, row: 7 }, { col: 3, row: 7 }, { col: 4, row: 7 }, { col: 5, row: 7 }, { col: 6, row: 7 },
   { col: 7, row: 7 }, { col: 7, row: 6 }, { col: 7, row: 5 }, { col: 7, row: 4 }, { col: 7, row: 3 }, { col: 7, row: 2 },
@@ -57,7 +57,7 @@ const ordemLayoutHTML = [
   { col: 1, row: 1 }, { col: 1, row: 2 }, { col: 1, row: 3 }, { col: 1, row: 4 }, { col: 1, row: 5 }, { col: 1, row: 6 }
 ];
 
-// ===== variáveis globais =====
+// variáveis globais
 let nosCasasDOM = [];
 let listaJogadores = [];
 let donoPropriedades = {};
@@ -65,21 +65,22 @@ let construcoes = {};
 let turnoAtual = 0;
 let jogoIniciado = false;
 let emProcessamento = false;
+let jaComprou = false; // controle para impedir múltiplas compras por rodada
 const facesDados = ["🎲", "⚀", "⚁", "⚂", "⚃", "⚄", "⚅"];
 
-// ===== cores disponíveis =====
+// cores disponíveis
 const CORES_DISPONIVEIS = [
-  { id: 'p1', nome: 'vermelho', hex: '#e53935' },
-  { id: 'p2', nome: 'azul', hex: '#1e88e5' },
-  { id: 'p3', nome: 'amarelo', hex: '#fdd835' },
-  { id: 'p4', nome: 'roxo', hex: '#8e24aa' },
-  { id: 'p5', nome: 'verde', hex: '#43a047' },
-  { id: 'p6', nome: 'laranja', hex: '#fb8c00' },
-  { id: 'p7', nome: 'rosa', hex: '#e91e63' },
-  { id: 'p8', nome: 'ciano', hex: '#00bcd4' }
+  { id: 'p1', nome: 'Vermelho', hex: '#e53935' },
+  { id: 'p2', nome: 'Azul', hex: '#1e88e5' },
+  { id: 'p3', nome: 'Amarelo', hex: '#fdd835' },
+  { id: 'p4', nome: 'Roxo', hex: '#8e24aa' },
+  { id: 'p5', nome: 'Verde', hex: '#43a047' },
+  { id: 'p6', nome: 'Laranja', hex: '#fb8c00' },
+  { id: 'p7', nome: 'Rosa', hex: '#e91e63' },
+  { id: 'p8', nome: 'Ciano', hex: '#00bcd4' }
 ];
 
-// ===== sistema de som (web audio api) =====
+// sistema de som (web audio api)
 let audioCtx = null;
 
 function initAudio() {
@@ -142,7 +143,7 @@ function somPassar() {
   setTimeout(() => playTone(250, 0.1, 'sine', 0.08), 100);
 }
 
-// ===== sistema de modais =====
+// sistema de modais
 function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = null) {
   return new Promise((resolve) => {
     const existente = document.querySelector('.modal-overlay');
@@ -162,7 +163,7 @@ function mostrarModal(titulo, mensagem, fonte = null, emoji = null, botoes = nul
     
     if (botoes === null) {
       html += `<div class="modal-buttons">
-        <button class="btn-modal primary" id="modal-ok">ok</button>
+        <button class="btn-modal primary" id="modal-ok">OK</button>
       </div>`;
     } else if (typeof botoes === 'object' && botoes.length === 2) {
       html += `<div class="modal-buttons">
@@ -232,16 +233,16 @@ async function exibirAlertaPedagogico(casa) {
 async function confirmarCompra(casa, jogador) {
   let mensagem = `
     <strong>${casa.titulo}</strong><br>
-    💰 preço: r$ ${casa.preco}<br>
-    🏠 aluguel: r$ ${casa.aluguel}
+    💰 Preço: R$ ${casa.preco}<br>
+    🏠 Aluguel: R$ ${casa.aluguel}
   `;
   
   const resposta = await mostrarModal(
-    '🌱 investir na propriedade?',
+    '🌱 Investir na propriedade?',
     mensagem,
     null,
     casa.emoji,
-    ['não comprar', 'comprar']
+    ['Não comprar', 'Comprar']
   );
   
   return resposta;
@@ -249,18 +250,18 @@ async function confirmarCompra(casa, jogador) {
 
 async function confirmarConstrucao(casa, jogador, nivelAtual) {
   const custo = nivelAtual === 0 ? Math.floor(casa.preco * 0.5) : Math.floor(casa.preco * 0.8);
-  const tipo = nivelAtual === 0 ? 'casa' : 'prédio';
+  const tipo = nivelAtual === 0 ? 'Casa' : 'Prédio';
   const novoAluguel = nivelAtual === 0 ? casa.aluguelCasa : casa.aluguelPredio;
   
   const resposta = await mostrarModal(
-    '🏗️ construir?',
+    '🏗️ Construir?',
     `${casa.emoji} ${casa.titulo}<br><br>
-    🏗️ construir ${tipo}: r$ ${custo}<br>
-    📈 novo aluguel: r$ ${novoAluguel}<br><br>
-    seu saldo atual: r$ ${jogador.saldo}`,
+    🏗️ Construir ${tipo}: R$ ${custo}<br>
+    📈 Novo aluguel: R$ ${novoAluguel}<br><br>
+    Seu saldo atual: R$ ${jogador.saldo}`,
     null,
     '🏗️',
-    ['não', 'construir']
+    ['Não', 'Construir']
   );
   
   return resposta;
@@ -268,19 +269,19 @@ async function confirmarConstrucao(casa, jogador, nivelAtual) {
 
 async function confirmarPrisao(jogador, rodadasRestantes) {
   const resposta = await mostrarModal(
-    '⛓️ treinamento do senar',
+    '⛓️ Treinamento do SENAR',
     `${jogador.nome}, você está em treinamento por ${rodadasRestantes} rodada(s).<br><br>
-    💰 pagar r$ 50 para sair agora?<br>
-    seu saldo: r$ ${jogador.saldo}`,
+    💰 Pagar R$ 50 para sair agora?<br>
+    Seu saldo: R$ ${jogador.saldo}`,
     null,
     '😓',
-    ['ficar preso', 'pagar r$ 50']
+    ['Ficar preso', 'Pagar R$ 50']
   );
   
   return resposta;
 }
 
-// ===== configuração de jogadores =====
+// configuração de jogadores
 function gerarConfigJogadores() {
   const qtdJogadores = parseInt(document.getElementById("qtd-jogadores").value);
   const qtdBots = parseInt(document.getElementById("qtd-bots").value);
@@ -298,14 +299,14 @@ function gerarConfigJogadores() {
     div.innerHTML = `
       <div class="config-jogador-header">
         <span class="config-jogador-numero">#${i}</span>
-        ${eBot ? '<span class="config-bot-badge">🤖 bot</span>' : ''}
+        ${eBot ? '<span class="config-bot-badge">🤖 Bot</span>' : ''}
       </div>
       <div class="config-jogador-campo">
-        <label>nome:</label>
-        <input type="text" class="config-nome" value="${eBot ? `bot agro ${i}` : `produtor ${i}`}" maxlength="20">
+        <label>Nome:</label>
+        <input type="text" class="config-nome" value="${eBot ? `Bot Agro ${i}` : `Produtor ${i}`}" maxlength="20">
       </div>
       <div class="config-jogador-campo">
-        <label>cor:</label>
+        <label>Cor:</label>
         <select class="config-cor">
           ${CORES_DISPONIVEIS.map(c => `
             <option value="${c.id}" ${c.id === corPadrao.id ? 'selected' : ''}>
@@ -330,15 +331,19 @@ function gerarConfigJogadores() {
   document.getElementById('jogadores-config').style.display = 'block';
 }
 
-// ===== botões de ação =====
+// botões de ação
 function mostrarBotoesAcao(mostrar) {
   const botoes = document.getElementById('botoes-acao');
   if (botoes) {
     botoes.style.display = mostrar ? 'flex' : 'none';
   }
+  // resetar controle de compra ao mostrar/esconder botões
+  if (!mostrar) {
+    jaComprou = false;
+  }
 }
 
-// ===== sistema de falência =====
+// sistema de falência
 function declararFalencia(jogador) {
   // remove todas as propriedades do jogador
   const propriedadesDoJogador = Object.keys(donoPropriedades).filter(key => donoPropriedades[key] === jogador.id);
@@ -371,7 +376,7 @@ function declararFalencia(jogador) {
   // verifica se o jogo acabou
   const jogadoresAtivos = listaJogadores.filter(j => j.saldo > 0);
   if (jogadoresAtivos.length <= 1) {
-    adicionarLog("🏆 fim de jogo! último jogador ativo venceu!");
+    adicionarLog("🏆 Fim de jogo! Último jogador ativo venceu!");
     document.querySelector(".btn-rolar").classList.add("desabilitado");
     jogoIniciado = false;
     salvarRanking();
@@ -382,7 +387,7 @@ function declararFalencia(jogador) {
   passarTurno();
 }
 
-// ===== inicialização =====
+// inicialização
 document.addEventListener("DOMContentLoaded", () => {
   mapearCasasEletivas();
   document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
@@ -421,8 +426,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('btn-comprar').addEventListener('click', function() {
     const jogador = listaJogadores[turnoAtual];
     const casa = infoCasas[jogador.posicao];
+    
+    // verifica se já comprou nesta rodada
+    if (jaComprou) {
+      alert("Você já comprou uma propriedade nesta rodada!");
+      return;
+    }
+    
     if (casa.tipo === 'propriedade' && !donoPropriedades[casa.id]) {
       efetuarCompra(jogador, casa);
+      jaComprou = true; // marca que já comprou
     }
   });
   
@@ -440,6 +453,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('btn-passar').addEventListener('click', function() {
     somPassar();
     mostrarBotoesAcao(false);
+    jaComprou = false;
     passarTurno();
   });
   
@@ -447,7 +461,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const jogador = listaJogadores[turnoAtual];
     if (!jogador || jogador.isBot) return;
     
-    const confirmar = confirm(`⚠️ ${jogador.nome}, você tem certeza que deseja declarar falência?\n\nisso fará você perder todas as propriedades e construções, e encerrará sua participação no jogo.`);
+    const confirmar = confirm(`⚠️ ${jogador.nome}, você tem certeza que deseja declarar falência?\n\nIsso fará você perder todas as propriedades e construções, e encerrará sua participação no jogo.`);
     
     if (confirmar) {
       declararFalencia(jogador);
@@ -482,7 +496,7 @@ function iniciarPartidaAgroPoly() {
   const qtdBots = parseInt(document.getElementById("qtd-bots").value);
 
   if (qtdBots > qtdJogadores) {
-    alert("erro: o número de bots não pode ultrapassar o número total de participantes.");
+    alert("Erro: O número de Bots não pode ultrapassar o número total de participantes.");
     return;
   }
 
@@ -492,6 +506,7 @@ function iniciarPartidaAgroPoly() {
   turnoAtual = 0;
   jogoIniciado = true;
   emProcessamento = false;
+  jaComprou = false;
   
   document.querySelectorAll('.dono-tag, .construcao-tag').forEach(t => t.remove());
 
@@ -499,7 +514,7 @@ function iniciarPartidaAgroPoly() {
   
   for (let i = 0; i < configs.length; i++) {
     const config = configs[i];
-    const nome = config.querySelector('.config-nome').value || `produtor ${i+1}`;
+    const nome = config.querySelector('.config-nome').value || `Produtor ${i+1}`;
     const corId = config.querySelector('.config-cor').value;
     const eBot = i >= (qtdJogadores - qtdBots);
     
@@ -518,7 +533,7 @@ function iniciarPartidaAgroPoly() {
   document.getElementById("config-inicial").style.display = "none";
   document.getElementById("painel-jogo").style.display = "block";
   
-  adicionarLog("🌱 o jogo começou! todos recebem r$ 1500 de capital de giro.");
+  adicionarLog("🌱 O jogo começou! Todos recebem R$ 1500 de capital de giro.");
   atualizarPlacarEDominio();
   desenharPeoesDoJogo();
   processarCicloDeTurno();
@@ -544,9 +559,9 @@ function atualizarPlacarEDominio() {
 
     div.innerHTML = `
       <strong>${j.nome}</strong> ${j.isBot?'🤖':''}<br>
-      <span class="destaque">🌾 r$ ${j.saldo}</span><br>
-      ${j.presoRodadas > 0 ? '🚫 em treinamento<br>' : ''}
-      <span class="propriedades">bens: ${propsAdquiridas || 'nenhum'}</span>
+      <span class="destaque">🌾 R$ ${j.saldo}</span><br>
+      ${j.presoRodadas > 0 ? '🚫 Em treinamento<br>' : ''}
+      <span class="propriedades">Bens: ${propsAdquiridas || 'Nenhum'}</span>
     `;
     placar.appendChild(div);
   });
@@ -560,7 +575,7 @@ function tentarJogadaHumana() {
 
 async function processarCicloDeTurno() {
   if (!jogoIniciado) {
-    document.getElementById("jogador-atual").innerText = `jogo não iniciado`;
+    document.getElementById("jogador-atual").innerText = `Jogo não iniciado`;
     return;
   }
   
@@ -568,7 +583,7 @@ async function processarCicloDeTurno() {
 
   const jogador = listaJogadores[turnoAtual];
   const btnRolar = document.querySelector(".btn-rolar");
-  document.getElementById("jogador-atual").innerHTML = `<i class="fas fa-user"></i> vez de: ${jogador.nome}`;
+  document.getElementById("jogador-atual").innerHTML = `<i class="fas fa-user"></i> Vez de: ${jogador.nome}`;
 
   if (jogador.saldo <= 0) {
     adicionarLog(`${jogador.nome} está falido e aguarda recuperação.`);
@@ -583,7 +598,7 @@ async function processarCicloDeTurno() {
         if (jogador.saldo >= 50 && Math.random() < 0.5) {
           jogador.saldo -= 50;
           jogador.presoRodadas = 0;
-          adicionarLog(`🤖 ${jogador.nome} pagou r$ 50 e saiu do treinamento!`);
+          adicionarLog(`🤖 ${jogador.nome} pagou R$ 50 e saiu do treinamento!`);
         } else {
           jogador.presoRodadas--;
           adicionarLog(`🤖 ${jogador.nome} assistiu às aulas (${jogador.presoRodadas} rodadas restantes).`);
@@ -600,15 +615,15 @@ async function processarCicloDeTurno() {
       if (pagar && jogador.saldo >= 50) {
         jogador.saldo -= 50;
         jogador.presoRodadas = 0;
-        adicionarLog(`${jogador.nome} pagou r$ 50 e saiu do treinamento!`);
+        adicionarLog(`${jogador.nome} pagou R$ 50 e saiu do treinamento!`);
         atualizarPlacarEDominio();
       } else if (pagar) {
-        await mostrarModal('saldo insuficiente', 'você não tem r$ 50 para pagar a saída. continuará no treinamento.', null, '💸');
+        await mostrarModal('Saldo Insuficiente', 'Você não tem R$ 50 para pagar a saída. Continuará no treinamento.', null, '💸');
       }
       
       if (jogador.presoRodadas > 0) {
         jogador.presoRodadas--;
-        await mostrarModal('⏳ treinamento', `${jogador.nome}, você está no treinamento e perdeu esta jogada. (${jogador.presoRodadas} restantes)`, null, '😓');
+        await mostrarModal('⏳ Treinamento', `${jogador.nome}, você está no treinamento e perdeu esta jogada. (${jogador.presoRodadas} restantes)`, null, '😓');
         adicionarLog(`${jogador.nome} continuou no treinamento.`);
         setTimeout(() => passarTurno(), 500);
         return;
@@ -640,7 +655,7 @@ async function computarRolagemDados() {
     if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
       jogador.saldo += 250;
       somDinheiro();
-      adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou r$ 250 de bônus!`);
+      adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
     }
 
     jogador.posicao = novaPosicao;
@@ -675,7 +690,7 @@ async function executarRegraDeCasa(jogador, casa) {
           else finalizarEtapaCasa(casa, true);
         }
       } else {
-        adicionarLog(`💸 ${jogador.nome} não possui saldo suficiente (r$ ${casa.preco}) para comprar esta área.`);
+        adicionarLog(`💸 ${jogador.nome} não possui saldo suficiente (R$ ${casa.preco}) para comprar esta área.`);
         finalizarEtapaCasa(casa, !jogador.isBot);
       }
     } else if (donoId === jogador.id) {
@@ -707,8 +722,8 @@ async function executarRegraDeCasa(jogador, casa) {
       dono.saldo += valorAluguel;
       
       somDinheiro();
-      await mostrarModal('💰 aluguel ecológico', `${jogador.nome} pagou r$ ${valorAluguel} para ${dono.nome} pelo uso de ${casa.titulo}.`, null, '💸');
-      adicionarLog(`${jogador.nome} pagou r$ ${valorAluguel} de aluguel.`);
+      await mostrarModal('💰 Aluguel Ecológico', `${jogador.nome} pagou R$ ${valorAluguel} para ${dono.nome} pelo uso de ${casa.titulo}.`, null, '💸');
+      adicionarLog(`${jogador.nome} pagou R$ ${valorAluguel} de aluguel.`);
       finalizarEtapaCasa(casa, false);
     }
 
@@ -716,7 +731,7 @@ async function executarRegraDeCasa(jogador, casa) {
     const evento = eventosSorte[Math.floor(Math.random() * eventosSorte.length)];
     jogador.saldo += evento.valor;
     somDinheiro();
-    await mostrarModal('🍀 sorte!', `${evento.texto}`, null, evento.emoji);
+    await mostrarModal('🍀 Sorte!', `${evento.texto}`, null, evento.emoji);
     adicionarLog(`🍀 ${jogador.nome} ${evento.texto}`);
     finalizarEtapaCasa(casa, false);
     
@@ -724,14 +739,14 @@ async function executarRegraDeCasa(jogador, casa) {
     const evento = eventosAzar[Math.floor(Math.random() * eventosAzar.length)];
     jogador.saldo += evento.valor;
     somAlerta();
-    await mostrarModal('⛈️ azar!', `${evento.texto}`, null, evento.emoji);
+    await mostrarModal('⛈️ Azar!', `${evento.texto}`, null, evento.emoji);
     adicionarLog(`⛈️ ${jogador.nome} ${evento.texto}`);
     finalizarEtapaCasa(casa, false);
     
   } else if (casa.tipo === "prisao") {
     jogador.presoRodadas = 3;
     somAlerta();
-    adicionarLog(`😓 ${jogador.nome} foi para o treinamento do senar por 3 rodadas!`);
+    adicionarLog(`😓 ${jogador.nome} foi para o treinamento do SENAR por 3 rodadas!`);
     finalizarEtapaCasa(casa, !jogador.isBot);
   } else {
     finalizarEtapaCasa(casa, false);
@@ -753,7 +768,12 @@ function efetuarCompra(jogador, casa) {
   elCasa.appendChild(tag);
   
   somCompra();
-  adicionarLog(`🛍️ ${jogador.nome} comprou ${casa.titulo} por r$ ${casa.preco}!`);
+  adicionarLog(`🛍️ ${jogador.nome} comprou ${casa.titulo} por R$ ${casa.preco}!`);
+  
+  // desabilita o botão de compra após usar
+  jaComprou = true;
+  mostrarBotoesAcao(false);
+  
   finalizarEtapaCasa(casa, false);
 }
 
@@ -768,11 +788,16 @@ function construirPropriedade(jogador, casa, nivelAtual) {
   
   let tag = document.createElement('div');
   tag.className = `construcao-tag ${nivelAtual === 0 ? 'casa' : 'prédio'}`;
-  tag.innerText = nivelAtual === 0 ? '🏠 casa' : '🏢 prédio';
+  tag.innerText = nivelAtual === 0 ? '🏠 Casa' : '🏢 Prédio';
   elCasa.appendChild(tag);
   
   somConstruir();
   adicionarLog(`🏗️ ${jogador.nome} construiu ${nivelAtual === 0 ? 'uma casa' : 'um prédio'} em ${casa.titulo}!`);
+  
+  // desabilita a ação após construir
+  mostrarBotoesAcao(false);
+  jaComprou = false;
+  
   finalizarEtapaCasa(casa, false);
 }
 
@@ -785,7 +810,9 @@ function finalizarEtapaCasa(casa, deveMostrarModal) {
   emProcessamento = false;
   
   const jogador = listaJogadores[turnoAtual];
-  if (!jogador.isBot && jogador.presoRodadas === 0) {
+  
+  // mostra botões de ação se for jogador humano e não estiver preso e não tiver comprado ainda
+  if (!jogador.isBot && jogador.presoRodadas === 0 && !jaComprou) {
     mostrarBotoesAcao(true);
   } else {
     mostrarBotoesAcao(false);
@@ -804,6 +831,7 @@ function verificarFalencia() {
 
 function passarTurno() {
   mostrarBotoesAcao(false);
+  jaComprou = false;
   
   let proximo = (turnoAtual + 1) % listaJogadores.length;
   let tentativas = 0;
@@ -814,7 +842,7 @@ function passarTurno() {
   }
   
   if (tentativas >= listaJogadores.length) {
-    adicionarLog("🏆 todos os jogadores faliriam! fim de jogo.");
+    adicionarLog("🏆 Todos os jogadores faliriam! Fim de jogo.");
     document.querySelector(".btn-rolar").classList.add("desabilitado");
     jogoIniciado = false;
     salvarRanking();
@@ -865,13 +893,13 @@ function salvarRanking() {
     ranking.map(r => `
       <div class="ranking-item">
         <span>🥇 ${r.posicao}º - ${r.nome}</span>
-        <span>🌾 r$ ${r.saldo} | ${r.propriedades} propriedades</span>
+        <span>🌾 R$ ${r.saldo} | ${r.propriedades} propriedades</span>
       </div>
     `).join('') :
-    '<p class="ranking-empty">nenhuma partida concluída. jogue para aparecer aqui!</p>';
+    '<p class="ranking-empty">Nenhuma partida concluída. Jogue para aparecer aqui!</p>';
 }
 
-// ===== seção informativa =====
+// seção informativa
 function gerarSecaoInformativa() {
   const container = document.getElementById('info-grid');
   if (!container) return;
@@ -879,14 +907,6 @@ function gerarSecaoInformativa() {
   container.innerHTML = '';
   
   const casasOrdenadas = [...infoCasas].sort((a, b) => a.id - b.id);
-  
-  const tipoEmoji = {
-    'partida': '🚩',
-    'propriedade': '🏡',
-    'sorte': '🍀',
-    'azar': '💥',
-    'prisao': '⛓️'
-  };
   
   const tipoClass = {
     'partida': 'partida',
@@ -902,12 +922,12 @@ function gerarSecaoInformativa() {
     
     let precoHTML = '';
     if (casa.preco > 0) {
-      precoHTML = `<div class="info-preco">💰 r$ ${casa.preco}</div>`;
+      precoHTML = `<div class="info-preco">💰 R$ ${casa.preco}</div>`;
     }
     
     let aluguelHTML = '';
     if (casa.aluguel > 0) {
-      aluguelHTML = `<div class="info-preco" style="background:#fff3e0;color:#e65100;">🏠 aluguel: r$ ${casa.aluguel} | casa: r$ ${casa.aluguelCasa} | prédio: r$ ${casa.aluguelPredio}</div>`;
+      aluguelHTML = `<div class="info-preco" style="background:#fff3e0;color:#e65100;">🏠 Aluguel: R$ ${casa.aluguel} | Casa: R$ ${casa.aluguelCasa} | Prédio: R$ ${casa.aluguelPredio}</div>`;
     }
     
     card.innerHTML = `
@@ -923,4 +943,4 @@ function gerarSecaoInformativa() {
     
     container.appendChild(card);
   });
-}
+}yuns
