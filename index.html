@@ -7,12 +7,38 @@
 </head>
 <body>
 
-  <h1>AgroPoly</h1>
-  <p class="subtitulo">Rascunho do tabuleiro — Agrinho 2026</p>
+  <header class="header-jogo">
+    <h1>AgroPoly</h1>
+    <p class="subtitulo">Equilíbrio entre Produção e Meio Ambiente — Agrinho 2026</p>
+    
+    <div id="config-inicial" class="config-jogadores">
+      <label for="qtd-jogadores">Jogadores:</label>
+      <select id="qtd-jogadores">
+        <option value="2">2 Jogadores</option>
+        <option value="3">3 Jogadores</option>
+        <option value="4">4 Jogadores</option>
+      </select>
+      
+      <label for="qtd-bots">Incluir Bots?</label>
+      <select id="qtd-bots">
+        <option value="0">Nenhum (Apenas Humanos)</option>
+        <option value="1">1 Bot</option>
+        <option value="2">2 Bots</option>
+        <option value="3">3 Bots</option>
+      </select>
+      <button id="btn-iniciar">Iniciar Jogo</button>
+    </div>
+
+    <div id="painel-jogo" style="display:none; margin-top: 15px;">
+      <div id="placar-financeiro" class="placar-financeiro"></div>
+      <div class="painel-turnos">
+        <span id="jogador-atual">Aguardando início...</span>
+      </div>
+      <div id="LOG-historico" class="log-historico">Bem-vindo ao AgroPoly! Configure os jogadores e clique em Iniciar.</div>
+    </div>
+  </header>
 
   <div class="tabuleiro">
-
-    <!-- meio -->
     <div class="centro">
       <p class="logo"><span>AGROPOLY</span></p>
       <p>Juntos pelo meio ambiente, por um futuro sustentável</p>
