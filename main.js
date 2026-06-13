@@ -372,93 +372,107 @@ function declararFalencia(jogador) {
   passarTurno();
 }
 
-// ===== INICIALIZAÇÃO =====
-document.addEventListener("DOMContentLoaded", () => {
-  mapearCasasEletivas();
-  document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
-  document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
+// ===== INICIALIZAÇÃO SIMPLIFICADA =====
+(function() {
+  console.log("Inicializando jogo...");
   
-  document.querySelectorAll(".info").forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const el = btn.parentElement;
-      const indice = nosCasasDOM.indexOf(el);
-      if(indice !== -1) exibirAlertaPedagogico(infoCasas[indice]);
+  // Aguarda o DOM carregar
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGame);
+  } else {
+    initGame();
+  }
+  
+  function initGame() {
+    console.log("DOM carregado!");
+    mapearCasasEletivas();
+    document.getElementById("btn-iniciar").addEventListener("click", iniciarPartidaAgroPoly);
+    document.querySelector(".btn-rolar").addEventListener("click", tentarJogadaHumana);
+    
+    document.querySelectorAll(".info").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const el = btn.parentElement;
+        const indice = nosCasasDOM.indexOf(el);
+        if(indice !== -1) exibirAlertaPedagogico(infoCasas[indice]);
+      });
     });
-  });
-  
-  document.querySelector('.nav-toggle').addEventListener('click', () => {
-    document.querySelector('.nav-menu').classList.toggle('active');
-  });
-  
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(e) {
-      e.preventDefault();
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      const target = document.querySelector(targetId);
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-      this.classList.add('active');
-      document.querySelector('.nav-menu').classList.remove('active');
+    
+    document.querySelector('.nav-toggle').addEventListener('click', () => {
+      document.querySelector('.nav-menu').classList.toggle('active');
     });
-  });
-  
-  document.getElementById('qtd-jogadores').addEventListener('change', gerarConfigJogadores);
-  document.getElementById('qtd-bots').addEventListener('change', gerarConfigJogadores);
-  gerarConfigJogadores();
-  
-  document.getElementById('btn-comprar').addEventListener('click', function() {
-    if (jogoIniciado && !emProcessamento && !jaAgiu) {
-      const jogador = listaJogadores[turnoAtual];
-      const casa = infoCasas[jogador.posicao];
-      if (casa.tipo === 'propriedade' && !donoPropriedades[casa.id]) {
-        efetuarCompra(jogador, casa);
-        jaAgiu = true;
-      }
-    }
-  });
-  
-  document.getElementById('btn-construir').addEventListener('click', function() {
-    if (jogoIniciado && !emProcessamento && !construiuEstaRodada) {
-      const jogador = listaJogadores[turnoAtual];
-      const casa = infoCasas[jogador.posicao];
-      if (casa.tipo === 'propriedade' && donoPropriedades[casa.id] === jogador.id) {
-        const nivelAtual = construcoes[casa.id] || 0;
-        if (nivelAtual < 2) {
-          construirPropriedade(jogador, casa, nivelAtual);
-          construiuEstaRodada = true;
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        const target = document.querySelector(targetId);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+        document.querySelector('.nav-menu').classList.remove('active');
+      });
+    });
+    
+    document.getElementById('qtd-jogadores').addEventListener('change', gerarConfigJogadores);
+    document.getElementById('qtd-bots').addEventListener('change', gerarConfigJogadores);
+    gerarConfigJogadores();
+    
+    document.getElementById('btn-comprar').addEventListener('click', function() {
+      if (jogoIniciado && !emProcessamento && !jaAgiu) {
+        const jogador = listaJogadores[turnoAtual];
+        const casa = infoCasas[jogador.posicao];
+        if (casa.tipo === 'propriedade' && !donoPropriedades[casa.id]) {
+          efetuarCompra(jogador, casa);
           jaAgiu = true;
         }
       }
-    }
-  });
-  
-  document.getElementById('btn-passar').addEventListener('click', function() {
-    if (jogoIniciado && !emProcessamento) {
-      adicionarLog(`${listaJogadores[turnoAtual].nome} passou a vez.`);
-      mostrarBotoesAcao(false);
-      jaAgiu = false;
-      construiuEstaRodada = false;
-      passarTurno();
-    }
-  });
-  
-  document.getElementById('btn-falencia').addEventListener('click', function() {
-    const jogador = listaJogadores[turnoAtual];
-    if (!jogador || jogador.isBot) return;
+    });
     
-    const confirmar = confirm(`⚠️ ${jogador.nome}, você tem certeza que deseja declarar falência?\n\nIsso fará você perder todas as propriedades e construções, e encerrará sua participação no jogo.`);
+    document.getElementById('btn-construir').addEventListener('click', function() {
+      if (jogoIniciado && !emProcessamento && !construiuEstaRodada) {
+        const jogador = listaJogadores[turnoAtual];
+        const casa = infoCasas[jogador.posicao];
+        if (casa.tipo === 'propriedade' && donoPropriedades[casa.id] === jogador.id) {
+          const nivelAtual = construcoes[casa.id] || 0;
+          if (nivelAtual < 2) {
+            construirPropriedade(jogador, casa, nivelAtual);
+            construiuEstaRodada = true;
+            jaAgiu = true;
+          }
+        }
+      }
+    });
     
-    if (confirmar) {
-      declararFalencia(jogador);
-    }
-  });
-  
-  setTimeout(() => {
-    gerarSecaoInformativa();
-  }, 100);
-});
+    document.getElementById('btn-passar').addEventListener('click', function() {
+      if (jogoIniciado && !emProcessamento) {
+        adicionarLog(`${listaJogadores[turnoAtual].nome} passou a vez.`);
+        mostrarBotoesAcao(false);
+        jaAgiu = false;
+        construiuEstaRodada = false;
+        passarTurno();
+      }
+    });
+    
+    document.getElementById('btn-falencia').addEventListener('click', function() {
+      const jogador = listaJogadores[turnoAtual];
+      if (!jogador || jogador.isBot) return;
+      
+      const confirmar = confirm(`⚠️ ${jogador.nome}, você tem certeza que deseja declarar falência?\n\nIsso fará você perder todas as propriedades e construções, e encerrará sua participação no jogo.`);
+      
+      if (confirmar) {
+        declararFalencia(jogador);
+      }
+    });
+    
+    setTimeout(() => {
+      gerarSecaoInformativa();
+    }, 100);
+    
+    console.log("Inicialização completa!");
+  }
+})();
 
 function mapearCasasEletivas() {
   const todasCasas = document.querySelectorAll(".casa");
