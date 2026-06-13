@@ -429,9 +429,6 @@ function tentarJogadaHumana() {
   if (!jogoIniciado || emProcessamento) return;
   if (listaJogadores[turnoAtual].isBot) return;
   computarRolagemDados();
-  setTimeout(() => {
-  desenharPeoesDoJogo(); // força o redesenho após a movimentação
-}, 200);
 }
 
 async function processarCicloDeTurno() {
@@ -485,46 +482,38 @@ async function processarCicloDeTurno() {
   }
 }
 
-function desenharPeoesDoJogo() {
-  console.log("=== DESENHANDO PEÕES ===");
-  
-  // limpa todos os containers
-  document.querySelectorAll('.container-peoes').forEach(c => {
-    c.innerHTML = '';
-    console.log("Container limpo:", c);
-  });
-  
-  // desenha cada jogador
-  listaJogadores.forEach(j => {
-    if (j.saldo >= 0) {
-      const casaId = j.posicao;
-      const container = nosCasasDOM[casaId].querySelector('.container-peoes');
-      
-      if (container) {
-        const peao = document.createElement('div');
-        peao.className = `peao ${j.cor}`;
-        peao.title = j.nome;
-        peao.style.width = '12px';
-        peao.style.height = '12px';
-        peao.style.borderRadius = '50%';
-        peao.style.border = '2px solid white';
-        peao.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
-        peao.style.display = 'inline-block';
-        peao.style.margin = '1px';
-        
-        // define a cor baseada na classe
-        if (j.cor === 'p1') peao.style.background = '#e53935';
-        else if (j.cor === 'p2') peao.style.background = '#1e88e5';
-        else if (j.cor === 'p3') peao.style.background = '#fdd835';
-        else if (j.cor === 'p4') peao.style.background = '#8e24aa';
-        
-        container.appendChild(peao);
-        console.log(`Peão ${j.nome} adicionado na casa ${casaId}`);
-      } else {
-        console.error(`Container não encontrado na casa ${casaId}`);
-      }
+// ===== FUNÇÃO COMPUTAR ROLAGEM DADOS (RESTAURADA) =====
+async function computarRolagemDados() {
+  console.log("computarRolagemDados() chamada!");
+  if (emProcessamento) return;
+  emProcessamento = true;
+  const jogador = listaJogadores[turnoAtual];
+  const d1 = Math.floor(Math.random() * 6) + 1;
+  const d2 = Math.floor(Math.random() * 6) + 1;
+  const passos = d1 + d2;
+  console.log(`Dados: ${d1} + ${d2} = ${passos}`);
+  const areaDados = document.querySelector(".dados");
+  areaDados.classList.add("animando");
+  areaDados.innerText = `${facesDados[d1]} ${facesDados[d2]}`;
+  somDados();
+  setTimeout(() => {
+    areaDados.classList.remove("animando");
+    let antigaPosicao = jogador.posicao;
+    let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
+    console.log(`Movendo de ${antigaPosicao} para ${novaPosicao}`);
+    if (novaPosicao < antigaPosicao || (antigaPosicao + passos >= infoCasas.length)) {
+      jogador.saldo += 250;
+      somDinheiro();
+      adicionarLog(`🎉 ${jogador.nome} completou um ciclo produtivo e coletou R$ 250 de bônus!`);
     }
-  });
+    jogador.posicao = novaPosicao;
+    desenharPeoesDoJogo(); // <--- REDESENHA OS PEÕES
+    atualizarPlacarEDominio();
+    document.querySelector(".btn-rolar").classList.remove("desabilitado");
+    setTimeout(() => {
+      executarRegraDeCasa(jogador, infoCasas[novaPosicao]);
+    }, 400);
+  }, 600);
 }
 
 async function executarRegraDeCasa(jogador, casa) {
@@ -676,14 +665,29 @@ function passarTurno() {
 }
 
 function desenharPeoesDoJogo() {
+  console.log("=== DESENHANDO PEÕES ===");
   document.querySelectorAll('.container-peoes').forEach(c => c.innerHTML = '');
   listaJogadores.forEach(j => {
-    if(j.saldo >= 0){
+    if (j.saldo >= 0) {
       const container = nosCasasDOM[j.posicao].querySelector('.container-peoes');
-      const bola = document.createElement('div');
-      bola.className = `peao ${j.cor}`;
-      bola.title = j.nome;
-      container.appendChild(bola);
+      if (container) {
+        const peao = document.createElement('div');
+        peao.className = `peao ${j.cor}`;
+        peao.title = j.nome;
+        peao.style.width = '12px';
+        peao.style.height = '12px';
+        peao.style.borderRadius = '50%';
+        peao.style.border = '2px solid white';
+        peao.style.boxShadow = '0 2px 4px rgba(0,0,0,0.3)';
+        peao.style.display = 'inline-block';
+        peao.style.margin = '1px';
+        if (j.cor === 'p1') peao.style.background = '#e53935';
+        else if (j.cor === 'p2') peao.style.background = '#1e88e5';
+        else if (j.cor === 'p3') peao.style.background = '#fdd835';
+        else if (j.cor === 'p4') peao.style.background = '#8e24aa';
+        container.appendChild(peao);
+        console.log(`Peão ${j.nome} adicionado na casa ${j.posicao}`);
+      }
     }
   });
 }
