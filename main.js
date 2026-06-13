@@ -687,10 +687,10 @@ async function executarRegraDeCasa(jogador, casa) {
     const donoId = donoPropriedades[casa.id];
 
     if (!donoId) {
-      // Propriedade livre - oferece compra
+      // propriedade livre - oferece compra
       if (jogador.saldo >= casa.preco) {
         if (jogador.isBot) {
-          // Bot decide comprar ou não
+          // bot decide comprar ou não
           if (jogador.saldo - casa.preco > 200) {
             efetuarCompra(jogador, casa);
           } else {
@@ -698,7 +698,7 @@ async function executarRegraDeCasa(jogador, casa) {
             passarTurno();
           }
         } else {
-          // Jogador humano escolhe
+          // jogador humano escolhe
           const querComprar = await confirmarCompra(casa, jogador);
           if (querComprar) {
             efetuarCompra(jogador, casa);
@@ -712,7 +712,7 @@ async function executarRegraDeCasa(jogador, casa) {
         passarTurno();
       }
     } else if (donoId === jogador.id) {
-      // Já é dono - oferece construir (apenas uma construção por rodada)
+      // já é dono - oferece construir (apenas uma construção por rodada)
       const nivelAtual = construcoes[casa.id] || 0;
       if (nivelAtual < 2) {
         if (jogador.isBot) {
@@ -725,7 +725,7 @@ async function executarRegraDeCasa(jogador, casa) {
             passarTurno();
           }
         } else {
-          // Jogador humano escolhe (só pode construir uma vez por rodada)
+          // jogador humano escolhe (só pode construir uma vez por rodada)
           if (construiuEstaRodada) {
             adicionarLog(`${jogador.nome} já construiu esta rodada.`);
             passarTurno();
@@ -745,7 +745,7 @@ async function executarRegraDeCasa(jogador, casa) {
         passarTurno();
       }
     } else {
-      // Pagar Aluguel
+      // pagar aluguel
       const dono = listaJogadores.find(j => j.id === donoId);
       const nivel = construcoes[casa.id] || 0;
       const valorAluguel = nivel === 0 ? casa.aluguel : nivel === 1 ? casa.aluguelCasa : casa.aluguelPredio;
@@ -802,8 +802,10 @@ function efetuarCompra(jogador, casa) {
   somCompra();
   adicionarLog(`🛍️ ${jogador.nome} comprou ${casa.titulo} por R$ ${casa.preco}!`);
   
-  // Passa a vez após comprar
-  passarTurno();
+  // passa a vez após comprar
+  setTimeout(() => {
+    passarTurno();
+  }, 500);
 }
 
 function construirPropriedade(jogador, casa, nivelAtual) {
@@ -823,8 +825,10 @@ function construirPropriedade(jogador, casa, nivelAtual) {
   somConstruir();
   adicionarLog(`🏗️ ${jogador.nome} construiu ${nivelAtual === 0 ? 'uma casa' : 'um prédio'} em ${casa.titulo}!`);
   
-  // Passa a vez após construir
-  passarTurno();
+  // passa a vez após construir
+  setTimeout(() => {
+    passarTurno();
+  }, 500);
 }
 
 function verificarFalencia() {
@@ -837,7 +841,10 @@ function verificarFalencia() {
 }
 
 function passarTurno() {
-  mostrarBotoesAcao(false);
+  const botoes = document.getElementById('botoes-acao');
+  if (botoes) {
+    botoes.style.display = 'none';
+  }
   jaAgiu = false;
   construiuEstaRodada = false;
   
