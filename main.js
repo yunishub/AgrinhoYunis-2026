@@ -247,18 +247,11 @@ function declararFalencia(jogador) {
   });
   jogador.saldo = 0;
   jogador.presoRodadas = 0;
+  jogador.ativo = false;
   adicionarLog(`💀 ${jogador.nome} declarou falência e perdeu todas as propriedades!`);
   atualizarPlacarEDominio();
   desenharPeoesDoJogo();
   mostrarBotoesAcao(false);
-  const jogadoresAtivos = listaJogadores.filter(j => j.saldo > 0);
-  if (jogadoresAtivos.length <= 1) {
-    adicionarLog("🏆 Fim de jogo! Último jogador ativo venceu!");
-    document.querySelector(".btn-rolar").classList.add("desabilitado");
-    jogoIniciado = false;
-    salvarRanking();
-    return;
-  }
   passarTurno();
 }
 
@@ -387,7 +380,7 @@ function iniciarPartidaAgroPoly() {
       cor: corId,
       isBot: eBot,
       presoRodadas: 0,
-      propriedades: []
+      ativo: true
     });
   }
   document.getElementById("config-inicial").style.display = "none";
@@ -434,8 +427,8 @@ async function processarCicloDeTurno() {
   atualizarPlacarEDominio();
   const jogador = listaJogadores[turnoAtual];
   document.getElementById("jogador-atual").innerHTML = `<i class="fas fa-user"></i> Vez de: ${jogador.nome}`;
-  if (jogador.saldo <= 0) {
-    adicionarLog(`${jogador.nome} está falido e aguarda recuperação.`);
+  if (!jogador.ativo) {
+    adicionarLog(`${jogador.nome} está fora do jogo.`);
     setTimeout(() => passarTurno(), 800);
     return;
   }
@@ -489,7 +482,6 @@ async function computarRolagemDados() {
   areaDados.innerText = `${facesDados[d1]} ${facesDados[d2]}`;
   somDados();
   setTimeout(() => {
-    emProcessamento = false;
     areaDados.classList.remove("animando");
     let antigaPosicao = jogador.posicao;
     let novaPosicao = (antigaPosicao + passos) % infoCasas.length;
@@ -503,6 +495,7 @@ async function computarRolagemDados() {
     atualizarPlacarEDominio();
     document.querySelector(".btn-rolar").classList.remove("desabilitado");
     setTimeout(() => {
+      emProcessamento = false;
       executarRegraDeCasa(jogador, infoCasas[novaPosicao]);
     }, 400);
   }, 600);
@@ -564,6 +557,7 @@ async function executarRegraDeCasa(jogador, casa) {
       const valorAluguel = nivel === 0 ? casa.aluguel : nivel === 1 ? casa.aluguelCasa : casa.aluguelPredio;
       jogador.saldo -= valorAluguel;
       dono.saldo += valorAluguel;
+      verificarFalencia();
       somDinheiro();
       await mostrarModal('💰 Aluguel Ecológico', `${jogador.nome} pagou R$ ${valorAluguel} para ${dono.nome} pelo uso de ${casa.titulo}.`, null, '💸');
       adicionarLog(`${jogador.nome} pagou R$ ${valorAluguel} de aluguel.`);
@@ -579,6 +573,7 @@ async function executarRegraDeCasa(jogador, casa) {
   } else if (casa.tipo === "azar") {
     const evento = eventosAzar[Math.floor(Math.random() * eventosAzar.length)];
     jogador.saldo += evento.valor;
+    verificarFalencia();
     somAlerta();
     await mostrarModal('⛈️ Azar!', `${evento.texto}`, null, evento.emoji);
     adicionarLog(`⛈️ ${jogador.nome} ${evento.texto}`);
@@ -617,7 +612,7 @@ function construirPropriedade(jogador, casa, nivelAtual) {
   const tagAntiga = elCasa.querySelector('.construcao-tag');
   if (tagAntiga) tagAntiga.remove();
   let tag = document.createElement('div');
-  tag.className = `construcao-tag ${nivelAtual === 0 ? 'casa' : 'prédio'}`;
+  tag.className = `construcao-tag ${nivelAtual === 0 ? 'casa' : 'predio'}`;
   tag.innerText = nivelAtual === 0 ? '🏠 Casa' : '🏢 Prédio';
   elCasa.appendChild(tag);
   somConstruir();
@@ -627,9 +622,24 @@ function construirPropriedade(jogador, casa, nivelAtual) {
 
 function verificarFalencia() {
   listaJogadores.forEach(j => {
-    if (j.saldo < 0) {
+    if (j.ativo && j.saldo < 0) {
       adicionarLog(`🚨 ${j.nome} ficou sem fundos ecológicos e faliu!`);
       j.saldo = 0;
+      j.ativo = false;
+      // Liberar propriedades do jogador falido
+      const props = Object.keys(donoPropriedades).filter(k => donoPropriedades[k] === j.id);
+      props.forEach(id => {
+        const casaId = parseInt(id);
+        delete donoPropriedades[casaId];
+        delete construcoes[casaId];
+        const elCasa = nosCasasDOM[casaId];
+        const donoTag = elCasa && elCasa.querySelector('.dono-tag');
+        if (donoTag) donoTag.remove();
+        const construcaoTag = elCasa && elCasa.querySelector('.construcao-tag');
+        if (construcaoTag) construcaoTag.remove();
+      });
+      atualizarPlacarEDominio();
+      desenharPeoesDoJogo();
     }
   });
 }
@@ -637,18 +647,19 @@ function verificarFalencia() {
 function passarTurno() {
   mostrarBotoesAcao(false);
   document.querySelector(".btn-rolar").classList.remove("desabilitado");
-  let proximo = (turnoAtual + 1) % listaJogadores.length;
-  let tentativas = 0;
-  while (listaJogadores[proximo].saldo <= 0 && tentativas < listaJogadores.length) {
-    proximo = (proximo + 1) % listaJogadores.length;
-    tentativas++;
-  }
-  if (tentativas >= listaJogadores.length) {
-    adicionarLog("🏆 Todos os jogadores faliriam! Fim de jogo.");
+  const ativos = listaJogadores.filter(j => j.ativo);
+  if (ativos.length <= 1) {
+    adicionarLog("🏆 Fim de jogo! Último jogador ativo venceu!");
     document.querySelector(".btn-rolar").classList.add("desabilitado");
     jogoIniciado = false;
     salvarRanking();
     return;
+  }
+  let proximo = (turnoAtual + 1) % listaJogadores.length;
+  let tentativas = 0;
+  while (!listaJogadores[proximo].ativo && tentativas < listaJogadores.length) {
+    proximo = (proximo + 1) % listaJogadores.length;
+    tentativas++;
   }
   turnoAtual = proximo;
   processarCicloDeTurno();
@@ -657,7 +668,7 @@ function passarTurno() {
 function desenharPeoesDoJogo() {
   document.querySelectorAll('.container-peoes').forEach(c => c.innerHTML = '');
   listaJogadores.forEach(j => {
-    if (j.saldo >= 0) {
+    if (j.ativo) {
       const container = nosCasasDOM[j.posicao].querySelector('.container-peoes');
       if (container) {
         const peao = document.createElement('div');
@@ -676,7 +687,7 @@ function adicionarLog(msg) {
 }
 
 function salvarRanking() {
-  const ranking = listaJogadores.filter(j => j.saldo > 0).sort((a, b) => b.saldo - a.saldo).map((j, idx) => ({
+  const ranking = [...listaJogadores].sort((a, b) => b.saldo - a.saldo).map((j, idx) => ({
     posicao: idx + 1,
     nome: j.nome,
     saldo: j.saldo,

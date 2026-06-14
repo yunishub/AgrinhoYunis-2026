@@ -374,7 +374,7 @@ body {
 [style*="grid-column:7"][style*="grid-row:4"],
 [style*="grid-column:7"][style*="grid-row:5"],
 [style*="grid-column:7"][style*="grid-row:6"] {
-  border-top: 1px;
+  border-top: none;
 }
 .verde[style*="grid-column:7"]   { border-left: 4px solid #4caf50; }
 .laranja[style*="grid-column:7"] { border-left: 4px solid #f57c00; }
@@ -387,7 +387,7 @@ body {
 [style*="grid-column:1"][style*="grid-row:4"],
 [style*="grid-column:1"][style*="grid-row:5"],
 [style*="grid-column:1"][style*="grid-row:6"] {
-  border-top: 1px;
+  border-top: none;
 }
 .verde[style*="grid-column:1"]   { border-right: 4px solid #4caf50; }
 .terra[style*="grid-column:1"]   { border-right: 4px solid #8d6e63; }
@@ -396,7 +396,7 @@ body {
 .azul[style*="grid-column:1"]    { border-right: 4px solid #0288d1; }
 
 [style*="grid-row:1"]:not(.canto) {
-  border-top: 1px;
+  border-top: none;
 }
 .laranja[style*="grid-row:1"] { border-bottom: 4px solid #f57c00; }
 .azul[style*="grid-row:1"]    { border-bottom: 4px solid #0288d1; }
@@ -496,7 +496,7 @@ body {
 }
 
 .construcao-tag.casa { background: #4caf50; }
-.construcao-tag.prédio { background: #1565c0; }
+.construcao-tag.predio { background: #1565c0; }
 
 /* lado direito: painel */
 .painel-side {
@@ -711,7 +711,7 @@ body {
   background: #f5f5f5;
   padding: 8px 12px;
   border-radius: 8px;
-  max-height: 50px;
+  max-height: 150px;
   overflow-y: auto;
   margin-top: 5px;
   border: 1px solid #ddd;
