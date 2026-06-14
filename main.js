@@ -323,6 +323,13 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   });
   
+  document.getElementById('btn-trocar').addEventListener('click', function() {
+    if (!jogoIniciado || emProcessamento) return;
+    const jogador = listaJogadores[turnoAtual];
+    if (!jogador || jogador.isBot) return;
+    abrirModalTroca();
+  });
+
   document.getElementById('btn-falencia').addEventListener('click', function() {
     const jogador = listaJogadores[turnoAtual];
     if (!jogador || jogador.isBot) return;
@@ -641,6 +648,230 @@ function verificarFalencia() {
       atualizarPlacarEDominio();
       desenharPeoesDoJogo();
     }
+  });
+}
+
+// ===== SISTEMA DE TROCA =====
+
+function abrirModalTroca() {
+  const jogador = listaJogadores[turnoAtual];
+  const outrosAtivos = listaJogadores.filter(j => j.ativo && j.id !== jogador.id);
+
+  if (outrosAtivos.length === 0) {
+    mostrarModal('🔄 Troca', 'Não há outros jogadores ativos para negociar.', null, '😕');
+    return;
+  }
+
+  // Remover modal anterior se existir
+  const existente = document.getElementById('modal-troca');
+  if (existente) existente.remove();
+
+  const minhasProps = infoCasas.filter(c => donoPropriedades[c.id] === jogador.id);
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay';
+  overlay.id = 'modal-troca';
+
+  // Monta opções dos outros jogadores
+  const opcoesJogadores = outrosAtivos.map(j =>
+    `<option value="${j.id}">${j.nome} (R$ ${j.saldo})</option>`
+  ).join('');
+
+  overlay.innerHTML = `
+    <div class="modal-box modal-troca-box">
+      <span class="modal-emoji">🤝</span>
+      <h3>Propor Troca</h3>
+
+      <div class="troca-secao">
+        <label><strong>Negociar com:</strong></label>
+        <select id="troca-alvo-jogador" class="troca-select">
+          ${opcoesJogadores}
+        </select>
+      </div>
+
+      <div class="troca-colunas">
+        <!-- OFERTA -->
+        <div class="troca-col">
+          <div class="troca-col-header troca-col-voce">📤 Sua oferta (${jogador.nome})</div>
+          <div class="troca-campo">
+            <label>💰 Dinheiro:</label>
+            <input type="number" id="troca-dinheiro-oferta" min="0" max="${jogador.saldo}" value="0" class="troca-input">
+            <span class="troca-saldo-info">Saldo: R$ ${jogador.saldo}</span>
+          </div>
+          <div class="troca-campo">
+            <label>🌾 Propriedades:</label>
+            <div id="troca-props-oferta" class="troca-props-lista">
+              ${minhasProps.length > 0
+                ? minhasProps.map(p => {
+                    const nivel = construcoes[p.id] || 0;
+                    const nivelTag = nivel === 1 ? ' 🏠' : nivel === 2 ? ' 🏢' : '';
+                    return `<label class="troca-prop-item">
+                      <input type="checkbox" class="troca-check-oferta" value="${p.id}">
+                      ${p.emoji}${nivelTag} ${p.titulo}
+                    </label>`;
+                  }).join('')
+                : '<span class="troca-vazio">Sem propriedades</span>'
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- PEDIDO -->
+        <div class="troca-col">
+          <div class="troca-col-header troca-col-alvo">📥 Você quer receber</div>
+          <div class="troca-campo">
+            <label>💰 Dinheiro:</label>
+            <input type="number" id="troca-dinheiro-pedido" min="0" value="0" class="troca-input">
+          </div>
+          <div class="troca-campo">
+            <label>🌾 Propriedades:</label>
+            <div id="troca-props-pedido" class="troca-props-lista">
+              <span class="troca-vazio">Selecione o jogador acima</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-buttons">
+        <button class="btn-modal secondary" id="troca-cancelar">Cancelar</button>
+        <button class="btn-modal primary" id="troca-enviar">📨 Enviar Proposta</button>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(overlay);
+
+  // Atualizar props do alvo ao mudar jogador selecionado
+  function atualizarPropsAlvo() {
+    const alvoPedido = document.getElementById('troca-dinheiro-pedido');
+    const idAlvo = parseInt(document.getElementById('troca-alvo-jogador').value);
+    const alvo = listaJogadores.find(j => j.id === idAlvo);
+    const propsAlvo = infoCasas.filter(c => donoPropriedades[c.id] === alvo.id);
+    const container = document.getElementById('troca-props-pedido');
+    if (propsAlvo.length > 0) {
+      container.innerHTML = propsAlvo.map(p => {
+        const nivel = construcoes[p.id] || 0;
+        const nivelTag = nivel === 1 ? ' 🏠' : nivel === 2 ? ' 🏢' : '';
+        return `<label class="troca-prop-item">
+          <input type="checkbox" class="troca-check-pedido" value="${p.id}">
+          ${p.emoji}${nivelTag} ${p.titulo}
+        </label>`;
+      }).join('');
+    } else {
+      container.innerHTML = '<span class="troca-vazio">Este jogador não tem propriedades</span>';
+    }
+    alvoPedido.max = alvo.saldo;
+  }
+  document.getElementById('troca-alvo-jogador').addEventListener('change', atualizarPropsAlvo);
+  atualizarPropsAlvo();
+
+  document.getElementById('troca-cancelar').onclick = () => overlay.remove();
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.remove(); });
+
+  document.getElementById('troca-enviar').onclick = async () => {
+    const idAlvo = parseInt(document.getElementById('troca-alvo-jogador').value);
+    const alvo = listaJogadores.find(j => j.id === idAlvo);
+
+    const dinheiroOferta = parseInt(document.getElementById('troca-dinheiro-oferta').value) || 0;
+    const dinheiroPedido = parseInt(document.getElementById('troca-dinheiro-pedido').value) || 0;
+
+    const idsOferta = [...document.querySelectorAll('.troca-check-oferta:checked')].map(c => parseInt(c.value));
+    const idsPedido = [...document.querySelectorAll('.troca-check-pedido:checked')].map(c => parseInt(c.value));
+
+    // Validações
+    if (dinheiroOferta > jogador.saldo) {
+      mostrarModal('⚠️ Atenção', `Você não tem R$ ${dinheiroOferta}. Seu saldo é R$ ${jogador.saldo}.`, null, '⚠️');
+      return;
+    }
+    if (dinheiroPedido > alvo.saldo) {
+      mostrarModal('⚠️ Atenção', `${alvo.nome} não tem R$ ${dinheiroPedido}. Saldo dele: R$ ${alvo.saldo}.`, null, '⚠️');
+      return;
+    }
+    if (dinheiroOferta === 0 && idsOferta.length === 0 && dinheiroPedido === 0 && idsPedido.length === 0) {
+      mostrarModal('⚠️ Atenção', 'A proposta não pode estar vazia.', null, '⚠️');
+      return;
+    }
+
+    overlay.remove();
+    await processarPropostaTroca(jogador, alvo, dinheiroOferta, dinheiroPedido, idsOferta, idsPedido);
+  };
+}
+
+async function processarPropostaTroca(proponente, alvo, dinheiroOferta, dinheiroPedido, idsOferta, idsPedido) {
+  const propsOferta = idsOferta.map(id => infoCasas.find(c => c.id === id));
+  const propsPedido = idsPedido.map(id => infoCasas.find(c => c.id === id));
+
+  let resumoOferta = dinheiroOferta > 0 ? `💰 R$ ${dinheiroOferta}` : '';
+  if (propsOferta.length > 0) resumoOferta += (resumoOferta ? ' + ' : '') + propsOferta.map(p => `${p.emoji} ${p.titulo}`).join(', ');
+
+  let resumoPedido = dinheiroPedido > 0 ? `💰 R$ ${dinheiroPedido}` : '';
+  if (propsPedido.length > 0) resumoPedido += (resumoPedido ? ' + ' : '') + propsPedido.map(p => `${p.emoji} ${p.titulo}`).join(', ');
+
+  const mensagem = `
+    <strong>${proponente.nome}</strong> propõe para <strong>${alvo.nome}</strong>:<br><br>
+    📤 <em>Oferece:</em> ${resumoOferta || 'Nada'}<br>
+    📥 <em>Pede em troca:</em> ${resumoPedido || 'Nada'}<br><br>
+    ${alvo.isBot ? '' : `<em>${alvo.nome}, você aceita esta proposta?</em>`}
+  `;
+
+  let aceito = false;
+
+  if (alvo.isBot) {
+    // Lógica de decisão do bot: aceita se o valor recebido for igual ou maior ao oferecido
+    const valorOfertaProps = propsOferta.reduce((s, p) => s + p.preco, 0);
+    const valorPedidoProps = propsPedido.reduce((s, p) => s + p.preco, 0);
+    const ganhoBot = dinheiroPedido + valorPedidoProps;
+    const custoBot = dinheiroOferta + valorOfertaProps;
+    aceito = ganhoBot >= custoBot;
+    await mostrarModal('🤖 Proposta enviada', `${mensagem}<br><br>${alvo.nome} ${aceito ? '✅ <strong>aceitou</strong>' : '❌ <strong>recusou</strong>'} a proposta.`, null, aceito ? '✅' : '❌');
+  } else {
+    aceito = await mostrarModal('🤝 Proposta de Troca', mensagem, null, '🤝', ['❌ Recusar', '✅ Aceitar']);
+  }
+
+  if (aceito) {
+    executarTroca(proponente, alvo, dinheiroOferta, dinheiroPedido, idsOferta, idsPedido);
+    somCompra();
+    adicionarLog(`🤝 Troca realizada entre ${proponente.nome} e ${alvo.nome}!`);
+    await mostrarModal('✅ Troca Concluída!', `${proponente.nome} e ${alvo.nome} concluíram a negociação com sucesso.`, null, '🎉');
+  } else {
+    adicionarLog(`🚫 ${alvo.nome} recusou a proposta de troca de ${proponente.nome}.`);
+    await mostrarModal('❌ Proposta Recusada', `${alvo.nome} não aceitou a proposta.`, null, '😕');
+  }
+  atualizarPlacarEDominio();
+  desenharPeoesDoJogo();
+}
+
+function executarTroca(proponente, alvo, dinheiroOferta, dinheiroPedido, idsOferta, idsPedido) {
+  // Transferir dinheiro
+  proponente.saldo -= dinheiroOferta;
+  alvo.saldo += dinheiroOferta;
+  alvo.saldo -= dinheiroPedido;
+  proponente.saldo += dinheiroPedido;
+
+  // Transferir propriedades da oferta: proponente → alvo
+  idsOferta.forEach(id => {
+    donoPropriedades[id] = alvo.id;
+    const elCasa = nosCasasDOM[id];
+    const donoTagAntiga = elCasa && elCasa.querySelector('.dono-tag');
+    if (donoTagAntiga) donoTagAntiga.remove();
+    const cor = CORES_DISPONIVEIS.find(c => c.id === alvo.cor);
+    const tag = document.createElement('div');
+    tag.className = 'dono-tag';
+    tag.style.backgroundColor = cor ? cor.hex : '#ccc';
+    if (elCasa) elCasa.appendChild(tag);
+  });
+
+  // Transferir propriedades do pedido: alvo → proponente
+  idsPedido.forEach(id => {
+    donoPropriedades[id] = proponente.id;
+    const elCasa = nosCasasDOM[id];
+    const donoTagAntiga = elCasa && elCasa.querySelector('.dono-tag');
+    if (donoTagAntiga) donoTagAntiga.remove();
+    const cor = CORES_DISPONIVEIS.find(c => c.id === proponente.cor);
+    const tag = document.createElement('div');
+    tag.className = 'dono-tag';
+    tag.style.backgroundColor = cor ? cor.hex : '#ccc';
+    if (elCasa) elCasa.appendChild(tag);
   });
 }
 
