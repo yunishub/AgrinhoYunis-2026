@@ -23,8 +23,62 @@
       <div class="nav-toggle">
         <i class="fas fa-bars"></i>
       </div>
+
+      <!-- BOTÃO DE ACESSIBILIDADE -->
+      <button class="btn-acessibilidade" id="btn-acessibilidade" title="Opções de Acessibilidade" aria-label="Abrir painel de acessibilidade">
+        <i class="fas fa-universal-access"></i>
+      </button>
     </div>
   </nav>
+
+  <!-- PAINEL DE ACESSIBILIDADE -->
+  <div id="painel-acessibilidade" class="painel-acessibilidade" role="dialog" aria-label="Painel de acessibilidade" hidden>
+    <div class="acess-header">
+      <span><i class="fas fa-universal-access"></i> Acessibilidade</span>
+      <button id="acess-fechar" aria-label="Fechar painel" class="acess-fechar">&#x2715;</button>
+    </div>
+
+    <div class="acess-grupo">
+      <span class="acess-grupo-titulo"><i class="fas fa-text-height"></i> Tamanho do texto</span>
+      <div class="acess-botoes">
+        <button class="acess-btn" id="fonte-diminuir" aria-label="Diminuir fonte" title="Diminuir texto" style="flex:0 0 auto; width:38px;">A−</button>
+        <button class="acess-btn" id="fonte-resetar"  aria-label="Tamanho padrão" title="Tamanho padrão" style="flex:0 0 auto; width:38px;">A</button>
+        <button class="acess-btn" id="fonte-aumentar" aria-label="Aumentar fonte" title="Aumentar texto" style="flex:0 0 auto; width:38px;">A+</button>
+      </div>
+      <div class="acess-fonte-barra">
+        <div class="acess-barra-track"><div id="fonte-barra-fill"></div></div>
+        <span id="fonte-valor">100%</span>
+      </div>
+    </div>
+
+    <div class="acess-grupo">
+      <span class="acess-grupo-titulo"><i class="fas fa-adjust"></i> Tema</span>
+      <div class="acess-botoes">
+        <button class="acess-btn acess-toggle" id="toggle-escuro" aria-pressed="false">
+          <i class="fas fa-moon"></i> Modo Escuro
+        </button>
+        <button class="acess-btn acess-toggle" id="toggle-contraste" aria-pressed="false">
+          <i class="fas fa-circle-half-stroke"></i> Alto Contraste
+        </button>
+      </div>
+    </div>
+
+    <div class="acess-grupo">
+      <span class="acess-grupo-titulo"><i class="fas fa-eye"></i> Leitura</span>
+      <div class="acess-botoes">
+        <button class="acess-btn acess-toggle" id="toggle-dislexia" aria-pressed="false">
+          <i class="fas fa-font"></i> Fonte Dislexia
+        </button>
+        <button class="acess-btn acess-toggle" id="toggle-espacamento" aria-pressed="false">
+          <i class="fas fa-text-width"></i> + Espacamento
+        </button>
+      </div>
+    </div>
+
+    <button class="acess-btn-reset" id="acess-resetar-tudo">
+      <i class="fas fa-rotate-left"></i> Restaurar padroes
+    </button>
+  </div>
 
   <!-- HOME -->
   <section id="home" class="section">
@@ -317,5 +371,7 @@
   </footer>
 
   <script src="main.js"></script>
+
+  <script src="acessibilidade.js"></script>
 </body>
 </html>
