@@ -1,3 +1,140 @@
+// ===== FUNCOES DE ACESSIBILIDADE =====
+(function () {
+      const CHAVE = 'agropoly_acess';
+      const TAMANHO_MIN = 80;
+      const TAMANHO_MAX = 140;
+      const TAMANHO_PASSO = 10;
+      const TAMANHO_PADRAO = 100;
+
+      // Estado
+      const estado = JSON.parse(localStorage.getItem(CHAVE) || '{}');
+      estado.tamanho   = estado.tamanho   ?? TAMANHO_PADRAO;
+      estado.escuro    = estado.escuro    ?? false;
+      estado.contraste = estado.contraste ?? false;
+      estado.dislexia  = estado.dislexia  ?? false;
+      estado.espacamento = estado.espacamento ?? false;
+
+      function salvar() {
+        localStorage.setItem(CHAVE, JSON.stringify(estado));
+      }
+
+      // ── Tamanho de fonte ──────────────────────────────────────────
+      function aplicarFonte() {
+        document.documentElement.style.fontSize = estado.tamanho + '%';
+      }
+
+      // ── Classes no <html> ─────────────────────────────────────────
+      function aplicarClasses() {
+        const html = document.documentElement;
+        html.classList.toggle('acess-escuro',      estado.escuro);
+        html.classList.toggle('acess-contraste',   estado.contraste);
+        html.classList.toggle('acess-dislexia',    estado.dislexia);
+        html.classList.toggle('acess-espacamento', estado.espacamento);
+      }
+
+      // ── UI dos toggles ────────────────────────────────────────────
+      function sincronizarUI() {
+        document.getElementById('toggle-escuro')     .setAttribute('aria-pressed', estado.escuro);
+        document.getElementById('toggle-contraste')  .setAttribute('aria-pressed', estado.contraste);
+        document.getElementById('toggle-dislexia')   .setAttribute('aria-pressed', estado.dislexia);
+        document.getElementById('toggle-espacamento').setAttribute('aria-pressed', estado.espacamento);
+
+        document.getElementById('toggle-escuro')     .classList.toggle('ativo', estado.escuro);
+        document.getElementById('toggle-contraste')  .classList.toggle('ativo', estado.contraste);
+        document.getElementById('toggle-dislexia')   .classList.toggle('ativo', estado.dislexia);
+        document.getElementById('toggle-espacamento').classList.toggle('ativo', estado.espacamento);
+
+        document.getElementById('fonte-diminuir').disabled = estado.tamanho <= TAMANHO_MIN;
+        document.getElementById('fonte-aumentar').disabled = estado.tamanho >= TAMANHO_MAX;
+
+        const pct = ((estado.tamanho - TAMANHO_MIN) / (TAMANHO_MAX - TAMANHO_MIN)) * 100;
+        document.getElementById('fonte-barra-fill').style.width = pct + '%';
+        document.getElementById('fonte-valor').textContent = estado.tamanho + '%';
+      }
+
+      function aplicarTudo() {
+        aplicarFonte();
+        aplicarClasses();
+        sincronizarUI();
+      }
+
+      // Aplicar ao carregar
+      aplicarTudo();
+
+      // ── Painel (abrir / fechar) ───────────────────────────────────
+      const painel = document.getElementById('painel-acessibilidade');
+      const btnAbrir = document.getElementById('btn-acessibilidade');
+
+      btnAbrir.addEventListener('click', () => {
+        const aberto = !painel.hidden;
+        painel.hidden = aberto;
+        btnAbrir.setAttribute('aria-expanded', !aberto);
+        if (!aberto) painel.querySelector('.acess-fechar').focus();
+      });
+
+      document.getElementById('acess-fechar').addEventListener('click', () => {
+        painel.hidden = true;
+        btnAbrir.setAttribute('aria-expanded', false);
+        btnAbrir.focus();
+      });
+
+      // Fechar ao clicar fora
+      document.addEventListener('click', (e) => {
+        if (!painel.hidden && !painel.contains(e.target) && e.target !== btnAbrir) {
+          painel.hidden = true;
+          btnAbrir.setAttribute('aria-expanded', false);
+        }
+      });
+
+      // Fechar com Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !painel.hidden) {
+          painel.hidden = true;
+          btnAbrir.focus();
+        }
+      });
+
+      // ── Fonte ─────────────────────────────────────────────────────
+      document.getElementById('fonte-aumentar').addEventListener('click', () => {
+        if (estado.tamanho < TAMANHO_MAX) {
+          estado.tamanho += TAMANHO_PASSO;
+          salvar(); aplicarTudo();
+        }
+      });
+      document.getElementById('fonte-diminuir').addEventListener('click', () => {
+        if (estado.tamanho > TAMANHO_MIN) {
+          estado.tamanho -= TAMANHO_PASSO;
+          salvar(); aplicarTudo();
+        }
+      });
+      document.getElementById('fonte-resetar').addEventListener('click', () => {
+        estado.tamanho = TAMANHO_PADRAO;
+        salvar(); aplicarTudo();
+      });
+
+      // ── Toggles ───────────────────────────────────────────────────
+      function criarToggle(id, chave) {
+        document.getElementById(id).addEventListener('click', () => {
+          // Escuro e Contraste são mutuamente exclusivos
+          if (chave === 'escuro' && !estado.escuro)    estado.contraste = false;
+          if (chave === 'contraste' && !estado.contraste) estado.escuro = false;
+          estado[chave] = !estado[chave];
+          salvar(); aplicarTudo();
+        });
+      }
+      criarToggle('toggle-escuro',      'escuro');
+      criarToggle('toggle-contraste',   'contraste');
+      criarToggle('toggle-dislexia',    'dislexia');
+      criarToggle('toggle-espacamento', 'espacamento');
+
+      // ── Resetar tudo ──────────────────────────────────────────────
+      document.getElementById('acess-resetar-tudo').addEventListener('click', () => {
+        estado.tamanho = TAMANHO_PADRAO;
+        estado.escuro = estado.contraste = estado.dislexia = estado.espacamento = false;
+        salvar(); aplicarTudo();
+      });
+})();
+
 // ===== BANCO DE DADOS DAS CASAS =====
 const infoCasas = [
   { id: 0, emoji: "🏠", tipo: "partida", titulo: "Partida", preco: 0, aluguel: 0, aluguelCasa: 0, aluguelPredio: 0, texto: "Ponto de partida. Cada volta completa rende R$ 250 de incentivo ecológico!", fonte: "Agrinho 2026" },
